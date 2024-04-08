@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  --color-primary: #262A2F;
+  --color-accent: #FF5533;
+  --color-grey: #868686;
+  --color-white: #FFFFFF;
+
+  --grid-column-width: 100px;
+  --grid-gap: 20px;
+}
+
+* {
+  all: unset;
+  display: revert;
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  background-color: #EBEBEB;
+  font-weight: 400;
+}
+
+a {
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, var(--grid-column-width));
+  gap: var(--grid-gap);
+}
+
+.container {
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  padding-top: 38px;
+  margin-bottom: 150px;
+}
+
+.navigation__image {
+  display: block;
+  width: 100%;
+  max-height: 90px;
+}
+
+.navigation__list {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+}
+
+.navigation__link {
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.header__navigation .navigation__link--active,
+.header__navigation .navigation__link:hover {
+  color: var(--color-accent);
+}
+
+.header__navigation .navigation__logo {
+  grid-column: span 4;
+  margin-right: 32px;
+}
+
+.header__navigation .navigation__list {
+  grid-column: 5/-1;
+}
+
+.header__navigation .navigation__link {
+  color: var(--color-primary);
+}
+
+.articles {
+  margin-bottom: 135px;
+}
+
+.articles__big-column {
+  grid-column: span 9;
+}
+
+.articles__small-column {
+  grid-column: 10/-1;
+}
+
+.article-category {
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.article-source {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--color-grey);
+  text-transform: uppercase;
+}
+
+.article-date {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.main-article {
+  margin-bottom: 95px;
+  display: grid;
+  grid-template-columns: repeat(9, var(--grid-column-width));
+  gap: var(--grid-gap);
+}
+
+.main-article:last-child {
+  margin-bottom: 0;
+}
+
+.main-article__image-container {
+  position: relative;
+  grid-column: span 3;
+  min-height: 185px;
+  max-height: 344px;
+  overflow: hidden;
+}
+
+.main-article__content {
+  grid-column: 4/-1;
+  margin-right: 63px;
+}
+
+.main-article__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-article__category {
+  margin-bottom: 7px;
+}
+
+.main-article__title {
+  margin-bottom: 34px;
+  font-size: 42px;
+  line-height: 50px;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.main-article__text {
+  margin-bottom: 34px;
+  font-size: 22px;
+  line-height: 26px;
+  color: var(--color-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.small-article {
+  margin-bottom: 35px;
+  padding-left: 11px;
+  border-left: 9px solid var(--color-primary);
+}
+
+.small-article:last-child {
+  margin-bottom: 0;
+}
+
+.small-article__title {
+  margin-bottom: 14px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--color-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-date+.article-source::before {
+  content: '\00B7';
+  padding: 0 15px;
+}
+
+.footer {
+  padding-top: 22px;
+  padding-bottom: 56px;
+  background-color: var(--color-primary);
+}
+
+.footer__column {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.footer__text {
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--color-white);
+}
+
+.footer__link {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.footer__link:hover {
+  opacity: 0.8;
+}
+
+.footer__copyright {
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--color-grey);
+}
+
+.footer__navigation {
+  margin-bottom: 47px;
+  align-items: center;
+}
+
+.footer__logo {
+  max-height: 34px;
+}
+
+.footer__navigation .navigation__logo {
+  grid-column: span 2;
+  margin-right: 56px;
+}
+
+.footer__navigation .navigation__list {
+  grid-column: 3/-1;
+}
+
+.footer__navigation .navigation__link {
+  color: var(--color-white);
+}
+
+.footer__navigation .navigation__link--active,
+.footer__navigation .navigation__link:hover {
+  color: var(--color-accent);
+}
