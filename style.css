@@ -60,6 +60,10 @@ a {
   text-transform: uppercase;
 }
 
+.header__navigation .navigation__link {
+  color: var(--color-primary);
+}
+
 .header__navigation .navigation__link--active,
 .header__navigation .navigation__link:hover {
   color: var(--color-accent);
@@ -72,10 +76,6 @@ a {
 
 .header__navigation .navigation__list {
   grid-column: 5/-1;
-}
-
-.header__navigation .navigation__link {
-  color: var(--color-primary);
 }
 
 .articles {
