@@ -8,6 +8,7 @@
 
   --grid-column-width: 100px;
   --grid-gap: 20px;
+  --container-width: 1420px;
 }
 
 * {
@@ -32,14 +33,14 @@ a {
 }
 
 .container {
-  max-width: 1460px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 .header {
   padding-top: 38px;
   margin-bottom: 150px;
+  padding: 38px 20px 0 20px;
 }
 
 .navigation__image {
@@ -80,6 +81,7 @@ a {
 
 .articles {
   margin-bottom: 135px;
+  padding: 0 20px;
 }
 
 .articles__big-column {
@@ -200,8 +202,8 @@ a {
 }
 
 .footer {
-  padding-top: 22px;
-  padding-bottom: 56px;
+  min-width: var(--container-width);
+  padding: 22px 20px 56px;
   background-color: var(--color-primary);
 }
 

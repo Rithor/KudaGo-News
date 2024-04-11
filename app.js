@@ -1,80 +1,159 @@
 'use strict'
 
+const categoryIds = {
+  index: 0,
+  politics: 4,
+  technologies: 1,
+  other: 5,
+  fashion: 3,
+}
+
+const categoryNames = {
+  index: 'Главная',
+  fashion: 'Мода',
+  technologies: 'Технологии',
+  politics: 'Политика',
+  other: 'Разное',
+}
+
 const URL1 = 'https://frontend.karpovcourses.net/api/v2/ru/news';
-const category = {
-  '/fashion.html': 3,
-  '/tech.html': 1,
-  '/other.html': 5,
-  '/politics.html': 4,
+
+const MainArticle = ({ image, category, title, description, source }) => {
+  return (
+    <article className="main-article">
+      <div className="main-article__image-container">
+        <img className="main-article__image"
+          src={image || "./imgs/no_icon.png"} alt="Фото новости" />
+      </div>
+      <div className="main-article__content">
+        <span className="article-category main-article__category">{category}</span>
+        <h2 className="main-article__title">{title}</h2>
+        <p className="main-article__text">{description}</p>
+        <span className="article-source main-article__source">{source}</span>
+      </div>
+    </article>
+  )
+}
+
+const SmallArticle = ({ title, source, date }) => {
+  return (
+    <article className="small-article">
+      <h2 className="small-article__title">{title}</h2>
+      <span className="article-date">
+        {source}
+      </span>
+      <span className="article-source">
+        {new Date(date).toLocaleDateString('ru-RU', {
+          month: 'long',
+          day: 'numeric'
+        })}
+      </span>
+    </article>
+  )
+}
+
+const NavMenu = ({ onNavClick, category }) => {
+  return (
+    <><a href="#" data-cat='index' className="navigation__logo">
+      <img className="navigation__image" src="./imgs/logo.svg" alt="Логотип" />
+    </a>
+      <ul className="navigation__list">
+        {['index', 'fashion', 'technologies', 'other', 'politics'].map((cat) => {
+          return (<li className="navigation__item" key={cat}>
+            <a
+              onClick={onNavClick}
+              data-cat={cat}
+              href="#"
+              className={`navigation__link ${category === cat ? "navigation__link--active" : ""}`}
+            >{categoryNames[cat]}</a>
+          </li>)
+        })}
+      </ul></>
+  )
+}
+
+const App = () => {
+  const [category, setCategory] = React.useState('index');
+  const [articles, setArticles] = React.useState({ items: [], categories: [], sources: [] });
+
+  const onNavClick = (e) => {
+    e.preventDefault();
+    setCategory(e.currentTarget.dataset.cat);
+  }
+
+  React.useEffect(() => {
+    fetch(`${URL1}/${categoryIds[category]}`)
+      .then(response => response.json())
+      .then(data => setArticles(data))
+      .catch(error => console.error(new Error(error)));
+  }, [category]);
+
+  return (
+    <>
+      <header className="header">
+        <div className="container">
+          <nav className="navigation grid header__navigation">
+            <NavMenu onNavClick={onNavClick} category={category} />
+          </nav>
+        </div>
+      </header>
+
+      <main className="main">
+        <section className="articles">
+          <div className="container grid">
+            <section className="articles__big-column">
+
+              {articles.items.slice(0, 3).map(news => {
+                return (
+                  <MainArticle
+                    key={news.id}
+                    image={news.image}
+                    category={articles.categories.find(cat => cat.id === news.category_id).name}
+                    title={news.title}
+                    description={news.description}
+                    source={articles.sources.find(source => source.id === news.source_id).name}
+                  />
+                )
+              })}
+
+            </section>
+
+            <section className="articles__small-column">
+
+              {articles.items.slice(3, 12).map(news => {
+                return (
+                  <SmallArticle
+                    key={news.id}
+                    title={news.title}
+                    source={articles.sources.find(({ id }) => news.source_id === id).name}
+                    date={news.date}
+                  />
+                )
+              })}
+
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <div className="container">
+          <nav className="navigation grid footer__navigation">
+            <NavMenu onNavClick={onNavClick} category={category} />
+          </nav>
+          <div className="footer__column">
+            <p className="footer__text">Сделано на Frontend курсе в <a href="https://karpov.courses/frontend" target="_blank"
+              className="footer__link">Karpov.Courses</a></p>
+            <p className="footer__copyright">© 2021</p>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
 };
 
-async function getNewsData(category_id = '') {
-  try {
-    const response = await fetch(`${URL1}/${category_id}`).then(response => response.json());
-    return response;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
+// ReactDOM.render(<App />, document.getElementById('root'));
 
-function escapeString(string) {
-  const symbols = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;'
-  }
-  return string.replace(/[&<>]/g, (tag) => { symbols[tag] || tag; })
-}
-
-async function renderBigColumnNews() {
-  const data = await getNewsData(category[location.pathname]);
-  const container = document.querySelector('.articles__big-column');
-  container.innerHTML = '';
-
-  const bigColumnNews = data.items.slice(0, 3);
-  bigColumnNews.forEach(news => {
-    const articleCat = data.categories.find(cat => cat.id === news.category_id).name;
-    const articleSource = data.sources.find(source => source.id === news.source_id).name;
-    const image = news.image || "./imgs/no_icon.png";
-    const mainArticle = document.createElement('article');
-    mainArticle.classList.add('main-article');
-    mainArticle.innerHTML = `
-      <div class="main-article__image-container">
-        <img class="main-article__image" src="${encodeURI(image)}" alt="Фото новости">
-      </div>
-      <div class="main-article__content">
-        <span class="article-category main-article__category">${escapeString(articleCat)}</span>
-        <h2 class="main-article__title">${escapeString(news.title)}</h2>
-        <p class="main-article__text">${escapeString(news.description)}</p>
-        <span class="article-source main-article__source">${escapeString(articleSource)}</span>
-      </div>
-    `;
-    container.append(mainArticle);
-  });
-}
-
-async function renderSmallColumnNews() {
-  const data = await getNewsData(category[location.pathname]);
-  const container = document.querySelector('.articles__small-column');
-  container.innerHTML = '';
-
-  const smallColumnNews = data.items.slice(3, 12);
-  smallColumnNews.forEach(news => {
-    const articleSource = data.sources.find(source => source.id === news.source_id).name;
-    const date = new Date(news.date)
-      .toLocaleString('ru-RU', { month: 'long', day: 'numeric' });
-    const smallArticle = document.createElement('article');
-    smallArticle.classList.add('small-article');
-    smallArticle.innerHTML = `
-      <h2 class="small-article__title">${escapeString(news.title)}</h2>
-      <p class="small-article__caption">
-        <span class="article-date small-article__date">${date}</span>
-        <span class="article-source small-article__source">${escapeString(articleSource)}</span>
-      </p>
-    `;
-    container.append(smallArticle);
-  });
-}
-
-renderBigColumnNews();
-renderSmallColumnNews();
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
