@@ -1,5 +1,6 @@
 import React from "react";
-import { categoryNames } from "./utils.js";
+import { categoryNames } from "../../utils.js";
+import "./NavMenu.css";
 
 export const NavMenu = ({ onNavClick, category }) => {
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import "./SmallArticle.css";
 
 export const SmallArticle = ({ title, source, date }) => {
   return (

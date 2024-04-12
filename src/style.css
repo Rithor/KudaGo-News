@@ -1,9 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
-@import "./css/App.css";
-@import "./css/NavMenu.css";
-@import "./css/Articles.css";
-@import "./css/MainArticle.css";
-@import "./css/SmallArticle.css";
 
 :root {
   --color-primary: #262a2f;

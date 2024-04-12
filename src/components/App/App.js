@@ -1,7 +1,8 @@
-import { NavMenu } from "./NavMenu.js";
-import { Articles } from "./Articles.js";
-import { categoryIds } from "./utils.js";
+import { NavMenu } from "../NavMenu/NavMenu.js";
+import { Articles } from "../Articles/Articles.js";
+import { categoryIds } from "../../utils.js";
 import React from "react";
+import "./App.css";
 
 const URL2 = "https://frontend.karpovcourses.net/api/v2/ru/news";
 

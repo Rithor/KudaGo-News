@@ -1,6 +1,7 @@
 import React from "react";
-import { MainArticle } from "./MainArticle.js";
-import { SmallArticle } from "./SmallArticle.js";
+import { MainArticle } from "../MainArticle/MainArticle.js";
+import { SmallArticle } from "../SmallArticle/SmallArticle.js";
+import "./Articles.css";
 
 export const Articles = ({ articles }) => {
   return (
