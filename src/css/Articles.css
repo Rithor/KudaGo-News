@@ -1,0 +1,22 @@
+.articles {
+  margin-bottom: 135px;
+  padding: 0 20px;
+}
+
+.articles__big-column {
+  grid-column: span 9;
+}
+
+.articles__small-column {
+  grid-column: 10/-1;
+}
+
+.small-article {
+  margin-bottom: 35px;
+  padding-left: 11px;
+  border-left: 9px solid var(--color-primary);
+}
+
+.small-article:last-child {
+  margin-bottom: 0;
+}
