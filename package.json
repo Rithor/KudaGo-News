@@ -1,4 +1,5 @@
 {
+  "homepage": "https://rithor.github.io/NewsFeed",
   "scripts": {
     "build": "webpack",
     "start": "NODE_ENV=development webpack serve"
