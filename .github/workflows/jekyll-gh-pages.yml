@@ -37,7 +37,7 @@ jobs:
       - name: Build with Webpack
         run: npm run build # здесь указывается команда для сборки проекта с помощью Webpack
       - name: Upload Pages artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-pages-artifact@v1
         with:
           name: github-pages
           path: dist # замените на путь к директории сборки вашего проекта
@@ -63,10 +63,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v1
         with:
           name: github-pages
           path: .
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 # or specific "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v1 # or specific "vX.X.X" version tag for this action
