@@ -1,5 +1,6 @@
 import React from "react";
 import "./MainArticle.css";
+import defaultImg from "../../imgs/no_icon.png";
 
 export const MainArticle = ({
   image,
@@ -13,7 +14,7 @@ export const MainArticle = ({
       <div className="main-article__image-container">
         <img
           className="main-article__image"
-          src={image || "../imgs/no_icon.png"}
+          src={image || defaultImg}
           alt="Фото новости"
         />
       </div>

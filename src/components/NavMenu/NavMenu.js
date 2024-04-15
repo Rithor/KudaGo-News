@@ -1,6 +1,7 @@
 import React from "react";
 import { categoryNames } from "../../utils.js";
 import "./NavMenu.css";
+import logo from "../../imgs/logo.svg";
 
 export const NavMenu = ({ onNavClick, category }) => {
   return (
@@ -11,11 +12,7 @@ export const NavMenu = ({ onNavClick, category }) => {
         data-cat="index"
         className="navigation__logo"
       >
-        <img
-          className="navigation__image"
-          src="../imgs/logo.svg"
-          alt="Логотип"
-        />
+        <img className="navigation__image" src={logo} alt="Логотип" />
       </a>
       <ul className="navigation__list">
         {["index", "fashion", "technologies", "other", "politics"].map(

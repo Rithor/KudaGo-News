@@ -1,11 +1,14 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/script.js",
+  mode: process.env.NODE_ENV || "production",
+  entry: path.resolve(__dirname, "src", "script.js"),
   output: {
-    filename: "main.js",
+    filename: "bundle.[contenthash].js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+    clean: true,
   },
   module: {
     rules: [
@@ -14,15 +17,24 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [["@babel/preset-react", { targets: "defaults" }]],
-          },
         },
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(?:png|svg)$/,
+        type: "asset/resource",
+      },
     ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+  devServer: {
+    open: true,
   },
 };
