@@ -1,7 +1,8 @@
+import React from "react";
 import { NavMenu } from "../NavMenu/NavMenu.js";
 import { Articles } from "../Articles/Articles.js";
+import { FullArticle } from "../FullArticle/FullArticle.js";
 import { categoryIds } from "../../utils.js";
-import React from "react";
 import "./App.css";
 
 const URL2 = "https://frontend.karpovcourses.net/api/v2/ru/news";
@@ -38,6 +39,7 @@ export const App = () => {
 
       <main className="main">
         <Articles articles={articles} />
+        {/* <FullArticle /> */}
       </main>
 
       <footer className="footer">

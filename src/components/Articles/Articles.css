@@ -1,6 +1,6 @@
 .articles {
   margin-bottom: 135px;
-  padding: 0 20px;
+  padding: 140px var(--container-padding) 0;
 }
 
 .articles__big-column {

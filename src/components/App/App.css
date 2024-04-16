@@ -11,8 +11,7 @@
 
 .header {
   padding-top: 38px;
-  margin-bottom: 150px;
-  padding: 38px 20px 0 20px;
+  padding: 38px var(--container-padding) 0 var(--container-padding);
 }
 
 .header__navigation .navigation__link {
@@ -39,7 +38,7 @@
 
 .footer {
   min-width: var(--container-width);
-  padding: 22px 20px 56px;
+  padding: 22px var(--container-padding) 56px;
   background-color: var(--color-primary);
 }
 

@@ -9,6 +9,7 @@
   --grid-column-width: 100px;
   --grid-gap: 20px;
   --container-width: 1420px;
+  --container-padding: 20px;
 }
 
 * {
