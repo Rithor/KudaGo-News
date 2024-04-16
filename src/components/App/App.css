@@ -33,6 +33,10 @@
   grid-column: 5/-1;
 }
 
+.main {
+  flex: 1 1 auto;
+}
+
 .footer {
   min-width: var(--container-width);
   padding: 22px 20px 56px;

@@ -2,7 +2,7 @@
   "homepage": "https://rithor.github.io/NewsFeed",
   "scripts": {
     "build": "webpack",
-    "start": "NODE_ENV=development webpack serve"
+    "start": "webpack serve --env mode=development"
   },
   "dependencies": {
     "react": "^18.2.0",

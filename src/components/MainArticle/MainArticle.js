@@ -9,12 +9,20 @@ export const MainArticle = ({
   description,
   source,
 }) => {
+  const [loaded, setLoaded] = React.useState(false);
+  const handleLoad = () => {
+    setLoaded(true);
+  };
   return (
     <article className="main-article">
-      <div className="main-article__image-container">
+      <div
+        className="main-article__image-container"
+        style={{ display: loaded ? "block" : "none" }}
+      >
         <img
           className="main-article__image"
           src={image || defaultImg}
+          onLoad={handleLoad}
           alt="Фото новости"
         />
       </div>
