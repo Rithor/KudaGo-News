@@ -1,9 +1,14 @@
-import React from "react";
-import { categoryNames } from "../../utils.js";
+import React, { FC } from "react";
+import { categoryNames } from "../../utils";
 import "./NavMenu.css";
 import logo from "../../imgs/logo.svg";
 
-export const NavMenu = ({ onNavClick, category }) => {
+type Props = {
+  category: string;
+  onNavClick: (e: React.MouseEvent<HTMLElement>) => void;
+};
+
+export const NavMenu: FC<Props> = ({ category, onNavClick }) => {
   return (
     <>
       <a
@@ -27,6 +32,7 @@ export const NavMenu = ({ onNavClick, category }) => {
                     category === cat ? "navigation__link--active" : ""
                   }`}
                 >
+                  {/*  @ts-ignore  */}
                   {categoryNames[cat]}
                 </a>
               </li>

@@ -27,6 +27,7 @@
   display: grid;
   grid-template-columns: repeat(9, var(--grid-column-width));
   gap: var(--grid-gap);
+  cursor: pointer;
 }
 
 .main-article:last-child {
@@ -38,7 +39,7 @@
   grid-column: span 3;
   min-height: 185px;
   max-height: 344px;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .main-article__content {
@@ -66,7 +67,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .main-article__text {
@@ -77,5 +78,5 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  overflow: clip;
 }

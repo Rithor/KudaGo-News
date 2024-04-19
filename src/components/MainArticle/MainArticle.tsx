@@ -1,20 +1,30 @@
-import React from "react";
+import React, { FC } from "react";
 import "./MainArticle.css";
 import defaultImg from "../../imgs/no_icon.png";
 
-export const MainArticle = ({
+type Props = {
+  image: string;
+  category: string;
+  title: string;
+  description: string;
+  source: string;
+  onClick: () => void;
+};
+
+export const MainArticle: FC<Props> = ({
   image,
   category,
   title,
   description,
   source,
+  onClick,
 }) => {
   const [loaded, setLoaded] = React.useState(false);
   const handleLoad = () => {
     setLoaded(true);
   };
   return (
-    <article className="main-article">
+    <article className="main-article" onClick={onClick}>
       <div
         className="main-article__image-container"
         style={{ display: loaded ? "block" : "none" }}

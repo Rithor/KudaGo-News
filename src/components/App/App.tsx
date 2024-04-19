@@ -1,26 +1,37 @@
-import React from "react";
-import { NavMenu } from "../NavMenu/NavMenu.js";
-import { Articles } from "../Articles/Articles.js";
-import { FullArticle } from "../FullArticle/FullArticle.js";
-import { categoryIds } from "../../utils.js";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import { NavMenu } from "../NavMenu/NavMenu";
+import { Articles } from "../Articles/Articles";
+import { FullArticle } from "../FullArticle/FullArticle";
+import { categoryIds } from "../../utils";
+import { NewsAPI } from "../../types";
 
 const URL2 = "https://frontend.karpovcourses.net/api/v2/ru/news";
 
 export const App = () => {
-  const [category, setCategory] = React.useState("index");
-  const [articles, setArticles] = React.useState({
+  const [category, setCategory] = useState("index");
+  const [articles, setArticles] = useState<NewsAPI>({
     items: [],
     categories: [],
     sources: [],
   });
+  const [fullArticle, setFullArticle] = useState<null | number>(null);
 
-  const onNavClick = (e) => {
+  const onNavClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    setCategory(e.currentTarget.dataset.cat);
+    setFullArticle(null);
+    const category = e.currentTarget.dataset.cat;
+    if (category) {
+      setCategory(category);
+    }
   };
 
-  React.useEffect(() => {
+  const onArticleClick = (id: number) => {
+    setFullArticle(id);
+  };
+
+  useEffect(() => {
+    // @ts-ignore
     fetch(`${URL2}/${categoryIds[category]}`)
       .then((response) => response.json())
       .then((data) => setArticles(data))
@@ -38,8 +49,11 @@ export const App = () => {
       </header>
 
       <main className="main">
-        <Articles articles={articles} />
-        {/* <FullArticle /> */}
+        {fullArticle ? (
+          <FullArticle id={fullArticle} />
+        ) : (
+          <Articles articles={articles} onArticleClick={onArticleClick} />
+        )}
       </main>
 
       <footer className="footer">

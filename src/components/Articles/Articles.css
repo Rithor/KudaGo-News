@@ -15,6 +15,7 @@
   margin-bottom: 35px;
   padding-left: 11px;
   border-left: 9px solid var(--color-primary);
+  cursor: pointer;
 }
 
 .small-article:last-child {

@@ -5,7 +5,10 @@ module.exports = (env) => {
   console.log(env.mode);
   return {
     mode: env.mode ?? "production",
-    entry: path.resolve(__dirname, "src", "script.js"),
+    entry: path.resolve(__dirname, "src", "script.tsx"),
+    resolve: {
+      extensions: [".tsx", ".ts", ".js"],
+    },
     output: {
       filename: "bundle.[contenthash].js",
       path: path.resolve(__dirname, "dist"),
@@ -28,6 +31,11 @@ module.exports = (env) => {
         {
           test: /\.(?:png|svg)$/,
           type: "asset/resource",
+        },
+        {
+          test: /\.tsx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/,
         },
       ],
     },

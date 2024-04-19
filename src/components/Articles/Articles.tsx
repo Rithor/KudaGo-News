@@ -1,9 +1,15 @@
-import React from "react";
-import { MainArticle } from "../MainArticle/MainArticle.js";
-import { SmallArticle } from "../SmallArticle/SmallArticle.js";
+import React, { FC } from "react";
 import "./Articles.css";
+import { MainArticle } from "../MainArticle/MainArticle";
+import { SmallArticle } from "../SmallArticle/SmallArticle";
+import { NewsAPI } from "../../types";
 
-export const Articles = ({ articles }) => {
+type Props = {
+  articles: NewsAPI;
+  onArticleClick: (id: number) => void;
+};
+
+export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
   return (
     <section className="articles">
       <div className="container grid">
@@ -15,15 +21,16 @@ export const Articles = ({ articles }) => {
                 image={news.image}
                 category={
                   articles.categories.find((cat) => cat.id === news.category_id)
-                    .name
+                    ?.name ?? ""
                 }
                 title={news.title}
                 description={news.description}
                 source={
                   articles.sources.find(
                     (source) => source.id === news.source_id
-                  ).name
+                  )?.name ?? ""
                 }
+                onClick={() => onArticleClick(news.id)}
               />
             );
           })}
@@ -36,9 +43,11 @@ export const Articles = ({ articles }) => {
                 key={news.id}
                 title={news.title}
                 source={
-                  articles.sources.find(({ id }) => news.source_id === id).name
+                  articles.sources.find(({ id }) => news.source_id === id)
+                    ?.name ?? ""
                 }
                 date={news.date}
+                onClick={() => onArticleClick(news.id)}
               />
             );
           })}
