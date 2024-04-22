@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import "./MainArticle.css";
-import defaultImg from "../../imgs/no_icon.png";
+import React, { FC } from 'react';
+import './MainArticle.css';
+import defaultImg from '../../imgs/no_icon.png';
 
 type Props = {
   image: string;
@@ -27,7 +27,7 @@ export const MainArticle: FC<Props> = ({
     <article className="main-article" onClick={onClick}>
       <div
         className="main-article__image-container"
-        style={{ display: loaded ? "block" : "none" }}
+        style={{ display: loaded ? 'block' : 'none' }}
       >
         <img
           className="main-article__image"

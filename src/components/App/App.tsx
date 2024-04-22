@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import { NavMenu } from "../NavMenu/NavMenu";
-import { Articles } from "../Articles/Articles";
-import { FullArticle } from "../FullArticle/FullArticle";
-import { categoryIds } from "../../utils";
-import { NewsAPI } from "../../types";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { NavMenu } from '../NavMenu/NavMenu';
+import { Articles } from '../Articles/Articles';
+import { FullArticle } from '../FullArticle/FullArticle';
+import { categoryIds } from '../../utils';
+import { NewsAPI } from '../../types';
 
-const URL2 = "https://frontend.karpovcourses.net/api/v2/ru/news";
+const URL2 = 'https://frontend.karpovcourses.net/api/v2/ru/news';
 
 export const App = () => {
-  const [category, setCategory] = useState("index");
+  const [category, setCategory] = useState('index');
   const [articles, setArticles] = useState<NewsAPI>({
     items: [],
     categories: [],
@@ -32,7 +32,6 @@ export const App = () => {
   };
 
   useEffect(() => {
-    // @ts-ignore
     fetch(`${URL2}/${categoryIds[category]}`)
       .then((response) => response.json())
       .then((data: NewsAPI) => setArticles(data))
@@ -69,11 +68,12 @@ export const App = () => {
           </nav>
           <div className="footer__column">
             <p className="footer__text">
-              Сделано на Frontend курсе в{" "}
+              Сделано на Frontend курсе в{' '}
               <a
                 href="https://karpov.courses/frontend"
                 target="_blank"
                 className="footer__link"
+                rel="noreferrer"
               >
                 Karpov.Courses
               </a>

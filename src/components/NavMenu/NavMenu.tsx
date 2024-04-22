@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { categoryNames } from "../../utils";
-import "./NavMenu.css";
-import logo from "../../imgs/logo.svg";
+import React, { FC } from 'react';
+import { categoryNames } from '../../utils';
+import './NavMenu.css';
+import logo from '../../imgs/logo.svg';
 
 type Props = {
   category: string;
@@ -20,7 +20,7 @@ export const NavMenu: FC<Props> = ({ category, onNavClick }) => {
         <img className="navigation__image" src={logo} alt="Логотип" />
       </a>
       <ul className="navigation__list">
-        {["index", "fashion", "technologies", "other", "politics"].map(
+        {['index', 'fashion', 'technologies', 'other', 'politics'].map(
           (cat) => {
             return (
               <li className="navigation__item" key={cat}>
@@ -29,10 +29,9 @@ export const NavMenu: FC<Props> = ({ category, onNavClick }) => {
                   data-cat={cat}
                   href="#"
                   className={`navigation__link ${
-                    category === cat ? "navigation__link--active" : ""
+                    category === cat ? 'navigation__link--active' : ''
                   }`}
                 >
-                  {/*  @ts-ignore  */}
                   {categoryNames[cat]}
                 </a>
               </li>

@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import "./RelatedSmallArticle.css";
-import defaultImg from "../../imgs/no_icon.png";
+import React, { FC } from 'react';
+import './RelatedSmallArticle.css';
+import defaultImg from '../../imgs/no_icon.png';
 
 type Props = {
   img: string;
@@ -25,7 +25,7 @@ export const RelatedSmallArticle: FC<Props> = ({
     <div className="relatedSmallArticle-grid" onClick={onClick}>
       <div
         className="relatedSmallArticle__img"
-        style={{ display: loaded ? "block" : "none" }}
+        style={{ display: loaded ? 'block' : 'none' }}
       >
         <img src={img || defaultImg} onLoad={handleLoad}></img>
       </div>

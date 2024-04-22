@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import "./SmallArticle.css";
-import { localizeString } from "../../utils";
+import React, { FC } from 'react';
+import './SmallArticle.css';
+import { localizeString } from '../../utils';
 
 type Props = {
   title: string;

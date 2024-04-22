@@ -1,15 +1,9 @@
-import React, { FC, useState, useEffect } from "react";
-import "./FullArticle.css";
-import { RelatedSmallArticle } from "../RelatedSmallArticle/RelatedSmallArticle";
-import { RelatedBigArticle } from "../RelatedBigArticle/RelatedBigArticle";
-import {
-  Article,
-  Category,
-  FullArticleAPI,
-  RelatedArticlesAPI,
-  Source,
-} from "../../types";
-import { localizeString } from "../../utils";
+import React, { FC, useState, useEffect } from 'react';
+import './FullArticle.css';
+import { RelatedSmallArticle } from '../RelatedSmallArticle/RelatedSmallArticle';
+import { RelatedBigArticle } from '../RelatedBigArticle/RelatedBigArticle';
+import { Article, Category, FullArticleAPI, RelatedArticlesAPI, Source } from '../../types';
+import { localizeString } from '../../utils';
 
 type Props = {
   sources: Source[];
@@ -18,26 +12,18 @@ type Props = {
   onArticleClick: (id: number) => void;
 };
 
-const URL_FULL_ARTICLES = "https://frontend.karpovcourses.net/api/v2/news/full";
-const URL_RELATED_ARTICLES =
-  "https://frontend.karpovcourses.net/api/v2/news/related";
+const URL_FULL_ARTICLES = 'https://frontend.karpovcourses.net/api/v2/news/full';
+const URL_RELATED_ARTICLES = 'https://frontend.karpovcourses.net/api/v2/news/related';
 const RELATED_ARTICLES_COUNT = 9;
 
-export const FullArticle: FC<Props> = ({
-  id,
-  categories,
-  sources,
-  onArticleClick,
-}) => {
+export const FullArticle: FC<Props> = ({ id, categories, sources, onArticleClick }) => {
   const [loaded, setLoaded] = React.useState(false);
   const handleLoad = () => {
     setLoaded(true);
   };
 
   const [fullArcticle, setFullArticle] = useState<FullArticleAPI | null>(null);
-  const [relatedArticles, setRelatedArticles] = useState<Article[] | null>(
-    null
-  );
+  const [relatedArticles, setRelatedArticles] = useState<Article[] | null>(null);
 
   useEffect(() => {
     fetch(`${URL_FULL_ARTICLES}/${id}`)
@@ -62,10 +48,7 @@ export const FullArticle: FC<Props> = ({
       {fullArcticle.image ? (
         <section className="hero-wImg">
           <div className="hero-wr">
-            <div
-              className="hero-wImg__background"
-              style={{ display: loaded ? "block" : "none" }}
-            >
+            <div className="hero-wImg__background" style={{ display: loaded ? 'block' : 'none' }}>
               <img src={fullArcticle.image} onLoad={handleLoad}></img>
             </div>
             <div className="container">
@@ -75,9 +58,7 @@ export const FullArticle: FC<Props> = ({
 
           <div className="grid container">
             <div className="hero__category">{fullArcticle.category.name}</div>
-            <div className="hero__date">
-              {localizeString(fullArcticle.date)}
-            </div>
+            <div className="hero__date">{localizeString(fullArcticle.date)}</div>
           </div>
         </section>
       ) : null}
@@ -88,9 +69,7 @@ export const FullArticle: FC<Props> = ({
             <div className="whImage grid" id="whImage">
               <h2 className="title-whImg">{fullArcticle.title}</h2>
               <div className="hero__category">{fullArcticle.category.name}</div>
-              <div className="hero__date hero__date_whImg">
-                {localizeString(fullArcticle.date)}
-              </div>
+              <div className="hero__date hero__date_whImg">{localizeString(fullArcticle.date)}</div>
             </div>
           )}
           <div className="fullArticle__text">{fullArcticle.text}</div>
@@ -98,12 +77,8 @@ export const FullArticle: FC<Props> = ({
         {relatedArticles ? (
           <div className="relatedSmallArticle">
             {relatedArticles?.slice(0, 6).map((news) => {
-              const source =
-                sources.find((source) => source.id === news.source_id)?.name ??
-                "";
-              const category =
-                categories.find((cat) => cat.id === news.category_id)?.name ??
-                "";
+              const source = sources.find((source) => source.id === news.source_id)?.name ?? '';
+              const category = categories.find((cat) => cat.id === news.category_id)?.name ?? '';
               return (
                 <RelatedSmallArticle
                   key={news.id}
@@ -123,12 +98,8 @@ export const FullArticle: FC<Props> = ({
           <h2 className="relatedBigArticles__header">читайте также:</h2>
           <div className="grid">
             {relatedArticles?.slice(6, 9).map((news) => {
-              const source =
-                sources.find((source) => source.id === news.source_id)?.name ??
-                "";
-              const category =
-                categories.find((cat) => cat.id === news.category_id)?.name ??
-                "";
+              const source = sources.find((source) => source.id === news.source_id)?.name ?? '';
+              const category = categories.find((cat) => cat.id === news.category_id)?.name ?? '';
               return (
                 <RelatedBigArticle
                   key={news.id}

@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import "./Articles.css";
-import { MainArticle } from "../MainArticle/MainArticle";
-import { SmallArticle } from "../SmallArticle/SmallArticle";
-import { NewsAPI } from "../../types";
+import React, { FC } from 'react';
+import './Articles.css';
+import { MainArticle } from '../MainArticle/MainArticle';
+import { SmallArticle } from '../SmallArticle/SmallArticle';
+import { NewsAPI } from '../../types';
 
 type Props = {
   articles: NewsAPI;
@@ -17,10 +17,10 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
           {articles.items.slice(0, 3).map((news) => {
             const source =
               articles.sources.find((source) => source.id === news.source_id)
-                ?.name ?? "";
+                ?.name ?? '';
             const category =
               articles.categories.find((cat) => cat.id === news.category_id)
-                ?.name ?? "";
+                ?.name ?? '';
             return (
               <MainArticle
                 key={news.id}
@@ -39,7 +39,7 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
           {articles.items.slice(3, 12).map((news) => {
             const source =
               articles.sources.find(({ id }) => news.source_id === id)?.name ??
-              "";
+              '';
             return (
               <SmallArticle
                 key={news.id}
