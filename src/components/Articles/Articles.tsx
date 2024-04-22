@@ -15,21 +15,20 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
       <div className="container grid">
         <section className="articles__big-column">
           {articles.items.slice(0, 3).map((news) => {
+            const source =
+              articles.sources.find((source) => source.id === news.source_id)
+                ?.name ?? "";
+            const category =
+              articles.categories.find((cat) => cat.id === news.category_id)
+                ?.name ?? "";
             return (
               <MainArticle
                 key={news.id}
                 image={news.image}
-                category={
-                  articles.categories.find((cat) => cat.id === news.category_id)
-                    ?.name ?? ""
-                }
+                category={category}
                 title={news.title}
                 description={news.description}
-                source={
-                  articles.sources.find(
-                    (source) => source.id === news.source_id
-                  )?.name ?? ""
-                }
+                source={source}
                 onClick={() => onArticleClick(news.id)}
               />
             );
@@ -38,14 +37,14 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
 
         <section className="articles__small-column">
           {articles.items.slice(3, 12).map((news) => {
+            const source =
+              articles.sources.find(({ id }) => news.source_id === id)?.name ??
+              "";
             return (
               <SmallArticle
                 key={news.id}
                 title={news.title}
-                source={
-                  articles.sources.find(({ id }) => news.source_id === id)
-                    ?.name ?? ""
-                }
+                source={source}
                 date={news.date}
                 onClick={() => onArticleClick(news.id)}
               />

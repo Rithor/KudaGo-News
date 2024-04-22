@@ -13,3 +13,10 @@ export const categoryNames = {
   politics: "Политика",
   other: "Разное",
 };
+
+export function localizeString(str: string): string {
+  return new Date(str).toLocaleDateString("ru-RU", {
+    month: "long",
+    day: "numeric",
+  });
+}

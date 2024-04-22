@@ -15,11 +15,11 @@ export const App = () => {
     categories: [],
     sources: [],
   });
-  const [fullArticle, setFullArticle] = useState<null | number>(null);
+  const [fullArticleID, setFullArticleID] = useState<null | number>(null);
 
   const onNavClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    setFullArticle(null);
+    setFullArticleID(null);
     const category = e.currentTarget.dataset.cat;
     if (category) {
       setCategory(category);
@@ -27,16 +27,17 @@ export const App = () => {
   };
 
   const onArticleClick = (id: number) => {
-    setFullArticle(id);
+    // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
+    setFullArticleID(id);
   };
 
   useEffect(() => {
     // @ts-ignore
     fetch(`${URL2}/${categoryIds[category]}`)
       .then((response) => response.json())
-      .then((data) => setArticles(data))
+      .then((data: NewsAPI) => setArticles(data))
       .catch((error) => console.error(new Error(error)));
-  }, [category]);
+  }, [category, URL2]);
 
   return (
     <>
@@ -49,8 +50,13 @@ export const App = () => {
       </header>
 
       <main className="main">
-        {fullArticle ? (
-          <FullArticle id={fullArticle} />
+        {fullArticleID ? (
+          <FullArticle
+            id={fullArticleID}
+            categories={articles.categories}
+            sources={articles.sources}
+            onArticleClick={onArticleClick}
+          />
         ) : (
           <Articles articles={articles} onArticleClick={onArticleClick} />
         )}
@@ -72,7 +78,7 @@ export const App = () => {
                 Karpov.Courses
               </a>
             </p>
-            <p className="footer__copyright">© 2021</p>
+            <p className="footer__copyright">© 2024</p>
           </div>
         </div>
       </footer>

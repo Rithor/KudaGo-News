@@ -23,6 +23,7 @@
   justify-content: center;
 }
 .relatedSmallArticle__category {
+  text-transform: uppercase;
   font-weight: 700;
   font-size: 14px;
   color: var(--color-accent);
@@ -39,6 +40,7 @@
   margin-bottom: 15px;
 }
 .relatedSmallArticle__source {
+  text-transform: uppercase;
   font-weight: 500;
   font-size: 16px;
   color: var(--color-grey);

@@ -82,6 +82,7 @@
 }
 .relatedSmallArticle-grid {
   margin-bottom: 35px;
+  cursor: pointer;
 }
 .relatedSmallArticle-grid:last-child {
   margin-bottom: 0;
@@ -89,4 +90,5 @@
 .relatedBigArticles {
   margin-bottom: 150px;
   padding: 0 var(--container-padding);
+  cursor: pointer;
 }
