@@ -14,30 +14,34 @@ export const NavMenu: FC<Props> = ({ category, onNavClick }) => {
       <a
         onClick={onNavClick}
         href="#"
-        data-cat="index"
+        data-cat="concert,theater,festival,exhibition"
         className="navigation__logo"
       >
         <img className="navigation__image" src={logo} alt="Логотип" />
       </a>
       <ul className="navigation__list">
-        {['index', 'fashion', 'technologies', 'other', 'politics'].map(
-          (cat) => {
-            return (
-              <li className="navigation__item" key={cat}>
-                <a
-                  onClick={onNavClick}
-                  data-cat={cat}
-                  href="#"
-                  className={`navigation__link ${
-                    category === cat ? 'navigation__link--active' : ''
-                  }`}
-                >
-                  {categoryNames[cat]}
-                </a>
-              </li>
-            );
-          }
-        )}
+        {[
+          'concert,theater,festival,exhibition',
+          'concert',
+          'theater',
+          'festival',
+          'exhibition',
+        ].map((cat) => {
+          return (
+            <li className="navigation__item" key={cat}>
+              <a
+                onClick={onNavClick}
+                data-cat={cat}
+                href="#"
+                className={`navigation__link ${
+                  category === cat ? 'navigation__link--active' : ''
+                }`}
+              >
+                {categoryNames[cat]}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

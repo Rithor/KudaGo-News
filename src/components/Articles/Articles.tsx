@@ -2,51 +2,45 @@ import React, { FC } from 'react';
 import './Articles.css';
 import { MainArticle } from '../MainArticle/MainArticle';
 import { SmallArticle } from '../SmallArticle/SmallArticle';
-import { NewsAPI } from '../../types';
+import { Activity } from '../../types';
 
 type Props = {
-  articles: NewsAPI;
+  activities: Activity[];
   onArticleClick: (id: number) => void;
 };
 
-export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
+export const Activities: FC<Props> = ({ activities, onArticleClick }) => {
   return (
     <section className="articles">
       <div className="container grid">
         <section className="articles__big-column">
-          {articles.items.slice(0, 3).map((news) => {
-            const source =
-              articles.sources.find((source) => source.id === news.source_id)
-                ?.name ?? '';
-            const category =
-              articles.categories.find((cat) => cat.id === news.category_id)
-                ?.name ?? '';
+          {activities.slice(0, 3).map((activity) => {
+            const source = 'SOURCE';
+            const category = 'CATEGORY';
             return (
               <MainArticle
-                key={news.id}
-                image={news.image}
+                key={activity.id}
+                image={activity.images[0].image}
                 category={category}
-                title={news.title}
-                description={news.description}
+                title={activity.title}
+                description={activity.description}
                 source={source}
-                onClick={() => onArticleClick(news.id)}
+                onClick={() => onArticleClick(activity.id)}
               />
             );
           })}
         </section>
 
         <section className="articles__small-column">
-          {articles.items.slice(3, 12).map((news) => {
-            const source =
-              articles.sources.find(({ id }) => news.source_id === id)?.name ??
-              '';
+          {activities.slice(3, 12).map((activity) => {
+            const source = 'SOURCE';
             return (
               <SmallArticle
-                key={news.id}
-                title={news.title}
+                key={activity.id}
+                title={activity.title}
                 source={source}
-                date={news.date}
-                onClick={() => onArticleClick(news.id)}
+                date={String(activity.publication_date * 1000)}
+                onClick={() => onArticleClick(activity.id)}
               />
             );
           })}

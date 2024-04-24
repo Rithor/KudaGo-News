@@ -43,3 +43,32 @@ export interface Article {
   source_id: number;
   category_id: number;
 }
+
+export interface ActivitiesAPI {
+  count: number;
+  next: string;
+  previous: null | string;
+  results: Activity[];
+}
+
+export interface Activity {
+  id: number;
+  publication_date: number;
+  title: string;
+  description: string;
+  location: {
+    slug: string;
+  };
+  categories: string[];
+  images: [
+    {
+      image: string;
+      source: {
+        name: string;
+        link: string;
+      };
+    },
+  ];
+  short_title: string;
+  tags: string[];
+}

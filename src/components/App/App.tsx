@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { NavMenu } from '../NavMenu/NavMenu';
-import { Articles } from '../Articles/Articles';
-import { FullArticle } from '../FullArticle/FullArticle';
-import { categoryIds } from '../../utils';
-import { NewsAPI } from '../../types';
+import { Activities } from '../Articles/Articles';
+// import { FullArticle } from '../FullArticle/FullArticle';
+// import { categoryIds } from '../../utils';
+import { Activity } from '../../types';
 
-const URL2 = 'https://frontend.karpovcourses.net/api/v2/ru/news';
+const URL_GET_EVENTS = 'https://kudago.com/public-api/v1.4/events/';
+const FIELDS =
+  'fields=id,publication_date,title,short_title,description,categories,images,tags,location';
+const OPTIONS =
+  'page_size=9&text_format=text&expand&order_by=-publication_date&location=msk';
 
 export const App = () => {
-  const [category, setCategory] = useState('index');
-  const [articles, setArticles] = useState<NewsAPI>({
-    items: [],
-    categories: [],
-    sources: [],
-  });
-  const [fullArticleID, setFullArticleID] = useState<null | number>(null);
+  const [category, setCategory] = useState(
+    'concert,theater,festival,exhibition'
+  );
+  const [activities, setActivities] = useState<Activity[] | null>(null);
+  // const [fullArticleID, setFullArticleID] = useState<null | number>(null);
 
   const onNavClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    setFullArticleID(null);
+    // setFullArticleID(null);
     const category = e.currentTarget.dataset.cat;
     if (category) {
       setCategory(category);
@@ -28,16 +30,17 @@ export const App = () => {
 
   const onArticleClick = (id: number) => {
     // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
-    setFullArticleID(id);
+    // setFullArticleID(id);
   };
 
   useEffect(() => {
-    fetch(`${URL2}/${categoryIds[category]}`)
+    fetch(`${URL_GET_EVENTS}?${FIELDS}&${OPTIONS}&categories=${category}`)
       .then((response) => response.json())
-      .then((data: NewsAPI) => setArticles(data))
+      .then((data: Activity[]) => setActivities(data))
       .catch((error) => console.error(new Error(error)));
-  }, [category, URL2]);
+  }, [category, URL_GET_EVENTS, FIELDS, OPTIONS]);
 
+  console.log(`category: ${category}`);
   return (
     <>
       <header className="header">
@@ -49,15 +52,18 @@ export const App = () => {
       </header>
 
       <main className="main">
-        {fullArticleID ? (
+        {/* {fullArticleID ? (
           <FullArticle
             id={fullArticleID}
-            categories={articles.categories}
-            sources={articles.sources}
+            categories={events.categories}
+            sources={events.sources}
             onArticleClick={onArticleClick}
           />
         ) : (
-          <Articles articles={articles} onArticleClick={onArticleClick} />
+          <Articles articles={events} onArticleClick={onArticleClick} />
+        )} */}
+        {activities && (
+          <Activities activities={activities} onArticleClick={onArticleClick} />
         )}
       </main>
 

@@ -1,17 +1,9 @@
-export const categoryIds: { [index: string]: number } = {
-  index: 0,
-  politics: 4,
-  technologies: 1,
-  other: 5,
-  fashion: 3,
-};
-
 export const categoryNames: { [index: string]: string } = {
-  index: 'Главная',
-  fashion: 'Мода',
-  technologies: 'Технологии',
-  politics: 'Политика',
-  other: 'Разное',
+  'concert,theater,festival,exhibition': 'Главная',
+  concert: 'Концерты',
+  theater: 'Постановки',
+  festival: 'Фестивали',
+  exhibition: 'Выставки',
 };
 
 export function localizeString(str: string): string {
