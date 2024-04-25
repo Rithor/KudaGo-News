@@ -7,7 +7,7 @@ type Props = {
   category: string;
   title: string;
   description: string;
-  source: string;
+  place: string;
   onClick: () => void;
 };
 
@@ -16,7 +16,7 @@ export const RelatedBigArticle: FC<Props> = ({
   category,
   title,
   description,
-  source,
+  place,
   onClick,
 }) => {
   const [loaded, setLoaded] = React.useState(false);
@@ -35,7 +35,7 @@ export const RelatedBigArticle: FC<Props> = ({
         <div className="relatedBigArticle__category">{category}</div>
         <div className="relatedBigArticle__title">{title}</div>
         <div className="relatedBigArticle__description">{description}</div>
-        <div className="relatedBigArticle__source">{source}</div>
+        <div className="relatedBigArticle__source">{place}</div>
       </div>
     </article>
   );

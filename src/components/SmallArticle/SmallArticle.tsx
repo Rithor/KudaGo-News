@@ -4,12 +4,12 @@ import { localizeString } from '../../utils';
 
 type Props = {
   title: string;
-  source: string;
-  date: string;
+  category: string;
+  date: number;
   onClick: () => void;
 };
 
-export const SmallArticle: FC<Props> = ({ title, source, date, onClick }) => {
+export const SmallArticle: FC<Props> = ({ title, category: source, date, onClick }) => {
   return (
     <article className="small-article" onClick={onClick}>
       <h2 className="small-article__title">{title}</h2>

@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { NavMenu } from '../NavMenu/NavMenu';
-import { Activities } from '../Articles/Articles';
-// import { FullArticle } from '../FullArticle/FullArticle';
-// import { categoryIds } from '../../utils';
-import { Activity } from '../../types';
+import { Articles } from '../Articles/Articles';
+import { FullArticle } from '../FullArticle/FullArticle';
+import { ArticlesAPI, Article } from '../../types';
+import { getActualDate } from '../../utils';
 
-const URL_GET_EVENTS = 'https://kudago.com/public-api/v1.4/events/';
+const URL_GET_EVENTS =
+  'https://thingproxy.freeboard.io/fetch/https://kudago.com/public-api/v1.4/events/';
 const FIELDS =
-  'fields=id,publication_date,title,short_title,description,categories,images,tags,location';
-const OPTIONS =
-  'page_size=9&text_format=text&expand&order_by=-publication_date&location=msk';
+  'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
+const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
 
 export const App = () => {
   const [category, setCategory] = useState(
     'concert,theater,festival,exhibition'
   );
-  const [activities, setActivities] = useState<Activity[] | null>(null);
-  // const [fullArticleID, setFullArticleID] = useState<null | number>(null);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [fullArticleID, setFullArticleID] = useState<number | null>(null);
 
   const onNavClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    // setFullArticleID(null);
+    setFullArticleID(null);
     const category = e.currentTarget.dataset.cat;
     if (category) {
       setCategory(category);
@@ -30,17 +30,16 @@ export const App = () => {
 
   const onArticleClick = (id: number) => {
     // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
-    // setFullArticleID(id);
+    setFullArticleID(id);
   };
 
   useEffect(() => {
     fetch(`${URL_GET_EVENTS}?${FIELDS}&${OPTIONS}&categories=${category}`)
       .then((response) => response.json())
-      .then((data: Activity[]) => setActivities(data))
-      .catch((error) => console.error(new Error(error)));
+      .then((data: ArticlesAPI) => setArticles(data.results))
+      .catch((e) => console.error(new Error(e)));
   }, [category, URL_GET_EVENTS, FIELDS, OPTIONS]);
 
-  console.log(`category: ${category}`);
   return (
     <>
       <header className="header">
@@ -52,18 +51,10 @@ export const App = () => {
       </header>
 
       <main className="main">
-        {/* {fullArticleID ? (
-          <FullArticle
-            id={fullArticleID}
-            categories={events.categories}
-            sources={events.sources}
-            onArticleClick={onArticleClick}
-          />
+        {fullArticleID ? (
+          <FullArticle id={fullArticleID} onArticleClick={onArticleClick} />
         ) : (
-          <Articles articles={events} onArticleClick={onArticleClick} />
-        )} */}
-        {activities && (
-          <Activities activities={activities} onArticleClick={onArticleClick} />
+          <Articles articles={articles} onArticleClick={onArticleClick} />
         )}
       </main>
 

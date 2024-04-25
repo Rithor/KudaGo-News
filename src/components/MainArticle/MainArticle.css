@@ -1,3 +1,8 @@
+.main-article__head {
+  display: flex;
+  justify-content: space-between;
+}
+
 .article-category {
   font-size: 14px;
   line-height: 17px;
@@ -38,7 +43,7 @@
   position: relative;
   grid-column: span 3;
   min-height: 185px;
-  max-height: 344px;
+  max-height: 364px;
   overflow: clip;
 }
 

@@ -1,57 +1,53 @@
-export interface NewsAPI {
-  sources: Source[];
-  categories: Category[];
-  items: Article[];
-}
-
 export interface FullArticleAPI {
   id: number;
-  lang: string;
-  date: string;
+  publication_date: number;
+  dates: [
+    {
+      start: number;
+      end: number;
+    },
+  ];
   title: string;
+  slug: string;
+  place: {
+    id: number;
+  };
   description: string;
-  image: string;
-  link: string;
-  author: string;
-  text: string;
-  category: Category;
-  source: Source;
+  body_text: string;
+  location: {
+    slug: string;
+  };
+  categories: string[];
+  tagline: string;
+  age_restriction: number;
+  price: string;
+  is_free: false;
+  images: [
+    {
+      image: string;
+      source: {
+        name: string;
+        link: string;
+      };
+    },
+  ];
+  favorites_count: number;
+  comments_count: number;
+  site_url: string;
+  short_title: string;
+  tags: string[];
+  disable_comments: false;
+  participants: string[];
 }
 
-export interface RelatedArticlesAPI {
-  items: Article[];
-}
-
-export interface Source {
-  id: number;
-  name: string;
-  site?: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-}
-
-export interface Article {
-  id: number;
-  lang: string;
-  date: string;
-  title: string;
-  description: string;
-  image: string;
-  source_id: number;
-  category_id: number;
-}
-
-export interface ActivitiesAPI {
+export interface ArticlesAPI {
   count: number;
   next: string;
   previous: null | string;
-  results: Activity[];
+  results: Article[];
 }
 
-export interface Activity {
+export interface Article {
   id: number;
   publication_date: number;
   title: string;
@@ -71,4 +67,13 @@ export interface Activity {
   ];
   short_title: string;
   tags: string[];
+  place: {
+    title: string;
+  };
+  dates: [
+    {
+      start: number;
+      end: number;
+    },
+  ];
 }

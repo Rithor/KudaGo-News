@@ -5,8 +5,10 @@
   color: #262a2f;
   margin-bottom: 35px;
 }
+
 .relatedBigArticle {
   grid-column: span 4;
+  cursor: pointer;
 }
 
 .relatedBigArticle__img {
@@ -22,6 +24,7 @@
   object-fit: cover;
   overflow: clip;
 }
+
 .relatedBigArticle__category {
   text-transform: uppercase;
   font-weight: 700;
@@ -29,6 +32,7 @@
   color: var(--color-accent);
   margin-bottom: 5px;
 }
+
 .relatedBigArticle__title {
   font-weight: 700;
   font-size: 24px;
@@ -39,12 +43,14 @@
   overflow: clip;
   margin-bottom: 14px;
 }
+
 .relatedBigArticle__description {
   font-weight: 400;
   font-size: 22px;
   color: var(--color-primary);
   margin-bottom: 15px;
 }
+
 .relatedBigArticle__source {
   text-transform: uppercase;
   font-weight: 500;

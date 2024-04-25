@@ -6,7 +6,7 @@ type Props = {
   img: string;
   category: string;
   title: string;
-  source: string;
+  place: string;
   onClick: () => void;
 };
 
@@ -14,7 +14,7 @@ export const RelatedSmallArticle: FC<Props> = ({
   img,
   category,
   title,
-  source,
+  place,
   onClick,
 }) => {
   const [loaded, setLoaded] = React.useState(false);
@@ -32,7 +32,7 @@ export const RelatedSmallArticle: FC<Props> = ({
       <div className="relatedSmallArticle__body">
         <div className="relatedSmallArticle__category">{category}</div>
         <div className="relatedSmallArticle__title">{title}</div>
-        <div className="relatedSmallArticle__source">{source}</div>
+        <div className="relatedSmallArticle__source">{place}</div>
       </div>
     </div>
   );

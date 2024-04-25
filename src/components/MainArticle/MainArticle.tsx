@@ -1,22 +1,25 @@
 import React, { FC } from 'react';
 import './MainArticle.css';
 import defaultImg from '../../imgs/no_icon.png';
+import { ucFirst } from '../../utils';
 
 type Props = {
   image: string;
   category: string;
+  date: string;
   title: string;
   description: string;
-  source: string;
+  place: string;
   onClick: () => void;
 };
 
 export const MainArticle: FC<Props> = ({
   image,
   category,
+  date,
   title,
   description,
-  source,
+  place,
   onClick,
 }) => {
   const [loaded, setLoaded] = React.useState(false);
@@ -37,12 +40,18 @@ export const MainArticle: FC<Props> = ({
         />
       </div>
       <div className="main-article__content">
-        <span className="article-category main-article__category">
-          {category}
-        </span>
-        <h2 className="main-article__title">{title}</h2>
+        <div className="main-article__head">
+          <span className="article-category main-article__category">
+            {date}
+          </span>
+          <span className="article-category main-article__category">
+            {category}
+          </span>
+        </div>
+
+        <h2 className="main-article__title">{ucFirst(title)}</h2>
         <p className="main-article__text">{description}</p>
-        <span className="article-source main-article__source">{source}</span>
+        <span className="article-source main-article__source">{place}</span>
       </div>
     </article>
   );
