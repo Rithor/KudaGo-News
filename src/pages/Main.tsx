@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
-import './Articles.css';
-import { MainArticle } from '../MainArticle/MainArticle';
-import { SmallArticle } from '../SmallArticle/SmallArticle';
-import { Article } from '../../types';
-import { formatDate } from '../../utils';
+import './Main.css';
+import { MainArticle } from '../components/MainArticle/MainArticle';
+import { SmallArticle } from '../components/SmallArticle/SmallArticle';
+import { Article } from '../types';
+import { formatDate } from '../utils';
 
 type Props = {
   articles: Article[];
   onArticleClick: (id: number) => void;
 };
 
-export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
+export const Main: FC<Props> = ({ articles, onArticleClick }) => {
+  if (articles.length === 0) return null;
   return (
     <section className="articles">
       <div className="container grid">
@@ -24,7 +25,7 @@ export const Articles: FC<Props> = ({ articles, onArticleClick }) => {
                 date={formatDate(article)}
                 title={article.title}
                 description={article.description}
-                place={article.place.title}
+                place={article.place?.title}
                 onClick={() => onArticleClick(article.id)}
               />
             );

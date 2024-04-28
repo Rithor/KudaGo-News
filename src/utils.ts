@@ -32,7 +32,6 @@ export function getActualDate(): string {
   }
   // Форматируем дату в формате YYYY-MM-DD
   const formattedDate = `${year}-${padToTwoDigits(month)}-${padToTwoDigits(day)}`;
-
   return formattedDate;
 }
 

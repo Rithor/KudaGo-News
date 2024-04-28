@@ -44,6 +44,7 @@
   grid-column: span 3;
   min-height: 185px;
   max-height: 364px;
+  border-radius: 10px;
   overflow: clip;
 }
 

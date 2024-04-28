@@ -15,6 +15,8 @@
   position: relative;
   min-height: 273px;
   margin-bottom: 18px;
+  border-radius: 5px;
+  overflow: clip;
 }
 
 .relatedBigArticle__img img {
@@ -22,7 +24,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  overflow: clip;
 }
 
 .relatedBigArticle__category {

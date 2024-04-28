@@ -3,25 +3,30 @@
   grid-template-columns: repeat(4, var(--grid-column-width));
   gap: var(--grid-gap);
 }
+
 .relatedSmallArticle__img {
   grid-column: span 2;
   position: relative;
   min-height: 185px;
   max-height: 220px;
+  overflow: clip;
+  border-radius: 5px;
 }
+
 .relatedSmallArticle__img img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  overflow: clip;
 }
+
 .relatedSmallArticle__body {
   grid-column: 3 / -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .relatedSmallArticle__category {
   text-transform: uppercase;
   font-weight: 700;
@@ -29,6 +34,7 @@
   color: var(--color-accent);
   margin-bottom: 8px;
 }
+
 .relatedSmallArticle__title {
   font-weight: 700;
   font-size: 20px;
@@ -39,6 +45,7 @@
   overflow: clip;
   margin-bottom: 15px;
 }
+
 .relatedSmallArticle__source {
   text-transform: uppercase;
   font-weight: 500;

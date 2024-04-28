@@ -5,11 +5,6 @@ import { RelatedBigArticle } from '../RelatedBigArticle/RelatedBigArticle';
 import { Article, FullArticleAPI, ArticlesAPI } from '../../types';
 import { formatDate, getActualDate } from '../../utils';
 
-type Props = {
-  id: number;
-  onArticleClick: (id: number) => void;
-};
-
 const URL_GET_FULL_ARTICLE =
   'https://thingproxy.freeboard.io/fetch/https://kudago.com/public-api/v1.4/events';
 const URL_GET_RELATED_ARTICLES =
@@ -17,6 +12,11 @@ const URL_GET_RELATED_ARTICLES =
 const FIELDS =
   'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
 const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
+
+type Props = {
+  id: number;
+  onArticleClick: (id: number) => void;
+};
 
 export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
   const [loaded, setLoaded] = React.useState(false);
@@ -38,7 +38,7 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
 
   useEffect(() => {
     fetch(
-      `${URL_GET_RELATED_ARTICLES}?${FIELDS}&${OPTIONS}&place_id=${fullArcticle?.place.id}`
+      `${URL_GET_RELATED_ARTICLES}?${FIELDS}&${OPTIONS}&place_id=${fullArcticle?.place?.id}`
     )
       .then((response) => response.json())
       .then((data: ArticlesAPI) => setRelatedArticles(data.results))
@@ -92,7 +92,7 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
           )}
           <div className="fullArticle__text">{fullArcticle.body_text}</div>
         </div>
-        {relatedSmallArticles ? (
+        {relatedSmallArticles?.at(0) && (
           <div className="relatedSmallArticle">
             {relatedSmallArticles.map((news) => {
               return (
@@ -107,9 +107,9 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
               );
             })}
           </div>
-        ) : null}
+        )}
       </section>
-      {relatedBigArticles ? (
+      {relatedBigArticles?.at(0) && (
         <div className="relatedBigArticles container">
           <h2 className="relatedBigArticles__header">смотрите также:</h2>
           <div className="grid">
@@ -128,7 +128,7 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
             })}
           </div>
         </div>
-      ) : null}
+      )}
     </article>
   );
 };

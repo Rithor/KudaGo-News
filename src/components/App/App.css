@@ -84,6 +84,7 @@
 }
 
 .footer__navigation .navigation__list {
+  padding-left: 50px;
   grid-column: 3/-1;
 }
 

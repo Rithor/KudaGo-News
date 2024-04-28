@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { NavMenu } from '../NavMenu/NavMenu';
-import { Articles } from '../Articles/Articles';
+import { Main } from '../../pages/Main';
 import { FullArticle } from '../FullArticle/FullArticle';
 import { ArticlesAPI, Article } from '../../types';
 import { getActualDate } from '../../utils';
@@ -27,9 +27,9 @@ export const App = () => {
       setCategory(category);
     }
   };
-
+  // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
+  // показывать загрузку при переходах
   const onArticleClick = (id: number) => {
-    // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
     setFullArticleID(id);
   };
 
@@ -54,7 +54,7 @@ export const App = () => {
         {fullArticleID ? (
           <FullArticle id={fullArticleID} onArticleClick={onArticleClick} />
         ) : (
-          <Articles articles={articles} onArticleClick={onArticleClick} />
+          <Main articles={articles} onArticleClick={onArticleClick} />
         )}
       </main>
 
@@ -65,14 +65,14 @@ export const App = () => {
           </nav>
           <div className="footer__column">
             <p className="footer__text">
-              Сделано на Frontend курсе в{' '}
+              Сделано на{' '}
               <a
-                href="https://karpov.courses/frontend"
+                href="https://docs.kudago.com/api/#"
                 target="_blank"
                 className="footer__link"
                 rel="noreferrer"
               >
-                Karpov.Courses
+                API KudaGo
               </a>
             </p>
             <p className="footer__copyright">© 2024</p>
