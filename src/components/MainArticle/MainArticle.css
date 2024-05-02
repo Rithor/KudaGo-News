@@ -27,7 +27,7 @@
   text-transform: uppercase;
 }
 
-.main-article {
+.main-article__wr {
   margin-bottom: 95px;
   display: grid;
   grid-template-columns: repeat(9, var(--grid-column-width));
@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 
-.main-article:last-child {
+.main-article:last-child article {
   margin-bottom: 0;
 }
 

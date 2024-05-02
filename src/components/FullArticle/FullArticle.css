@@ -96,12 +96,12 @@
   margin-bottom: 200px;
 }
 
-.relatedSmallArticle-grid {
+.relatedSmallArticle-grid__wr {
   margin-bottom: 35px;
   cursor: pointer;
 }
 
-.relatedSmallArticle-grid:last-child {
+.relatedSmallArticle-grid:last-child article {
   margin-bottom: 0;
 }
 

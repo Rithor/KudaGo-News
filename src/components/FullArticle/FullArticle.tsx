@@ -1,4 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ScrollRestoration, useLocation, useParams } from 'react-router-dom';
 import './FullArticle.css';
 import { RelatedSmallArticle } from '../RelatedSmallArticle/RelatedSmallArticle';
 import { RelatedBigArticle } from '../RelatedBigArticle/RelatedBigArticle';
@@ -13,12 +14,11 @@ const FIELDS =
   'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
 const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
 
-type Props = {
-  id: number;
-  onArticleClick: (id: number) => void;
-};
+export const FullArticle = () => {
+  const { id } = useParams();
 
-export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
+  if (id == undefined) return null;
+
   const [loaded, setLoaded] = React.useState(false);
   const handleLoad = () => {
     setLoaded(true);
@@ -50,11 +50,13 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
   }
 
   const relatedBigArticles = relatedArticles
-    ?.filter((item) => item.id !== id)
+    ?.filter((item) => item.id !== Number(id))
     .slice(0, 3);
   const relatedSmallArticles = relatedArticles
-    ?.filter((item) => item.id !== id)
+    ?.filter((item) => item.id !== Number(id))
     .slice(3, 9);
+
+  console.log(`export const FullArticle`);
 
   return (
     <article className="fullArticle-wr">
@@ -98,11 +100,11 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
               return (
                 <RelatedSmallArticle
                   key={news.id}
+                  id={news.id}
                   img={news.images[0].image}
                   category={news.categories[0]}
                   title={news.title}
                   place={news.place.title}
-                  onClick={() => onArticleClick(news.id)}
                 />
               );
             })}
@@ -117,12 +119,12 @@ export const FullArticle: FC<Props> = ({ id, onArticleClick }) => {
               return (
                 <RelatedBigArticle
                   key={news.id}
+                  id={news.id}
                   img={news.images[0].image}
                   category={news.categories[0]}
                   title={news.title}
                   description={news.description}
                   place={news.place.title}
-                  onClick={() => onArticleClick(news.id)}
                 />
               );
             })}

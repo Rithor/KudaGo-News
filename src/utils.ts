@@ -1,7 +1,7 @@
 import { Article, FullArticleAPI } from './types';
 
 export const categoryNames: { [index: string]: string } = {
-  'concert,theater,festival,exhibition': 'Главная',
+  main: 'Главная',
   concert: 'Концерты',
   theater: 'Постановки',
   festival: 'Фестивали',

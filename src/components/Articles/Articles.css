@@ -12,6 +12,7 @@
 }
 
 .small-article {
+  display: block;
   margin-bottom: 35px;
   padding-left: 11px;
   border-left: 9px solid var(--color-primary);

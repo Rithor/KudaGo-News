@@ -1,4 +1,4 @@
-.relatedSmallArticle-grid {
+.relatedSmallArticle-grid__wr {
   display: grid;
   grid-template-columns: repeat(4, var(--grid-column-width));
   gap: var(--grid-gap);

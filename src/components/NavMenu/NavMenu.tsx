@@ -1,44 +1,35 @@
-import React, { FC } from 'react';
-import { categoryNames } from '../../utils';
+import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import './NavMenu.css';
+import { categoryNames } from '../../utils';
 import logo from '../../imgs/logo.svg';
 
-type Props = {
-  category: string;
-  onNavClick: (e: React.MouseEvent<HTMLElement>) => void;
-};
-
-export const NavMenu: FC<Props> = ({ category, onNavClick }) => {
+export const NavMenu = () => {
+  const categories = ['main', 'concert', 'theater', 'festival', 'exhibition'];
+  const location = useLocation();
   return (
     <>
-      <a
-        onClick={onNavClick}
-        href="#"
-        data-cat="concert,theater,festival,exhibition"
-        className="navigation__logo"
-      >
+      <NavLink to="main" className="navigation__logo">
         <img className="navigation__image" src={logo} alt="Логотип" />
-      </a>
+      </NavLink>
       <ul className="navigation__list">
-        {[
-          'concert,theater,festival,exhibition',
-          'concert',
-          'theater',
-          'festival',
-          'exhibition',
-        ].map((cat) => {
+        {categories.map((cat) => {
           return (
             <li className="navigation__item" key={cat}>
-              <a
-                onClick={onNavClick}
-                data-cat={cat}
-                href="#"
-                className={`navigation__link ${
-                  category === cat ? 'navigation__link--active' : ''
-                }`}
+              <NavLink
+                to={cat}
+                className={({ isActive }) => {
+                  let finalClass = isActive
+                    ? 'navigation__link navigation__link--active'
+                    : 'navigation__link';
+                  if (location.pathname === '/' && cat === 'main') {
+                    finalClass = 'navigation__link navigation__link--active';
+                  }
+                  return finalClass;
+                }}
               >
                 {categoryNames[cat]}
-              </a>
+              </NavLink>
             </li>
           );
         })}
