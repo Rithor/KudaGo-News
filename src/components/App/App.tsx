@@ -6,7 +6,7 @@ import { Articles } from '../Articles/Articles';
 import { FullArticle } from '../FullArticle/FullArticle';
 
 export const App = () => {
-  console.log(`export const App`);
+  console.log(`render App`);
 
   const { pathname } = useLocation();
   React.useEffect(() => {

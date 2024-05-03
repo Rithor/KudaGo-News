@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollRestoration, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './FullArticle.css';
 import { RelatedSmallArticle } from '../RelatedSmallArticle/RelatedSmallArticle';
 import { RelatedBigArticle } from '../RelatedBigArticle/RelatedBigArticle';
@@ -7,9 +7,9 @@ import { Article, FullArticleAPI, ArticlesAPI } from '../../types';
 import { formatDate, getActualDate } from '../../utils';
 
 const URL_GET_FULL_ARTICLE =
-  'https://thingproxy.freeboard.io/fetch/https://kudago.com/public-api/v1.4/events';
+  'http://91.186.196.42/kudago.com/public-api/v1.4/events';
 const URL_GET_RELATED_ARTICLES =
-  'https://thingproxy.freeboard.io/fetch/https://kudago.com/public-api/v1.4/events/';
+  'http://91.186.196.42/kudago.com/public-api/v1.4/events/';
 const FIELDS =
   'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
 const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
@@ -30,7 +30,7 @@ export const FullArticle = () => {
   );
 
   useEffect(() => {
-    fetch(`${URL_GET_FULL_ARTICLE}/${id}`)
+    fetch(`${URL_GET_FULL_ARTICLE}/${id}/`)
       .then((response) => response.json())
       .then((data: FullArticleAPI) => setFullArticle(data))
       .catch((error) => console.error(new Error(error)));
@@ -56,7 +56,7 @@ export const FullArticle = () => {
     ?.filter((item) => item.id !== Number(id))
     .slice(3, 9);
 
-  console.log(`export const FullArticle`);
+  console.log(`render FullArticle`);
 
   return (
     <article className="fullArticle-wr">
@@ -92,7 +92,14 @@ export const FullArticle = () => {
               </div>
             </div>
           )}
-          <div className="fullArticle__text">{fullArcticle.body_text}</div>
+          <div
+            className="fullArticle__description"
+            dangerouslySetInnerHTML={{ __html: fullArcticle.description }}
+          ></div>
+          <div
+            className="fullArticle__text"
+            dangerouslySetInnerHTML={{ __html: fullArcticle.body_text }}
+          ></div>
         </div>
         {relatedSmallArticles?.at(0) && (
           <div className="relatedSmallArticle">

@@ -7,7 +7,7 @@ import { Article, ArticlesAPI } from '../../types';
 import { formatDate, getActualDate } from '../../utils';
 
 const URL_GET_EVENTS =
-  'https://thingproxy.freeboard.io/fetch/https://kudago.com/public-api/v1.4/events/';
+  'http://91.186.196.42/kudago.com/public-api/v1.4/events/';
 const FIELDS =
   'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
 const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
@@ -15,7 +15,7 @@ const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publicatio
 export const Articles = () => {
   let { category } = useParams();
 
-  console.log(`export const Articles || category = ${category}`);
+  console.log(`render Articles || category = ${category}`);
 
   if (category === 'main' || !category) {
     category = 'concert,theater,festival,exhibition';
