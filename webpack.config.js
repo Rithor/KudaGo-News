@@ -10,7 +10,7 @@ module.exports = (env) => {
     },
     output: {
       filename: 'bundle.[contenthash].js',
-      path: env.mode ? path.resolve(__dirname, 'dist') : '/var/www/dist',
+      path: env.server ? path.resolve(__dirname, 'dist') : '/var/www/dist',
       publicPath: '/',
       clean: true,
     },

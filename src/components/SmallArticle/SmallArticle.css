@@ -11,6 +11,6 @@
 }
 
 .article-date + .article-source::before {
-  content: "\00B7";
+  content: '\00B7';
   padding: 0 15px;
 }

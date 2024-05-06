@@ -2,8 +2,11 @@
   "homepage": "https://rithor.github.io/NewsFeed",
   "scripts": {
     "build": "webpack",
+    "build-github": "webpack --env server=github",
     "start": "webpack serve --env mode=development",
-    "prettier-check": "prettier --check \"{**/*,*}.{tsx,ts,js}\""
+    "prettier-check": "prettier --check ./",
+    "prettier-write": "prettier --write ./",
+    "eslint": "eslint --ext .js,.ts,.tsx ./"
   },
   "dependencies": {
     "react": "^18.2.0",

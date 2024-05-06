@@ -15,7 +15,7 @@ const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publicatio
 export const Articles = () => {
   let { category } = useParams();
 
-  console.log(`render Articles || category = ${category}`);
+  // console.log(`render Articles || category = ${category}`);
 
   if (category === 'main' || !category) {
     category = 'concert,theater,festival,exhibition';

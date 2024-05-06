@@ -94,7 +94,7 @@
 }
 
 .fullArticle__description:after {
-  content: " ";
+  content: ' ';
   position: absolute;
   bottom: 0;
   left: 50%;

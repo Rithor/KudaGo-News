@@ -6,11 +6,11 @@ import { Articles } from '../Articles/Articles';
 import { FullArticle } from '../FullArticle/FullArticle';
 
 export const App = () => {
-  console.log(`render App`);
+  // console.log(`render App`);
 
   const { pathname } = useLocation();
   React.useEffect(() => {
-    console.log(`window.scrollTo(0, 0);`);
+    // console.log(`window.scrollTo(0, 0);`);
     window.scrollTo(0, 0);
   }, [pathname]);
 

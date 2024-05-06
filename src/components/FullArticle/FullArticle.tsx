@@ -56,7 +56,7 @@ export const FullArticle = () => {
     ?.filter((item) => item.id !== Number(id))
     .slice(3, 9);
 
-  console.log(`render FullArticle`);
+  // console.log(`render FullArticle`);
 
   return (
     <article className="fullArticle-wr">
