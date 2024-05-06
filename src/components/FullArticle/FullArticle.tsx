@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './FullArticle.css';
 import { RelatedSmallArticle } from '../RelatedSmallArticle/RelatedSmallArticle';
-import { RelatedBigArticle } from '../RelatedBigArticle/RelatedigArticle';
+import { RelatedBigArticle } from '../RelatedBigArticle/RelatedBigArticle';
 import { Article, FullArticleAPI, ArticlesAPI } from '../../types';
 import { formatDate, getActualDate } from '../../utils';
 
