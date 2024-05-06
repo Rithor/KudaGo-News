@@ -100,6 +100,13 @@ export const FullArticle = () => {
             className="fullArticle__text"
             dangerouslySetInnerHTML={{ __html: fullArcticle.body_text }}
           ></div>
+          <div className="fullArticle__tags-wr">
+            {fullArcticle.tags.map((tag) => (
+              <div key={tag} className="fullArticle__tags">
+                {tag}
+              </div>
+            ))}
+          </div>
         </div>
         {relatedSmallArticles?.at(0) && (
           <div className="relatedSmallArticle">

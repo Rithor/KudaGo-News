@@ -11,7 +11,7 @@ module.exports = (env) => {
     output: {
       filename: 'bundle.[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: '',
+      publicPath: '/',
       clean: true,
     },
     module: {
@@ -45,6 +45,7 @@ module.exports = (env) => {
     ],
     devServer: {
       open: true,
+      historyApiFallback: true,
     },
     performance: {
       hints: false,

@@ -109,6 +109,15 @@
   font-weight: 400;
   font-size: 22px;
   color: var(--color-primary);
+  margin-bottom: 40px;
+}
+
+.fullArticle__tags-wr {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 20px;
+  color: var(--color-grey);
 }
 
 .relatedSmallArticle {
