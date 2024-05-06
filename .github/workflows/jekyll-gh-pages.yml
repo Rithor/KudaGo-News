@@ -4,7 +4,7 @@ name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['main', 'development']
+    branches: ['main']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -81,6 +81,8 @@ jobs:
         with:
           name: github-pages
           path: .
+      - name: SSH Connect
+        run: mkdir ~/.ssh && chmod 600 ~/.ssh && echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - name: Deploy to Rithor Server
         run: rsync -a --delete dist/ rithor@91.186.196.42:/var/www
       - name: Deploy to GitHub Pages
