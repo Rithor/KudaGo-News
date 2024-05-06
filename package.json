@@ -2,7 +2,7 @@
   "homepage": "https://rithor.github.io/NewsFeed",
   "scripts": {
     "build": "webpack",
-    "build-github": "webpack --env server=github",
+    "build-github": "webpack --env github=true",
     "start": "webpack serve --env mode=development",
     "prettier-check": "prettier --check ./",
     "prettier-write": "prettier --write ./",
