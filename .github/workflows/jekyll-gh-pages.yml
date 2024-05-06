@@ -85,6 +85,8 @@ jobs:
         run: mkdir ~/.ssh
       - name: SSH Connect2
         run: echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+      - name: SSH Connect3
+        run: echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
       - name: Deploy to Rithor Server
         run: rsync -a --delete dist/ rithor@91.186.196.42:/home/rithor/NewsFeed
       - name: Deploy to GitHub Pages
