@@ -7,9 +7,9 @@ import { Article, FullArticleAPI, ArticlesAPI } from '../../types';
 import { formatDate, getActualDate } from '../../utils';
 
 const URL_GET_FULL_ARTICLE =
-  'http://91.186.196.42/kudago.com/public-api/v1.4/events';
+  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events';
 const URL_GET_RELATED_ARTICLES =
-  'http://91.186.196.42/kudago.com/public-api/v1.4/events/';
+  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events/';
 const FIELDS =
   'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
 const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
