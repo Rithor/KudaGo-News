@@ -81,14 +81,6 @@ jobs:
         with:
           name: github-pages
           path: .
-      - name: SSH Connect1
-        run: mkdir ~/.ssh
-      - name: SSH Connect2
-        run: echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
-      - name: SSH Connect3
-        run: echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - name: Deploy to Rithor Server
-        run: rsync -a --delete dist/ rithor@91.186.196.42:/home/rithor/NewsFeed
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1 # or specific "vX.X.X" version tag for this action
