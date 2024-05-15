@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import './App.css';
-import { NavMenu } from '../NavMenu/NavMenu';
 import { Articles } from '../Articles/Articles';
 import { FullArticle } from '../FullArticle/FullArticle';
+import { Page } from '../Page/Page';
+import { AdminPage } from '../AdminPage/AdminPage';
+import { AdminArticles } from '../AdminArticles/AdminArticles';
+import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
 
 export const App = () => {
   // console.log(`render App`);
@@ -15,44 +17,55 @@ export const App = () => {
   }, [pathname]);
 
   return (
-    <>
-      <header className="header">
-        <div className="container">
-          <nav className="navigation grid header__navigation">
-            <NavMenu />
-          </nav>
-        </div>
-      </header>
-
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Articles />}></Route>
-          <Route path="/:category" element={<Articles />}></Route>
-          <Route path="/fullarticle/:id" element={<FullArticle />}></Route>
-        </Routes>
-      </main>
-
-      <footer className="footer">
-        <div className="container">
-          <nav className="navigation grid footer__navigation">
-            <NavMenu />
-          </nav>
-          <div className="footer__column">
-            <p className="footer__text">
-              Сделано на{' '}
-              <a
-                href="https://docs.kudago.com/api/#"
-                target="_blank"
-                className="footer__link"
-                rel="noreferrer"
-              >
-                API KudaGo
-              </a>
-            </p>
-            <p className="footer__copyright">© 2024</p>
-          </div>
-        </div>
-      </footer>
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Page>
+            <Articles />
+          </Page>
+        }
+      ></Route>
+      <Route
+        path="/:category"
+        element={
+          <Page>
+            <Articles />
+          </Page>
+        }
+      ></Route>
+      <Route
+        path="/fullarticle/:id"
+        element={
+          <Page>
+            <FullArticle />
+          </Page>
+        }
+      ></Route>
+      <Route
+        path="/admin"
+        element={
+          <AdminPage>
+            <AdminArticles />
+          </AdminPage>
+        }
+      ></Route>
+      <Route
+        path="/admin/create"
+        element={
+          <AdminPage>
+            <AdminArticleItem />
+          </AdminPage>
+        }
+      ></Route>
+      <Route
+        path="/admin/edit/:id"
+        element={
+          <AdminPage>
+            <AdminArticleItem />
+          </AdminPage>
+        }
+      ></Route>
+    </Routes>
   );
 };

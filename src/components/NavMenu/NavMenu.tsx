@@ -9,7 +9,7 @@ export const NavMenu = () => {
   const location = useLocation();
   return (
     <>
-      <NavLink to="main" className="navigation__logo">
+      <NavLink to="/main" className="navigation__logo">
         <img className="navigation__image" src={logo} alt="Логотип" />
       </NavLink>
       <ul className="navigation__list">
@@ -17,7 +17,7 @@ export const NavMenu = () => {
           return (
             <li className="navigation__item" key={cat}>
               <NavLink
-                to={cat}
+                to={'/' + cat}
                 className={({ isActive }) => {
                   let finalClass = isActive
                     ? 'navigation__link navigation__link--active'

@@ -1,3 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(12, var(--grid-column-width));

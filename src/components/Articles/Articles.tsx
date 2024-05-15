@@ -22,9 +22,6 @@ export const Articles = () => {
   }
   const [articles, setArticles] = useState<Article[]>([]);
 
-  // ДОБАВИТЬ СКРОЛЛ СТРАНИЦЫ ВВЕРХ ПРИ НАЖАТИИ НА ПРЕДЛОЖЕННЫЕ НОВОСТИ
-  // показывать загрузку при переходах
-
   useEffect(() => {
     fetch(`${URL_GET_EVENTS}?${FIELDS}&${OPTIONS}&categories=${category}`)
       .then((response) => response.json())
