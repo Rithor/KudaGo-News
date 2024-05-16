@@ -70,7 +70,7 @@
 
 .fullArticle__body {
   grid-column: span 7;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
 }
 
 .whImage {
@@ -122,7 +122,7 @@
 
 .relatedSmallArticle {
   grid-column: 9 / -1;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
 }
 
 .relatedSmallArticle-grid__wr {
@@ -134,7 +134,7 @@
   margin-bottom: 0;
 }
 
-.relatedBigArticles {
+div .relatedBigArticles {
   margin-bottom: 150px;
   padding: 0 var(--container-padding);
 }

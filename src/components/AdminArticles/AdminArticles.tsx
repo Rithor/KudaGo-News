@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,8 +8,15 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import { PartnersArticle } from '../../types';
+import { getPartnersArticles } from '../../API';
 
 export const AdminArticles: FC = () => {
+  const [articles, setArticles] = React.useState<PartnersArticle[]>([]);
+  useEffect(() => {
+    getPartnersArticles().then((data) => setArticles(data));
+  });
+
   return (
     <>
       <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -33,24 +40,22 @@ export const AdminArticles: FC = () => {
       </Grid>
 
       <Grid container spacing={2}>
-        {[1, 2, 3, 4].map((item) => (
-          <Grid item xs={3} key={item}>
+        {articles.map((item) => (
+          <Grid item xs={3} key={item.id}>
             <Card>
-              <CardActionArea component={Link} to={`/admin/edit/${item}`}>
+              <CardActionArea component={Link} to={`/admin/edit/${item.id}`}>
                 <CardMedia
                   component="img"
                   height="140"
-                  image="https://picsum.photos/200/200"
-                  alt="green iguana"
+                  image={item.image}
+                  alt={item.title}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {item.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    {item.description}
                   </Typography>
                 </CardContent>
               </CardActionArea>
