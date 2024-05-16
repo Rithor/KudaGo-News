@@ -8,8 +8,12 @@ import {
   doc,
   deleteDoc,
   getDoc,
+  query,
+  orderBy,
+  limit,
 } from 'firebase/firestore';
 import { PartnersArticle } from './types';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -67,7 +71,7 @@ export const getPartnerArticle = async (
 };
 
 export const addPartnersArticle = async (
-  article: Omit<PartnersArticle, 'id'>
+  article: Omit<PartnersArticle, 'id' | 'created'>
 ) => {
   const db = getFirestore();
   try {
@@ -99,3 +103,44 @@ export const deletePartnerArticle = async (id: string): Promise<any> => {
     return Promise.reject(error);
   }
 };
+
+export const uploadFile = async (file: File): Promise<string> => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `${file.name}-${Date.now()}`);
+
+  try {
+    const snapshot = await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(snapshot.ref);
+    return url;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getLastPartnerArticle =
+  async (): Promise<PartnersArticle | null> => {
+    const db = getFirestore();
+    let article = null;
+
+    try {
+      const q = query(
+        collection(db, partnersArticlesPath),
+        orderBy('created', 'desc'),
+        limit(1)
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data() as Omit<PartnersArticle, 'id'>;
+
+        article = {
+          id: doc.id,
+          ...data,
+        };
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    return article;
+  };

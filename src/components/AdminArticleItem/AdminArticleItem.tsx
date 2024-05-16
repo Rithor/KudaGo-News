@@ -27,6 +27,7 @@ import {
   deletePartnerArticle,
   getPartnerArticle,
   updatePartnerArticle,
+  uploadFile,
 } from '../../API';
 import { PartnersArticle } from '../../types';
 
@@ -34,7 +35,6 @@ export const AdminArticleItem: FC = () => {
   const { id }: { id?: string } = useParams();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
-  const [inputFile, setInputFile] = useState<File | null>(null);
   const [inputErrors, setInputErrors] = useState<InputErrors>({
     'company-name': '',
     title: '',
@@ -116,11 +116,7 @@ export const AdminArticleItem: FC = () => {
     // 1. Собрать данные
     const data = new FormData();
     Object.entries(inputValues).forEach(([name, value]) => {
-      if (name === 'image') {
-        data.append(name, inputFile || new File([], ''));
-      } else {
-        data.append(name, value);
-      }
+      data.append(name, value);
     });
     // 2. Проверить данные
     const errors = await getErrors(
@@ -151,7 +147,7 @@ export const AdminArticleItem: FC = () => {
         });
     } else {
       // creating
-      addPartnersArticle(inputValues as Omit<PartnersArticle, 'id'>)
+      addPartnersArticle(inputValues as Omit<PartnersArticle, 'id' | 'created'>)
         .then(() => {
           setSnackbarMessage('✅ Статья создана');
         })
@@ -161,31 +157,32 @@ export const AdminArticleItem: FC = () => {
     }
   };
 
-  const showFile = (event: ChangeEvent<HTMLInputElement>) => {
+  const showFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.currentTarget.files;
-
     if (files === null || !files.length) {
-      setInputValues({
-        ...inputValues,
-        image: '',
-      });
       return;
     }
-
     const file = files[0];
-
     if (file.size === 0 || !file.type.startsWith('image/')) {
       return;
     }
-
-    setInputFile(file);
-
-    getImage(file).then((image) => {
+    const image = await getImage(file);
+    if (image.width < 200 || image.height < 200) {
+      setInputErrors({
+        ...inputErrors,
+        image: 'Изображение должно быть минимум 200x200',
+      });
+      return;
+    }
+    try {
+      const url = await uploadFile(file);
       setInputValues({
         ...inputValues,
-        image: image.src,
+        image: url,
       });
-    });
+    } catch (error: any) {
+      setSnackbarMessage(`❌ ${error.message}`);
+    }
   };
 
   return (
