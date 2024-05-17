@@ -6,13 +6,14 @@ import { Page } from '../Page/Page';
 import { AdminPage } from '../AdminPage/AdminPage';
 import { AdminArticles } from '../AdminArticles/AdminArticles';
 import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
+import PrivateRouteWrapper from '../PrivateRouteWrapper/PrivateRouteWrapper';
+import { LoginContainer } from '../../features/auth/login/LoginContainer';
 
 export const App = () => {
   // console.log(`render App`);
 
   const { pathname } = useLocation();
   React.useEffect(() => {
-    // console.log(`window.scrollTo(0, 0);`);
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [pathname]);
 
@@ -43,27 +44,47 @@ export const App = () => {
         }
       ></Route>
       <Route
+        path="/login"
+        element={
+          <Page>
+            <LoginContainer />
+          </Page>
+        }
+      ></Route>
+      <Route
         path="/admin"
         element={
-          <AdminPage>
-            <AdminArticles />
-          </AdminPage>
+          <PrivateRouteWrapper
+            element={
+              <AdminPage>
+                <AdminArticles />
+              </AdminPage>
+            }
+          />
         }
       ></Route>
       <Route
         path="/admin/create"
         element={
-          <AdminPage>
-            <AdminArticleItem />
-          </AdminPage>
+          <PrivateRouteWrapper
+            element={
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            }
+          />
         }
       ></Route>
       <Route
         path="/admin/edit/:id"
         element={
-          <AdminPage>
-            <AdminArticleItem />
-          </AdminPage>
+          <PrivateRouteWrapper
+            element={
+              <AdminPage>
+                <AdminArticleItem />
+              </AdminPage>
+            }
+          />
         }
       ></Route>
     </Routes>

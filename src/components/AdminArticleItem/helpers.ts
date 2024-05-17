@@ -37,7 +37,7 @@ export const getErrors = async (
 
       await getImage(value).then((image) => {
         if (image.width < 200 || image.height < 200) {
-          errors[name] = 'Изображение должно быть минимум 200×200';
+          errors[name] = 'Изображение должно быть минимум 200x200';
         }
       });
       continue;

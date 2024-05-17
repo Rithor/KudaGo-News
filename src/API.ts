@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
 import {
   getFirestore,
   collection,
@@ -14,13 +14,14 @@ import {
 } from 'firebase/firestore';
 import { PartnersArticle } from './types';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const partnersArticlesPath = 'partners-articles';
 // Initialize Firebase
-export const initializeFirebase = () => {
-  initializeApp({
+export const initializeFirebase = (): FirebaseApp => {
+  const firebaseApp = initializeApp({
     apiKey: 'AIzaSyCs7KB08qoEuGhyURmMDrxwwnZL3r7U-eA',
     authDomain: 'kudagonews.firebaseapp.com',
     projectId: 'kudagonews',
@@ -29,6 +30,10 @@ export const initializeFirebase = () => {
     appId: '1:899680552536:web:7cbac9399509a43f6cac2d',
     measurementId: 'G-XD4336CN5D',
   });
+  getAuth(firebaseApp);
+  getFirestore(firebaseApp);
+  getStorage(firebaseApp);
+  return firebaseApp;
 };
 
 export const getPartnersArticles = async (): Promise<PartnersArticle[]> => {

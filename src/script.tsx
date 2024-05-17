@@ -4,17 +4,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { initializeFirebase } from './API';
 import './style.css';
 import { App } from './components/App/App';
+import { AuthContextProvider } from './features/auth/AuthContextProvider';
 
-initializeFirebase();
+const firebaseApp = initializeFirebase();
 
 const element = document.getElementById('root');
 if (element) {
-  const root = createRoot(element);
-  root.render(
+  createRoot(element).render(
     <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AuthContextProvider firebaseApp={firebaseApp}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthContextProvider>
     </React.StrictMode>
   );
 }

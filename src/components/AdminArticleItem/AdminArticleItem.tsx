@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -73,6 +73,7 @@ export const AdminArticleItem: FC = () => {
     text: useRef<HTMLTextAreaElement>(),
     image: useRef<HTMLInputElement>(),
   };
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -96,7 +97,6 @@ export const AdminArticleItem: FC = () => {
     });
   };
 
-  // todo: сделать редирект на страницу /admin
   const deleteArticle = async () => {
     if (!id) {
       return;
@@ -104,6 +104,9 @@ export const AdminArticleItem: FC = () => {
     deletePartnerArticle(id)
       .then(() => {
         setSnackbarMessage('✅ Статья удалена');
+        setTimeout(() => {
+          navigate('/admin');
+        }, 1000);
       })
       .catch((error) => {
         setSnackbarMessage(`❌ ${error.message}`);
@@ -141,6 +144,9 @@ export const AdminArticleItem: FC = () => {
       updatePartnerArticle(id, inputValues)
         .then(() => {
           setSnackbarMessage('✅ Статья обновлена');
+          setTimeout(() => {
+            navigate('/admin');
+          }, 1000);
         })
         .catch((error) => {
           setSnackbarMessage(`❌ ${error.message}`);
@@ -150,6 +156,9 @@ export const AdminArticleItem: FC = () => {
       addPartnersArticle(inputValues as Omit<PartnersArticle, 'id' | 'created'>)
         .then(() => {
           setSnackbarMessage('✅ Статья создана');
+          setTimeout(() => {
+            navigate('/admin');
+          }, 1000);
         })
         .catch((error) => {
           setSnackbarMessage(`❌ ${error.message}`);

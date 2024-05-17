@@ -30,7 +30,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.12.2' # здесь можно указать нужную версию Node.js
+          node-version: '20.12.2'
       - name: Install dependencies
         run: npm ci
       - name: code quality eslint
@@ -47,16 +47,16 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.12.2' # здесь можно указать нужную версию Node.js
+          node-version: '20.12.2'
       - name: Install dependencies
         run: npm ci
       - name: Build with Webpack
-        run: npm run build-github # здесь указывается команда для сборки проекта с помощью Webpack
+        run: npm run build-github
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
           name: github-pages
-          path: dist # замените на путь к директории сборки вашего проекта
+          path: dist
 
   # Deploy job
   deploy:
@@ -83,4 +83,4 @@ jobs:
           path: .
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1 # or specific "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v1
