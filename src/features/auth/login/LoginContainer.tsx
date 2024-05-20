@@ -4,11 +4,13 @@ import {
 } from '../../../components/LoginForm/LoginForm';
 import React, { FC, Reducer, useReducer, useState } from 'react';
 import { Typography } from '@mui/material';
-
 import './LoginContainer.css';
 import { validateEmail } from './utils';
 import { useAuthContext } from '../AuthContextProvider';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import GoogleIcon from '@mui/icons-material/Google';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import { UserCredential } from 'firebase/auth';
 
 type TLoginFormFieldState = Omit<TLoginField, 'onChange'>;
 
@@ -39,8 +41,8 @@ function reducer(
 
 export const LoginContainer: FC = () => {
   const navigate = useNavigate();
+  const { loginWithEmailAndPassword, loginWithOauthPopup } = useAuthContext();
   const { state: locationState } = useLocation();
-  const { loginWithEmailAndPassword } = useAuthContext();
   const [authError, setAuthError] = useState('');
   const [emailState, dispatchEmail] = useReducer<
     Reducer<TLoginFormFieldState, Action>
@@ -48,13 +50,22 @@ export const LoginContainer: FC = () => {
     name: 'email',
     value: '',
   });
-
   const [passwordState, dispatchPassword] = useReducer<
     Reducer<TLoginFormFieldState, Action>
   >(reducer, {
     name: 'password',
     value: '',
   });
+
+  const processLogin = (promise: Promise<UserCredential>) => {
+    promise
+      .then(() => {
+        navigate(locationState?.from || '/admin');
+      })
+      .catch((error) => {
+        setAuthError(error?.message || 'error');
+      });
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,18 +87,21 @@ export const LoginContainer: FC = () => {
     }
 
     if (valid) {
-      loginWithEmailAndPassword(emailState.value, passwordState.value)
-        .then(() => {
-          navigate(locationState?.from || '/admin');
-        })
-        .catch((error) => {
-          setAuthError(error?.message || 'error');
-        });
+      processLogin(
+        loginWithEmailAndPassword(emailState.value, passwordState.value)
+      );
+    }
+  };
+
+  const onOAuthClick = (provider: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (provider) {
+      processLogin(loginWithOauthPopup(provider));
     }
   };
 
   return (
-    <div className="login-container">
+    <div className="loginContainer">
       {authError && (
         <Typography variant="subtitle2" color="error" sx={{ m: 2 }}>
           {authError}
@@ -106,6 +120,22 @@ export const LoginContainer: FC = () => {
         }}
         onSubmit={onSubmit}
       />
+      <div className="oauthLoginContainer">
+        <Link
+          to={'#'}
+          className="oauthLoginContainer__item"
+          onClick={(e) => onOAuthClick('google.com', e)}
+        >
+          <GoogleIcon sx={{ color: 'primary.dark' }} />
+        </Link>
+        <Link
+          to={'#'}
+          className="oauthLoginContainer__item"
+          onClick={(e) => onOAuthClick('github.com', e)}
+        >
+          <GitHubIcon sx={{ color: 'common.black' }} />
+        </Link>
+      </div>
     </div>
   );
 };

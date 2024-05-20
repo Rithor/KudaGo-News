@@ -1,14 +1,14 @@
-.login-container {
+.loginContainer {
   max-width: 500px;
   margin: 50px auto;
 }
 
-.oauth-login-container {
+.oauthLoginContainer {
   margin-top: 30px;
   text-align: center;
 }
 
-.oauth-login-container__item {
+.oauthLoginContainer__item {
   cursor: pointer;
   padding: 0 10px;
   font-size: 40px;

@@ -15,7 +15,7 @@ export const AdminArticles: FC = () => {
   const [articles, setArticles] = React.useState<PartnersArticle[]>([]);
   useEffect(() => {
     getPartnersArticles().then((data) => setArticles(data));
-  });
+  }, []);
 
   return (
     <>

@@ -7,7 +7,7 @@ interface PrivateRouteWrapperProps {
   element: React.ReactElement;
 }
 
-const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({
+export const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({
   element,
 }) => {
   const { isAuthenticated } = useAuthContext();
@@ -26,5 +26,3 @@ const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({
   }
   return element;
 };
-
-export default PrivateRouteWrapper;

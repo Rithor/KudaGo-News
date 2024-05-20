@@ -6,7 +6,7 @@ import { Page } from '../Page/Page';
 import { AdminPage } from '../AdminPage/AdminPage';
 import { AdminArticles } from '../AdminArticles/AdminArticles';
 import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
-import PrivateRouteWrapper from '../PrivateRouteWrapper/PrivateRouteWrapper';
+import { PrivateRouteWrapper } from '../PrivateRouteWrapper/PrivateRouteWrapper';
 import { LoginContainer } from '../../features/auth/login/LoginContainer';
 
 export const App = () => {

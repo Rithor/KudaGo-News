@@ -10,6 +10,8 @@ export type TAuthContext = {
     email: string,
     password: string
   ) => Promise<TLoginWithEmailAndPasswordResult>;
-  // loginWithOauthPopup: (provider: string) => Promise<TLoginWithEmailAndPasswordResult>;
-  // logOut: () => void;
+  loginWithOauthPopup: (
+    provider: string
+  ) => Promise<TLoginWithEmailAndPasswordResult>;
+  logOut: () => void;
 };
