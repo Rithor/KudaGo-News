@@ -5,6 +5,10 @@ import { getLastPartnerArticle } from '../../API';
 
 export const PartnerArticle: FC = () => {
   const [article, setArticle] = useState<PartnersArticle | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const handleLoad = () => {
+    setLoaded(true);
+  };
 
   useEffect(() => {
     getLastPartnerArticle().then((data) => {
@@ -19,11 +23,15 @@ export const PartnerArticle: FC = () => {
   return (
     <section className="partner-article">
       <div className="container grid">
-        <div className="partner-article__image-container">
+        <div
+          className="partner-article__image-container"
+          style={{ display: loaded ? 'block' : 'none' }}
+        >
           <img
             className="partner-article__image"
             src={article.image}
-            alt={article.title}
+            alt={`Изображение к событию ${article.title}`}
+            onLoad={handleLoad}
           />
         </div>
         <div className="partner-article__content">

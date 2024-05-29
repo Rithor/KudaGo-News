@@ -1,17 +1,33 @@
-import { Article, FullArticleAPI } from './types';
+import { Dates } from './types';
 
 export const categoryNames: { [index: string]: string } = {
-  main: 'Главная',
+  'business-events': 'События для бизнеса',
+  cinema: 'Кинопоказы',
   concert: 'Концерты',
-  theater: 'Постановки',
-  festival: 'Фестивали',
+  education: 'Обучение',
+  entertainment: 'Развлечения',
   exhibition: 'Выставки',
+  fashion: 'Мода и стиль',
+  festival: 'Фестивали',
+  holiday: 'Праздники',
+  kids: 'Детям',
+  other: 'Разное',
+  party: 'Вечеринки',
+  photo: 'Фотография',
+  quest: 'Квесты',
+  recreation: 'Активный отдых',
+  shopping: 'Шопинг (Магазины)',
+  'social-activity': 'Благотворительность',
+  stock: 'Акции и скидки',
+  theater: 'Спектакли',
+  tour: 'Экскурсии',
+  'yarmarki-razvlecheniya-yarmarki': 'Ярмарки (Развлечения, Ярмарки)',
 };
 
 export function localizeString(date: number): string {
   return new Date(date * 1000).toLocaleDateString('ru-RU', {
-    month: 'long',
     day: 'numeric',
+    month: 'long',
   });
 }
 
@@ -22,24 +38,34 @@ export function ucFirst(str: string): string {
 
 export function getActualDate(): string {
   const today = new Date();
-  // Получаем год, месяц и день
-  const year = today.getFullYear(); // Возвращает год
-  const month = today.getMonth() + 1; // Возвращает месяц (январь = 0, поэтому прибавляем 1)
-  const day = today.getDate(); // Возвращает день
-  // Функция для добавления ведущего нуля
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
   function padToTwoDigits(num: number): string {
     return num.toString().padStart(2, '0');
   }
-  // Форматируем дату в формате YYYY-MM-DD
   const formattedDate = `${year}-${padToTwoDigits(month)}-${padToTwoDigits(day)}`;
   return formattedDate;
 }
 
-export function formatDate(article: Article | FullArticleAPI): string {
-  const lastEl = article.dates.length - 1;
-  const startDate = localizeString(article.dates[lastEl].start);
-  const endDate = localizeString(article.dates[lastEl].end);
-  const oneDayArticle = startDate === endDate;
-  const date = oneDayArticle ? startDate : `${startDate} - ${endDate}`;
+export function formatDate(dates: Dates[]): string {
+  const lastEl = dates.length - 1;
+  const startDateObj = new Date(dates[lastEl].start * 1000);
+  const endDateObj = new Date(dates[lastEl].end * 1000);
+  const startDate = localizeString(dates[lastEl].start);
+  const endDate = localizeString(dates[lastEl].end);
+
+  const sameDay = startDate === endDate;
+  const sameMonth = startDateObj.getMonth() === endDateObj.getMonth();
+
+  let date = '';
+  if (sameDay) {
+    date = startDate;
+  } else if (sameMonth) {
+    date = `${startDateObj.getDate()} - ${endDate}`;
+  } else {
+    date = `${startDate} - ${endDate}`;
+  }
+
   return date;
 }

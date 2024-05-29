@@ -1,17 +1,16 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Articles } from '../Articles/Articles';
-import { FullArticle } from '../FullArticle/FullArticle';
 import { Page } from '../Page/Page';
 import { AdminPage } from '../AdminPage/AdminPage';
 import { AdminArticles } from '../AdminArticles/AdminArticles';
 import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
 import { PrivateRouteWrapper } from '../PrivateRouteWrapper/PrivateRouteWrapper';
 import { LoginContainer } from '../../features/auth/login/LoginContainer';
+import { ArticlePage } from '../ArticlePage/ArticlePage';
+import { CategoryPage } from '../CategoryPage/CategoryPage';
+import { HomePage } from '../HomePage/HomePage';
 
 export const App = () => {
-  // console.log(`render App`);
-
   const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -23,7 +22,7 @@ export const App = () => {
         path="/"
         element={
           <Page>
-            <Articles />
+            <HomePage />
           </Page>
         }
       ></Route>
@@ -31,15 +30,15 @@ export const App = () => {
         path="/:category"
         element={
           <Page>
-            <Articles />
+            <CategoryPage />
           </Page>
         }
       ></Route>
       <Route
-        path="/fullarticle/:id"
+        path="/article/:id"
         element={
           <Page>
-            <FullArticle />
+            <ArticlePage />
           </Page>
         }
       ></Route>

@@ -1,16 +1,24 @@
-export interface FullArticleAPI {
+export interface ArticlesAPI {
+  count: number;
+  next: string;
+  previous: null | string;
+  results: Article[];
+}
+
+export interface Dates {
+  start: number;
+  end: number;
+}
+
+export interface Article {
   id: number;
   publication_date: number;
-  dates: [
-    {
-      start: number;
-      end: number;
-    },
-  ];
+  dates: Dates[];
   title: string;
   slug: string;
   place: {
     id: number;
+    title: string;
   };
   description: string;
   body_text: string;
@@ -38,44 +46,6 @@ export interface FullArticleAPI {
   tags: string[];
   disable_comments: false;
   participants: string[];
-}
-
-export interface ArticlesAPI {
-  count: number;
-  next: string;
-  previous: null | string;
-  results: Article[];
-}
-
-export interface Article {
-  id: number;
-  publication_date: number;
-  title: string;
-  description: string;
-  location: {
-    slug: string;
-  };
-  categories: string[];
-  images: [
-    {
-      image: string;
-      source: {
-        name: string;
-        link: string;
-      };
-    },
-  ];
-  short_title: string;
-  tags: string[];
-  place: {
-    title: string;
-  };
-  dates: [
-    {
-      start: number;
-      end: number;
-    },
-  ];
 }
 
 export interface PartnersArticle {

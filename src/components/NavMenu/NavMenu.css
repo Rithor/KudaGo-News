@@ -1,17 +1,21 @@
-.navigation__image {
-  display: block;
-  width: 100%;
-  max-height: 90px;
-}
-
 .navigation__list {
   list-style: none;
   display: flex;
-  gap: 60px;
+  align-items: baseline;
+}
+
+.navigation__item:not(:last-child) {
+  margin-right: 24px;
 }
 
 .navigation__link {
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 900;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+.navigation__link--active,
+.navigation__link:hover {
+  color: var(--constant-accent);
 }

@@ -75,7 +75,7 @@ export const getPartnerArticle = async (
   }
 };
 
-export const addPartnersArticle = async (
+export const addPartnerArticle = async (
   article: Omit<PartnersArticle, 'id' | 'created'>
 ) => {
   const db = getFirestore();

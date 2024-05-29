@@ -23,7 +23,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { getErrors, getImage } from './helpers';
 import { InputErrors, InputName, InputRefs, InputValues } from './types';
 import {
-  addPartnersArticle,
+  addPartnerArticle,
   deletePartnerArticle,
   getPartnerArticle,
   updatePartnerArticle,
@@ -113,6 +113,19 @@ export const AdminArticleItem: FC = () => {
       });
   };
 
+  const submiting = async (promise: Promise<any>, message: string) => {
+    return promise
+      .then(() => {
+        setSnackbarMessage(message);
+        setTimeout(() => {
+          navigate('/admin');
+        }, 1000);
+      })
+      .catch((error) => {
+        setSnackbarMessage(`❌ ${error.message}`);
+      });
+  };
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // todo: зачем собирать данные, если они сразу оказываются в состоянии inputValues
@@ -141,28 +154,15 @@ export const AdminArticleItem: FC = () => {
     // 4. Если все ок, отправить данные
     if (id) {
       // editing
-      updatePartnerArticle(id, inputValues)
-        .then(() => {
-          setSnackbarMessage('✅ Статья обновлена');
-          setTimeout(() => {
-            navigate('/admin');
-          }, 1000);
-        })
-        .catch((error) => {
-          setSnackbarMessage(`❌ ${error.message}`);
-        });
+      submiting(updatePartnerArticle(id, inputValues), '✅ Статья обновлена');
     } else {
       // creating
-      addPartnersArticle(inputValues as Omit<PartnersArticle, 'id' | 'created'>)
-        .then(() => {
-          setSnackbarMessage('✅ Статья создана');
-          setTimeout(() => {
-            navigate('/admin');
-          }, 1000);
-        })
-        .catch((error) => {
-          setSnackbarMessage(`❌ ${error.message}`);
-        });
+      submiting(
+        addPartnerArticle(
+          inputValues as Omit<PartnersArticle, 'id' | 'created'>
+        ),
+        '✅ Статья создана'
+      );
     }
   };
 

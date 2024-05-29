@@ -1,6 +1,7 @@
 import React from 'react';
 import './Page.css';
 import { NavMenu } from '../NavMenu/NavMenu';
+import { Logo } from '../Logo/Logo';
 
 type AppProps = {
   children: React.ReactNode;
@@ -10,33 +11,30 @@ export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
   return (
     <div className="wrapper">
       <header className="header">
-        <div className="container">
-          <nav className="navigation grid header__navigation">
-            <NavMenu />
-          </nav>
+        <div className="container header__container">
+          <Logo />
+          <NavMenu className="header__navigation" />
         </div>
       </header>
 
       <main className="main">{children}</main>
 
       <footer className="footer">
-        <div className="container">
-          <nav className="navigation grid footer__navigation">
-            <NavMenu />
-          </nav>
-          <div className="footer__column">
-            <p className="footer__text">
-              Сделано на{' '}
-              <a
-                href="https://docs.kudago.com/api/#"
-                target="_blank"
-                className="footer__link"
-                rel="noreferrer"
-              >
-                API KudaGo
-              </a>
-            </p>
-            <p className="footer__copyright">© 2024</p>
+        <div className="container footer__container">
+          <div className="footer__top">
+            <Logo />
+            <NavMenu className="footer__navigation" />
+          </div>
+          <div className="footer__text">
+            Сделано на{' '}
+            <a
+              href="https://docs.kudago.com/api/#"
+              target="_blank"
+              className="footer__link"
+              rel="noreferrer"
+            >
+              API KudaGo
+            </a>
           </div>
         </div>
       </footer>

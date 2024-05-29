@@ -1,0 +1,19 @@
+.categoryPage__hero {
+  margin-bottom: 36px;
+}
+
+.categoryPage__content {
+  grid-column: span 7;
+}
+
+.categoryPage__sidebar {
+  grid-column: 9/-1;
+}
+
+.categoryPage__articleCards:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+.categoryPage__sidebar-item:not(:last-child) {
+  margin-bottom: 32px;
+}

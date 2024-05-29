@@ -1,7 +1,7 @@
 .partner-article {
   padding: 40px 0;
   margin: 50px 0;
-  background-color: var(--color-accent);
+  background-color: var(--dark-background-primary);
 }
 
 .partner-article__image-container {
@@ -13,7 +13,7 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  color: var(--color-white);
+  color: var(--constant-white);
 }
 
 .partner-article__image {
@@ -27,6 +27,7 @@
 }
 
 .partner-article__caption {
+  color: var(--constant-grey-2);
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -37,6 +38,7 @@
 }
 
 .partner-article__title {
+  color: var(--constant-white);
   margin-top: 12px;
   font-weight: bold;
   font-size: 42px;
@@ -48,6 +50,7 @@
 }
 
 .partner-article__text {
+  color: var(--constant-grey-1);
   margin-top: 44px;
   font-weight: normal;
   font-size: 22px;

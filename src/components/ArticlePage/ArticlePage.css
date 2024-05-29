@@ -1,0 +1,130 @@
+.hero__info {
+  display: flex;
+  gap: 32px;
+  padding: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--constant-accent);
+}
+
+.hero__category::first-letter {
+  text-transform: uppercase;
+}
+
+.hero__date {
+  color: var(--constant-black);
+}
+
+.hero__place {
+  color: var(--constant-grey-2);
+}
+
+.articlePage {
+  padding: 0 var(--container-padding);
+}
+
+.articlePage__body {
+  grid-column: span 7;
+}
+
+.articlePage__body a {
+  text-decoration: underline;
+}
+
+.articlePage__body a:hover {
+  color: var(--constant-accent)
+}
+
+.articlePage__body--whSidebarCards {
+  grid-column: span 12;
+}
+
+.articlePage__description {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.articlePage__description:after {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 103px;
+  height: 1px;
+  border: solid 2px var(--constant-accent);
+  background-color: var(--constant-accent);
+  transform: translateX(-50%);
+}
+
+.articlePage__text {
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--constant-black);
+  margin-bottom: 40px;
+}
+
+.articlePage__text img {
+  margin-bottom: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.articlePage__text p {
+  line-height: 1.5em;
+  margin-bottom: 1em;
+}
+
+.articlePage__text ul {
+  margin-bottom: 1em;
+  padding-left: 20px;
+}
+
+.articlePage__text li {
+  line-height: 1.5em;
+}
+
+.contentImage-source {
+  font-size: 0.5em;
+  margin-bottom: 8px;
+  text-align: end;
+}
+
+.articlePage__tags-wr {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 20px;
+  color: var(--constant-grey-2);
+}
+
+.relatedSidebarArticles {
+  grid-column: 9 / -1;
+}
+
+.articlePage__sidebar-item {
+  margin-bottom: 35px;
+  cursor: pointer;
+}
+
+.articlePage__sidebar-item:last-child article {
+  margin-bottom: 0;
+}
+
+.relatedArticles {
+  margin-top: 50px;
+}
+
+.relatedArticles__header {
+  margin-bottom: 32px;
+}
+
+div .relatedArticles {
+  padding: 0 var(--container-padding);
+}
+
+.articlePage__related-articles-item {
+  grid-column: span 4;
+}
