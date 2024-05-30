@@ -2,6 +2,7 @@ import React from 'react';
 import './Page.css';
 import { NavMenu } from '../NavMenu/NavMenu';
 import { Logo } from '../Logo/Logo';
+import { ColorSchemeSwitcher } from '../ColorSchemeSwitcher/ColorSchemeSwitcher';
 
 type AppProps = {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
         <div className="container header__container">
           <Logo />
           <NavMenu className="header__navigation" />
+          <ColorSchemeSwitcher />
         </div>
       </header>
 

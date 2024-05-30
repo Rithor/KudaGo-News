@@ -23,6 +23,7 @@
 }
 
 .home-page__title {
+  color: var(--foreground-primary);
   margin-bottom: 32px;
 }
 

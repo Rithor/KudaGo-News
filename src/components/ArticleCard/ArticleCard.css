@@ -4,6 +4,7 @@
   padding-left: 12px;
   cursor: pointer;
   align-items: start;
+  color: var(--foreground-primary);
 }
 
 .article-card:hover {
@@ -52,7 +53,6 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  color: var(--constant-black);
 }
 
 .article-card__info-left {
@@ -82,7 +82,7 @@
 }
 
 .article-card__date::before {
-  content: "\00a0\00a0·\00a0\00a0";
+  content: '\00a0\00a0·\00a0\00a0';
 }
 
 .article-card__place {

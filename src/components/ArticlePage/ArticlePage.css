@@ -4,6 +4,9 @@
   padding: 20px;
   font-weight: 700;
   font-size: 14px;
+}
+
+.hero__category {
   color: var(--constant-accent);
 }
 
@@ -12,7 +15,7 @@
 }
 
 .hero__date {
-  color: var(--constant-black);
+  color: var(--foreground-primary);
 }
 
 .hero__place {
@@ -24,6 +27,7 @@
 }
 
 .articlePage__body {
+  color: var(--foreground-primary);
   grid-column: span 7;
 }
 
@@ -32,7 +36,7 @@
 }
 
 .articlePage__body a:hover {
-  color: var(--constant-accent)
+  color: var(--constant-accent);
 }
 
 .articlePage__body--whSidebarCards {
@@ -62,7 +66,7 @@
 .articlePage__text {
   font-weight: 400;
   font-size: 22px;
-  color: var(--constant-black);
+  color: var(--foreground-primary);
   margin-bottom: 40px;
 }
 
@@ -118,6 +122,7 @@
 }
 
 .relatedArticles__header {
+  color: var(--foreground-primary);
   margin-bottom: 32px;
 }
 

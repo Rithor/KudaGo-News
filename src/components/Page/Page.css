@@ -18,6 +18,8 @@
 
 .header__navigation {
   margin-left: 24px;
+  margin-right: auto;
+  color: var(--foreground-primary);
 }
 
 .footer {

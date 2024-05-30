@@ -1,6 +1,7 @@
 .sidebar-article-card {
   display: block;
   cursor: pointer;
+  color: var(--foreground-primary);
 }
 
 .sidebar-article-card:hover {
