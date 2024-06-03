@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   applyScheme,
   getSavedScheme,
@@ -6,6 +6,10 @@ import {
   removeSavedScheme,
 } from '../../colorSchemeUtils';
 import './ColorSchemeSwitcher.css';
+import { Auto } from '../Icons/Auto';
+import { Moon } from '../Icons/Moon';
+import { Sun } from '../Icons/Sun';
+import { Droprown } from '../Dropdown/Dropdown';
 
 type ColorSchemeSwitcherValues = 'auto' | 'dark' | 'light';
 
@@ -15,6 +19,8 @@ export const ColorSchemeSwitcher: FC = () => {
   const [userScheme, setUserScheme] = React.useState<ColorSchemeSwitcherValues>(
     getSavedScheme() || 'auto'
   );
+  const [dropdownShown, setDropdownShown] = useState<boolean>(false);
+  const targetRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (userScheme === 'auto') {
@@ -39,16 +45,76 @@ export const ColorSchemeSwitcher: FC = () => {
   }, [userScheme]);
 
   return (
-    <select
-      className="color-scheme-switcher"
-      onChange={(e) =>
-        setUserScheme(e.target.value as ColorSchemeSwitcherValues)
-      }
-      value={userScheme}
-    >
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="auto">Auto</option>
-    </select>
+    <div className="color-scheme-switcher">
+      <button
+        className="color-scheme-switcher__value"
+        ref={targetRef}
+        onClick={(e) => {
+          e.stopPropagation();
+          setDropdownShown(!dropdownShown);
+        }}
+      >
+        {userScheme === 'auto' && <Auto />}
+        {userScheme === 'dark' && <Moon />}
+        {userScheme === 'light' && <Sun />}
+      </button>
+      <Droprown
+        shown={dropdownShown}
+        onShownChange={setDropdownShown}
+        targetRef={targetRef}
+      >
+        <button
+          className="color-scheme-switcher__option"
+          onClick={(e) => {
+            e.stopPropagation();
+            setUserScheme('auto');
+          }}
+        >
+          <Auto />
+          <span className="color-scheme-switcher__text">Авто</span>
+          {userScheme === 'auto' && (
+            <img
+              className="color-scheme-switcher__check"
+              src={require('../../imgs/check.svg')}
+              alt="Выбранная тема"
+            />
+          )}
+        </button>
+        <button
+          className="color-scheme-switcher__option"
+          onClick={(e) => {
+            e.stopPropagation();
+            setUserScheme('light');
+          }}
+        >
+          <Sun />
+          <span className="color-scheme-switcher__text">Светлая</span>
+          {userScheme === 'light' && (
+            <img
+              className="color-scheme-switcher__check"
+              src={require('../../imgs/check.svg')}
+              alt="Выбранная тема"
+            />
+          )}
+        </button>
+        <button
+          className="color-scheme-switcher__option"
+          onClick={(e) => {
+            e.stopPropagation();
+            setUserScheme('dark');
+          }}
+        >
+          <Moon />
+          <span className="color-scheme-switcher__text">Темная</span>
+          {userScheme === 'dark' && (
+            <img
+              className="color-scheme-switcher__check"
+              src={require('../../imgs/check.svg')}
+              alt="Выбранная тема"
+            />
+          )}
+        </button>
+      </Droprown>
+    </div>
   );
 };
