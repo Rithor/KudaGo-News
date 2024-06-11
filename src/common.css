@@ -47,7 +47,9 @@ body {
   font-size: 14px;
   font-weight: 400;
   min-height: 100vh;
-  min-width: calc(var(--container-width) + 2 * var(--container-padding));
+  min-width: calc(
+    var(--container-width) + 2 * var(--container-padding)
+  );
 }
 
 a {

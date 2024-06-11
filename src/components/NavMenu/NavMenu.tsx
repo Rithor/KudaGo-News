@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
-import { categoryNames } from '../../utils';
+import { categoryNames } from '../../app/utils';
 import classNames from 'classnames';
 
 interface Props {

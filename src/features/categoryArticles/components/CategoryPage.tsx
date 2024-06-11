@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './CategoryPage.css';
-import { Article, ArticlesAPI } from '../../types';
-import { categoryNames, getActualDate } from '../../utils';
-import { SidebarArticleCard } from '../SidebarArticleCard/SidebarArticleCard';
-import { Hero } from '../Hero/Hero';
-import { ArticleCard } from '../ArticleCard/ArticleCard';
-
-const URL_GET_EVENTS =
-  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events/';
-const FIELDS =
-  'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
-const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
+import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { fetchCategoryArticles } from '../actions';
+import { categoryNames } from '../../../app/utils';
+import { Hero } from '@components/Hero/Hero';
+import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
+import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 
 export const CategoryPage = () => {
   const { category } = useParams();
-  const [articles, setArticles] = useState<Article[]>([]);
+  if (!category) return null;
+
+  const dispatch = useAppDispatch();
+  const { categoryArticles, isLoading, error } = useAppSelector(
+    (state) => state.categoryArticles
+  );
 
   useEffect(() => {
-    fetch(`${URL_GET_EVENTS}?${FIELDS}&${OPTIONS}&categories=${category}`)
-      .then((response) => response.json())
-      .then((data: ArticlesAPI) => setArticles(data.results))
-      .catch((e) => console.error(new Error(e)));
+    dispatch(fetchCategoryArticles(category));
   }, [category]);
 
-  if (!articles?.length) {
-    return null;
+  // todo: показать скелетон
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  // todo: сделать отдельную страницу c ошибкой
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
@@ -33,11 +36,11 @@ export const CategoryPage = () => {
       <Hero
         className="categoryPage__hero"
         title={categoryNames[category!]}
-        image="test" // todo: картинка фон, своя на каждую категорию
+        image={categoryArticles[0]?.images[0].image}
       />
       <div className="container grid">
         <section className="categoryPage__content">
-          {articles.slice(3, 9).map((article) => {
+          {categoryArticles.slice(3, 9).map((article) => {
             return (
               <ArticleCard
                 key={article.id}
@@ -56,7 +59,7 @@ export const CategoryPage = () => {
         </section>
 
         <section className="categoryPage__sidebar">
-          {articles.slice(0, 3).map((article) => {
+          {categoryArticles.slice(0, 3).map((article) => {
             return (
               <SidebarArticleCard
                 article={article}

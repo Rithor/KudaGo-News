@@ -1,7 +1,8 @@
 import React, { ButtonHTMLAttributes, FC } from 'react';
 import './Button.css';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
@@ -22,7 +23,7 @@ export const Button: FC<ButtonProps> = ({
         <span className="button__loading">
           <img
             className="button__spinner"
-            src={require('../../imgs/spinner.svg')}
+            src={require('@images/spinner.svg')}
             alt="Спиннер"
           />
         </span>

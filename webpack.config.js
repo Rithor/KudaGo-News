@@ -8,15 +8,27 @@ module.exports = (env) => {
   return {
     mode: setMode,
     entry: {
-      main: path.resolve(__dirname, 'src', 'script.tsx'),
-      initColorScheme: path.resolve(__dirname, 'src', 'initColorScheme.ts'),
+      main: path.resolve(__dirname, 'src', 'index.tsx'),
+      initColorScheme: path.resolve(
+        __dirname,
+        'src',
+        'initColorScheme.ts'
+      ),
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      alias: {
+        '@components': path.resolve('./src/components'),
+        '@features': path.resolve('./src/features'),
+        '@app': path.resolve('./src/app'),
+        '@images': path.resolve('./src/images'),
+      },
     },
     output: {
       filename: '[name].[contenthash].js',
-      path: env.github ? path.resolve(__dirname, 'dist') : '/var/www/dist',
+      path: env.github
+        ? path.resolve(__dirname, 'dist')
+        : '/var/www/dist',
       publicPath: env.github ? '' : '/',
       clean: true,
     },
@@ -34,7 +46,7 @@ module.exports = (env) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
-          test: /\.(?:png|svg)$/,
+          test: /\.(?:png|svg|jpg)$/,
           type: 'asset/resource',
         },
         {

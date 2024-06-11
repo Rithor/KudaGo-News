@@ -1,4 +1,4 @@
-import { Dates } from './types';
+import { IDates } from './types';
 
 export const categoryNames: { [index: string]: string } = {
   'business-events': 'События для бизнеса',
@@ -48,7 +48,7 @@ export function getActualDate(): string {
   return formattedDate;
 }
 
-export function formatDate(dates: Dates[]): string {
+export function formatDate(dates: IDates[]): string {
   const lastEl = dates.length - 1;
   const startDateObj = new Date(dates[lastEl].start * 1000);
   const endDateObj = new Date(dates[lastEl].end * 1000);

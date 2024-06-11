@@ -33,7 +33,10 @@ export const ModalWrapper: FC<ModalWrapperProps> = ({
     };
     document.addEventListener('keydown', documentKeydownListener);
     return () => {
-      document.removeEventListener('keydown', documentKeydownListener);
+      document.removeEventListener(
+        'keydown',
+        documentKeydownListener
+      );
     };
   }, [onClose]);
 

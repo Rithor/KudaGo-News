@@ -8,11 +8,13 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { PartnersArticle } from '../../types';
-import { getPartnersArticles } from '../../API';
+import { IPartnersArticle } from '@app/types';
+import { getPartnersArticles } from '@app/API';
 
 export const AdminArticles: FC = () => {
-  const [articles, setArticles] = React.useState<PartnersArticle[]>([]);
+  const [articles, setArticles] = React.useState<IPartnersArticle[]>(
+    []
+  );
   useEffect(() => {
     getPartnersArticles().then((data) => setArticles(data));
   }, []);
@@ -43,7 +45,10 @@ export const AdminArticles: FC = () => {
         {articles.map((item) => (
           <Grid item xs={3} key={item.id}>
             <Card>
-              <CardActionArea component={Link} to={`/admin/edit/${item.id}`}>
+              <CardActionArea
+                component={Link}
+                to={`/admin/edit/${item.id}`}
+              >
                 <CardMedia
                   component="img"
                   height="140"
@@ -51,7 +56,11 @@ export const AdminArticles: FC = () => {
                   alt={item.title}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                  >
                     {item.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

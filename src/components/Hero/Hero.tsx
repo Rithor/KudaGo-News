@@ -28,7 +28,10 @@ export const Hero: React.FC<HeroProps> = ({
         className
       )}
     >
-      <div className="hero__in" style={{ backgroundImage: `url(${image})` }}>
+      <div
+        className="hero__in"
+        style={{ backgroundImage: `url(${image})` }} // todo: заменить на <img>
+      >
         <div className="hero__container container">
           <div className="hero__content">
             <Title className="hero__title">{title}</Title>

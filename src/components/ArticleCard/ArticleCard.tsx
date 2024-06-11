@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './ArticleCard.css';
 import classNames from 'classnames';
-import { categoryNames, formatDate, ucFirst } from '../../utils';
-import { Dates } from '../../types';
+import { categoryNames, formatDate, ucFirst } from '@app/utils';
+import { IDates } from '@app/types';
 
 interface Props {
   id: number;
@@ -13,7 +13,7 @@ interface Props {
   category?: string;
   description?: string;
   place?: string;
-  dates?: Dates[];
+  dates?: IDates[];
   className?: string;
 }
 
@@ -59,7 +59,9 @@ export const ArticleCard: FC<Props> = ({
       <div className="article-card__content">
         <h2 className="article-card__title">{ucFirst(title)}</h2>
         {hasDescription && (
-          <span className="article-card__description">{description}</span>
+          <span className="article-card__description">
+            {description}
+          </span>
         )}
         <div className="article-card__info">
           <div className="article-card__info-left">
@@ -69,7 +71,9 @@ export const ArticleCard: FC<Props> = ({
               </span>
             )}
             {dates.length > 0 && (
-              <span className="article-card__date">{formatDate(dates)}</span>
+              <span className="article-card__date">
+                {formatDate(dates)}
+              </span>
             )}
           </div>
           <div className="article-card__info-rigth">

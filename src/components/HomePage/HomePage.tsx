@@ -1,47 +1,36 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import './HomePage.css';
-import { Article } from '../../types';
-import { getActualDate } from '../../utils';
-import { PartnerArticle } from '../PartnerArticle/PartnerArticle';
-import { SidebarArticleCard } from '../SidebarArticleCard/SidebarArticleCard';
-import { Hero } from '../Hero/Hero';
-import { ArticleCard } from '../ArticleCard/ArticleCard';
+import { PartnerArticle } from '@components/PartnerArticle/PartnerArticle';
+import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
+import { Hero } from '@components/Hero/Hero';
 import { Link } from 'react-router-dom';
-import { Title } from '../Title/Title';
-
-const URL_GET_EVENTS =
-  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events/';
-const ARTICLE_FIELDS =
-  'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
-const ARTICLE_OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
-const FREE_EVENTS_OPTIONS = `page_size=6&text_format=text&expand=place&order_by=-publication_date&location=msk&is_free=1&actual_since=${getActualDate()}`;
-const TREND_ARTICLE_FIELDS = 'fields=id,title,description,categories,dates';
-const TREND_ARTICLE_OPTIONS = `page_size=6&text_format=text&order_by=-favorites_count&location=msk&actual_since=${getActualDate()}`;
+import { Title } from '@components/Title/Title';
+import { ArticleCard } from '@components/ArticleCard/ArticleCard';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { fetchTrendArticles } from '@features/trendArticles/actions';
+import { fetchFreeEvents } from '@features/freeEvents/actions';
+import { fetchArticles } from '@features/articles/actions';
 
 export const HomePage: FC = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [trendArticles, setTrendArticles] = useState<Article[]>([]);
-  const [freeEvents, setFreeEvents] = useState<Article[]>([]);
+  const dispatch = useAppDispatch();
+
+  // todo: articlesIsLoading, articlesError
+  const { articles } = useAppSelector((state) => state.articles);
+  // todo: trendArticlesIsLoading, trendArticlesError,
+  const { trendArticles } = useAppSelector(
+    (state) => state.trendArticles
+  );
+  // todo:  freeEventsIsLoading, freeEventsError
+  const { freeEvents } = useAppSelector((state) => state.freeEvents);
 
   useEffect(() => {
-    Promise.all([
-      fetch(`${URL_GET_EVENTS}?${ARTICLE_FIELDS}&${ARTICLE_OPTIONS}`).then(
-        (resp) => resp.json()
-      ),
-      fetch(
-        `${URL_GET_EVENTS}?${TREND_ARTICLE_FIELDS}&${TREND_ARTICLE_OPTIONS}`
-      ).then((resp) => resp.json()),
-      fetch(`${URL_GET_EVENTS}?${ARTICLE_FIELDS}&${FREE_EVENTS_OPTIONS}`).then(
-        (resp) => resp.json()
-      ),
-    ])
-      .then(([articles, trendArticles, freeEvents]) => {
-        setArticles(articles.results);
-        setTrendArticles(trendArticles.results);
-        setFreeEvents(freeEvents.results);
-      })
-      .catch((e) => console.error(new Error(e)));
+    dispatch(fetchArticles());
+    dispatch(fetchTrendArticles());
+    dispatch(fetchFreeEvents());
   }, []);
+
+  // isLoading можно прокидывать пропсом в компонент, внутри которого
+  // будет логика отображения скелетона
 
   const firstArticle = articles[0];
 

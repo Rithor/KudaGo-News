@@ -14,6 +14,8 @@ export const Title: FC<TitleProps> = ({
   className,
 }) => {
   return (
-    <Component className={classNames('Title', className)}>{children}</Component>
+    <Component className={classNames('Title', className)}>
+      {children}
+    </Component>
   );
 };

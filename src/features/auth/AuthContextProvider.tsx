@@ -93,8 +93,13 @@ export const AuthContextProvider: FC<TProps> = (props) => {
       });
   };
 
-  const loginWithEmailAndPassword = (email: string, password: string) => {
-    return processSignIn(signInWithEmailAndPassword(auth, email, password));
+  const loginWithEmailAndPassword = (
+    email: string,
+    password: string
+  ) => {
+    return processSignIn(
+      signInWithEmailAndPassword(auth, email, password)
+    );
   };
   const loginWithOauthPopup = (provider: string) => {
     return processSignIn(

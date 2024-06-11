@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './SidebarArticleCard.css';
-import { formatDate } from '../../utils';
-import { Article } from '../../types';
+import { formatDate } from '../../app/utils';
+import { IArticle } from '@app/types';
 import classNames from 'classnames';
 
 interface Props {
-  article: Article;
+  article: IArticle;
   className?: string;
 }
 
-export const SidebarArticleCard: FC<Props> = ({ article, className }) => {
+export const SidebarArticleCard: FC<Props> = ({
+  article,
+  className,
+}) => {
   const [loaded, setLoaded] = React.useState(false);
   const handleLoad = () => {
     setLoaded(true);
@@ -36,7 +39,9 @@ export const SidebarArticleCard: FC<Props> = ({ article, className }) => {
         </div>
       </div>
       <h3 className="sidebar-article-card__title">{article.title}</h3>
-      <div className="sidebar-article-card__source">{article.place?.title}</div>
+      <div className="sidebar-article-card__source">
+        {article.place?.title}
+      </div>
     </Link>
   );
 };

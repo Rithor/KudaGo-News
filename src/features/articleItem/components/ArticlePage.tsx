@@ -1,67 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ArticlePage.css';
-import { Article, ArticlesAPI } from '../../types';
-import { categoryNames, formatDate, getActualDate } from '../../utils';
-import { SidebarArticleCard } from '../SidebarArticleCard/SidebarArticleCard';
-import { Hero } from '../Hero/Hero';
-import { ArticleCard } from '../ArticleCard/ArticleCard';
-import { Title } from '../Title/Title';
+import { categoryNames, formatDate } from '@app/utils';
+import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import classNames from 'classnames';
-
-const URL_GET_FULL_ARTICLE =
-  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events';
-const URL_GET_RELATED_ARTICLES =
-  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events/';
-const FIELDS =
-  'fields=id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
-const OPTIONS = `page_size=12&text_format=text&expand=place&order_by=-publication_date&location=msk&actual_since=${getActualDate()}`;
+import { Hero } from '@components/Hero/Hero';
+import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
+import { Title } from '@components/Title/Title';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { fetchArticleItem } from '../actions';
+import { fetchSamePlaceArticles } from '@features/samePlaceArticles/actions';
 
 export const ArticlePage = () => {
   const { id } = useParams();
   if (id == undefined) return null;
 
-  const [article, setArticle] = useState<Article | null>(null);
-  const [articles, setArticles] = useState<Article[] | null>(null);
+  const dispatch = useAppDispatch();
+  const { articleItem, isLoading, error } = useAppSelector(
+    (state) => state.articleItem
+  );
+  // todo: использовать эти значения при загрузке скелетона   samePlaceArticlesIsLoading, samePlaceArticlesError,
+  const { samePlaceArticles } = useAppSelector(
+    (state) => state.samePlaceArticles
+  );
 
   useEffect(() => {
-    fetch(`${URL_GET_FULL_ARTICLE}/${id}/?expand=place`)
-      .then((response) => response.json())
-      .then((data: Article) => setArticle(data))
-      .catch((error) => console.error(new Error(error)));
+    dispatch(fetchArticleItem(id));
   }, [id]);
-
   useEffect(() => {
-    if (article) {
-      fetch(
-        `${URL_GET_RELATED_ARTICLES}?${FIELDS}&${OPTIONS}&place_id=${article?.place?.id}`
-      )
-        .then((response) => response.json())
-        .then((data: ArticlesAPI) =>
-          setArticles(
-            data.results?.filter((relArticle) => relArticle?.id !== article?.id)
-          )
-        )
-        .catch((error) => console.error(new Error(error)));
+    if (articleItem.place?.id) {
+      dispatch(
+        fetchSamePlaceArticles(articleItem.place.id.toString())
+      );
     }
-  }, [article]);
+  }, [articleItem]);
 
-  if (!article) {
-    return null;
+  // todo: показать скелетон
+  if (isLoading) {
+    return <div>Loading</div>;
   }
 
-  const relatedArticles = articles?.slice(0, 3);
-  const relatedSidebarArticles = articles?.slice(3, 9);
+  // todo: сделать отдельную страницу c ошибкой
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (articleItem.id == 0) return null;
+
+  const relatedArticles = samePlaceArticles?.slice(0, 3);
+  const relatedSidebarArticles = samePlaceArticles?.slice(3, 9);
 
   return (
     <article className="articlePage-wr">
-      <Hero title={article.title} image={article.images[0].image} />
+      <Hero
+        title={articleItem.title}
+        image={articleItem.images[0].image}
+      />
       <div className="container hero__info">
         <div className="hero__category">
-          {categoryNames[article.categories[0]]}
+          {categoryNames[articleItem.categories[0]]}
         </div>
-        <div className="hero__date">{formatDate(article.dates)}</div>
-        <div className="hero__place">{article.place?.title}</div>
+        <div className="hero__date">
+          {formatDate(articleItem.dates)}
+        </div>
+        <div className="hero__place">{articleItem.place?.title}</div>
       </div>
       <section className="articlePage grid container">
         <div
@@ -72,14 +74,18 @@ export const ArticlePage = () => {
         >
           <div
             className="articlePage__description"
-            dangerouslySetInnerHTML={{ __html: article.description }}
+            dangerouslySetInnerHTML={{
+              __html: articleItem.description,
+            }}
           ></div>
           <div
             className="articlePage__text"
-            dangerouslySetInnerHTML={{ __html: article.body_text }}
+            dangerouslySetInnerHTML={{
+              __html: articleItem.body_text,
+            }}
           ></div>
           <div className="articlePage__tags-wr">
-            {article.tags.map((tag) => (
+            {articleItem.tags.map((tag) => (
               <div key={tag} className="articlePage__tags">
                 {tag}
               </div>

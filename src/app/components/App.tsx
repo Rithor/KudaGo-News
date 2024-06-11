@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Page } from '../Page/Page';
-import { AdminPage } from '../AdminPage/AdminPage';
-import { AdminArticles } from '../AdminArticles/AdminArticles';
-import { AdminArticleItem } from '../AdminArticleItem/AdminArticleItem';
-import { PrivateRouteWrapper } from '../PrivateRouteWrapper/PrivateRouteWrapper';
+import { Page } from '../../components/Page/Page';
+import { AdminPage } from '../../features/admin/AdminPage/AdminPage';
+import { PrivateRouteWrapper } from '../../components/PrivateRouteWrapper/PrivateRouteWrapper';
 import { LoginContainer } from '../../features/auth/login/LoginContainer';
-import { ArticlePage } from '../ArticlePage/ArticlePage';
-import { CategoryPage } from '../CategoryPage/CategoryPage';
-import { HomePage } from '../HomePage/HomePage';
+import { CategoryPage } from '@features/categoryArticles/components/CategoryPage';
+import { AdminArticles } from '@features/admin/AdminArticles/AdminArticles';
+import { AdminArticleItem } from '@features/admin/AdminArticleItem/AdminArticleItem';
+import { ArticlePage } from '@features/articleItem/components/ArticlePage';
+import { HomePage } from '@components/HomePage/HomePage';
 
 export const App = () => {
   const { pathname } = useLocation();

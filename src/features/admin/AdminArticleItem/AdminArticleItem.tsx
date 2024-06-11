@@ -21,20 +21,27 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { getErrors, getImage } from './helpers';
-import { InputErrors, InputName, InputRefs, InputValues } from './types';
+import {
+  InputErrors,
+  InputName,
+  InputRefs,
+  InputValues,
+} from './types';
 import {
   addPartnerArticle,
   deletePartnerArticle,
   getPartnerArticle,
   updatePartnerArticle,
   uploadFile,
-} from '../../API';
-import { PartnersArticle } from '../../types';
+} from '@app/API';
+import { IPartnersArticle } from '@app/types';
 
 export const AdminArticleItem: FC = () => {
   const { id }: { id?: string } = useParams();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
+  const [snackbarMessage, setSnackbarMessage] = useState<
+    string | null
+  >(null);
   const [inputErrors, setInputErrors] = useState<InputErrors>({
     'company-name': '',
     title: '',
@@ -113,7 +120,10 @@ export const AdminArticleItem: FC = () => {
       });
   };
 
-  const submiting = async (promise: Promise<any>, message: string) => {
+  const submiting = async (
+    promise: Promise<any>,
+    message: string
+  ) => {
     return promise
       .then(() => {
         setSnackbarMessage(message);
@@ -142,7 +152,9 @@ export const AdminArticleItem: FC = () => {
     // 3.1 Подстветить ошибки
     setInputErrors(errors);
     // 3.2 Сфокусироваться на первом ошибочном инпуте
-    const errorInput = errorsEntries.find(([, value]) => value.length > 0);
+    const errorInput = errorsEntries.find(
+      ([, value]) => value.length > 0
+    );
     if (errorInput) {
       const name = errorInput[0] as InputName;
       const inputRef = inputRefs[name];
@@ -154,12 +166,15 @@ export const AdminArticleItem: FC = () => {
     // 4. Если все ок, отправить данные
     if (id) {
       // editing
-      submiting(updatePartnerArticle(id, inputValues), '✅ Статья обновлена');
+      submiting(
+        updatePartnerArticle(id, inputValues),
+        '✅ Статья обновлена'
+      );
     } else {
       // creating
       submiting(
         addPartnerArticle(
-          inputValues as Omit<PartnersArticle, 'id' | 'created'>
+          inputValues as Omit<IPartnersArticle, 'id' | 'created'>
         ),
         '✅ Статья создана'
       );
@@ -236,7 +251,9 @@ export const AdminArticleItem: FC = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={deleteArticle}>Удалить статью</MenuItem>
+                  <MenuItem onClick={deleteArticle}>
+                    Удалить статью
+                  </MenuItem>
                 </Menu>
               </div>
             )}

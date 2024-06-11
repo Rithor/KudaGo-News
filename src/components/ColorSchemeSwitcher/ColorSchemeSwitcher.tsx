@@ -4,7 +4,7 @@ import {
   getSavedScheme,
   getSystemScheme,
   removeSavedScheme,
-} from '../../colorSchemeUtils';
+} from '@app/colorSchemeUtils';
 import './ColorSchemeSwitcher.css';
 import { Auto } from '../Icons/Auto';
 import { Moon } from '../Icons/Moon';
@@ -16,9 +16,10 @@ type ColorSchemeSwitcherValues = 'auto' | 'dark' | 'light';
 const matchMedia = window.matchMedia('(prefers-color-scheme:dark)');
 
 export const ColorSchemeSwitcher: FC = () => {
-  const [userScheme, setUserScheme] = React.useState<ColorSchemeSwitcherValues>(
-    getSavedScheme() || 'auto'
-  );
+  const [userScheme, setUserScheme] =
+    React.useState<ColorSchemeSwitcherValues>(
+      getSavedScheme() || 'auto'
+    );
   const [dropdownShown, setDropdownShown] = useState<boolean>(false);
   const targetRef = useRef<HTMLButtonElement>(null);
 
@@ -40,7 +41,10 @@ export const ColorSchemeSwitcher: FC = () => {
     matchMedia.addEventListener('change', systemColorSchemeListener);
 
     return () => {
-      matchMedia.removeEventListener('change', systemColorSchemeListener);
+      matchMedia.removeEventListener(
+        'change',
+        systemColorSchemeListener
+      );
     };
   }, [userScheme]);
 
@@ -75,7 +79,7 @@ export const ColorSchemeSwitcher: FC = () => {
           {userScheme === 'auto' && (
             <img
               className="color-scheme-switcher__check"
-              src={require('../../imgs/check.svg')}
+              src={require('@images/check.svg')}
               alt="Выбранная тема"
             />
           )}
@@ -92,7 +96,7 @@ export const ColorSchemeSwitcher: FC = () => {
           {userScheme === 'light' && (
             <img
               className="color-scheme-switcher__check"
-              src={require('../../imgs/check.svg')}
+              src={require('@images/check.svg')}
               alt="Выбранная тема"
             />
           )}
@@ -109,7 +113,7 @@ export const ColorSchemeSwitcher: FC = () => {
           {userScheme === 'dark' && (
             <img
               className="color-scheme-switcher__check"
-              src={require('../../imgs/check.svg')}
+              src={require('@images/check.svg')}
               alt="Выбранная тема"
             />
           )}

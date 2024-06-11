@@ -35,7 +35,9 @@ export const EmailModal: FC<EmailModalProps> = ({
           onSubmit={(e) => {
             e.preventDefault();
             setSending(true);
-            fetch('https://frontend.karpovcourses.net/api/v2/subscribe')
+            fetch(
+              'https://frontend.karpovcourses.net/api/v2/subscribe'
+            )
               .then(() => {
                 setSending(false);
                 _onClose();
@@ -57,7 +59,7 @@ export const EmailModal: FC<EmailModalProps> = ({
         </form>
         <button className="email-modal__close" onClick={_onClose}>
           <img
-            src={require('../../imgs/cross-24.svg')}
+            src={require('@images/cross-24.svg')}
             alt="Закрытие модального окна"
           />
         </button>

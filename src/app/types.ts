@@ -1,19 +1,19 @@
-export interface ArticlesAPI {
+export interface IArticlesAPI {
   count: number;
   next: string;
   previous: null | string;
-  results: Article[];
+  results: IArticle[];
 }
 
-export interface Dates {
+export interface IDates {
   start: number;
   end: number;
 }
 
-export interface Article {
+export interface IArticle {
   id: number;
   publication_date: number;
-  dates: Dates[];
+  dates: IDates[];
   title: string;
   slug: string;
   place: {
@@ -48,7 +48,7 @@ export interface Article {
   participants: string[];
 }
 
-export interface PartnersArticle {
+export interface IPartnersArticle {
   id: string;
   'company-name': string;
   title: string;

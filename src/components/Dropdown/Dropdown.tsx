@@ -37,13 +37,9 @@ export const Droprown: FC<DropdownProps> = ({
 
   useEffect(() => {
     setCoords(calcCoords(targetRef.current as HTMLElement));
-  }, []);
-
-  useEffect(() => {
     const windowResizeListener = throttle(() => {
       setCoords(calcCoords(targetRef.current as HTMLElement));
     }, 100);
-
     if (shown) {
       document.addEventListener('click', documentClickListener);
       window.addEventListener('resize', windowResizeListener);

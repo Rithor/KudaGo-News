@@ -1,10 +1,12 @@
 import React, { useEffect, useState, FC } from 'react';
 import './PartnerArticle.css';
-import { PartnersArticle } from '../../types';
-import { getLastPartnerArticle } from '../../API';
+import { IPartnersArticle } from '@app/types';
+import { getLastPartnerArticle } from '@app/API';
 
 export const PartnerArticle: FC = () => {
-  const [article, setArticle] = useState<PartnersArticle | null>(null);
+  const [article, setArticle] = useState<IPartnersArticle | null>(
+    null
+  );
   const [loaded, setLoaded] = useState(false);
   const handleLoad = () => {
     setLoaded(true);
@@ -39,7 +41,9 @@ export const PartnerArticle: FC = () => {
             Партнерский материал от {article['company-name']}
           </span>
           <h2 className="partner-article__title">{article.title}</h2>
-          <p className="partner-article__text">{article.description}</p>
+          <p className="partner-article__text">
+            {article.description}
+          </p>
         </div>
       </div>
     </section>

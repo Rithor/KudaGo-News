@@ -7,9 +7,9 @@ interface PrivateRouteWrapperProps {
   element: React.ReactElement;
 }
 
-export const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({
-  element,
-}) => {
+export const PrivateRouteWrapper: React.FC<
+  PrivateRouteWrapperProps
+> = ({ element }) => {
   const { isAuthenticated } = useAuthContext();
 
   if (isAuthenticated === null) {
@@ -22,7 +22,9 @@ export const PrivateRouteWrapper: React.FC<PrivateRouteWrapperProps> = ({
 
   const location = useLocation();
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return (
+      <Navigate to="/login" state={{ from: location }} replace />
+    );
   }
   return element;
 };

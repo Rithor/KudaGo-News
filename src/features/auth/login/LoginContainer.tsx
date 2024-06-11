@@ -41,7 +41,8 @@ function reducer(
 
 export const LoginContainer: FC = () => {
   const navigate = useNavigate();
-  const { loginWithEmailAndPassword, loginWithOauthPopup } = useAuthContext();
+  const { loginWithEmailAndPassword, loginWithOauthPopup } =
+    useAuthContext();
   const { state: locationState } = useLocation();
   const [authError, setAuthError] = useState('');
   const [emailState, dispatchEmail] = useReducer<
@@ -88,7 +89,10 @@ export const LoginContainer: FC = () => {
 
     if (valid) {
       processLogin(
-        loginWithEmailAndPassword(emailState.value, passwordState.value)
+        loginWithEmailAndPassword(
+          emailState.value,
+          passwordState.value
+        )
       );
     }
   };
@@ -107,6 +111,7 @@ export const LoginContainer: FC = () => {
           {authError}
         </Typography>
       )}
+      {/* todo: переключение на темную тему */}
       <LoginForm
         email={{
           ...emailState,
@@ -116,7 +121,10 @@ export const LoginContainer: FC = () => {
         password={{
           ...passwordState,
           onChange: (e) =>
-            dispatchPassword({ type: 'change', value: e.target.value }),
+            dispatchPassword({
+              type: 'change',
+              value: e.target.value,
+            }),
         }}
         onSubmit={onSubmit}
       />

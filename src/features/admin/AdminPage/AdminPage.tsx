@@ -13,7 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ArticleIcon from '@mui/icons-material/Article';
 import { IconButton } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useAuthContext } from '../../features/auth/AuthContextProvider';
+import { useAuthContext } from '../../auth/AuthContextProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -36,7 +36,12 @@ export const AdminPage = ({ children }: Props) => {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div" flexGrow="1">
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            flexGrow="1"
+          >
             Админ-панель
           </Typography>
           <IconButton onClick={onLogOutClick}>
