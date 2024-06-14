@@ -216,7 +216,7 @@ export const fetchArticleItemAPI = async (
 };
 
 export const fetchSamePlaceArticlesAPI = async (
-  placeID: string,
+  placeID: number,
   thunkAPI: GetThunkAPI<any>
 ) => {
   try {

@@ -38,7 +38,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid var(--constant-white-alpha12);
   margin-bottom: 28px;
 }
 
@@ -49,7 +49,6 @@
 .footer__link {
   color: var(--constant-accent);
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .footer__link:hover {

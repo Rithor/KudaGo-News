@@ -4,6 +4,7 @@ import './SidebarArticleCard.css';
 import { formatDate } from '../../app/utils';
 import { IArticle } from '@app/types';
 import classNames from 'classnames';
+import { Image } from '@components/Image/Image';
 
 interface Props {
   article: IArticle;
@@ -14,24 +15,15 @@ export const SidebarArticleCard: FC<Props> = ({
   article,
   className,
 }) => {
-  const [loaded, setLoaded] = React.useState(false);
-  const handleLoad = () => {
-    setLoaded(true);
-  };
-
   return (
     <Link
       to={`/article/${article.id}`}
       className={classNames('sidebar-article-card', className)}
     >
-      <div
-        className="sidebar-article-card__media"
-        style={{ display: loaded ? 'block' : 'none' }}
-      >
-        <img
+      <div className="sidebar-article-card__media">
+        <Image
           className="sidebar-article-card__image"
           src={article.images[0].image}
-          onLoad={handleLoad}
           alt={`Изображение к событию ${article.short_title}`}
         />
         <div className="sidebar-article-card__date">
@@ -39,7 +31,7 @@ export const SidebarArticleCard: FC<Props> = ({
         </div>
       </div>
       <h3 className="sidebar-article-card__title">{article.title}</h3>
-      <div className="sidebar-article-card__source">
+      <div className="sidebar-article-card__place">
         {article.place?.title}
       </div>
     </Link>

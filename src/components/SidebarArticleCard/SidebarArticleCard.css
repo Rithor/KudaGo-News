@@ -1,6 +1,5 @@
 .sidebar-article-card {
   display: block;
-  cursor: pointer;
   color: var(--foreground-primary);
 }
 
@@ -43,6 +42,10 @@
   text-transform: uppercase;
 }
 
-.sidebar-article-card__source {
+.sidebar-article-card__place {
   color: var(--constant-grey-2);
+}
+
+.sidebar-article-card--skeleton {
+  cursor: default;
 }

@@ -10,18 +10,26 @@ import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { fetchTrendArticles } from '@features/trendArticles/actions';
 import { fetchFreeEvents } from '@features/freeEvents/actions';
 import { fetchArticles } from '@features/articles/actions';
+import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
+import { repeat } from '@app/utils';
+import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
+import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
 
   // todo: articlesIsLoading, articlesError
-  const { articles } = useAppSelector((state) => state.articles);
+  const { articles, articlesIsLoading } = useAppSelector(
+    (state) => state.articles
+  );
   // todo: trendArticlesIsLoading, trendArticlesError,
-  const { trendArticles } = useAppSelector(
+  const { trendArticles, trendArticlesIsLoading } = useAppSelector(
     (state) => state.trendArticles
   );
   // todo:  freeEventsIsLoading, freeEventsError
-  const { freeEvents } = useAppSelector((state) => state.freeEvents);
+  const { freeEvents, freeEventsIsLoading } = useAppSelector(
+    (state) => state.freeEvents
+  );
 
   useEffect(() => {
     dispatch(fetchArticles());
@@ -29,13 +37,22 @@ export const HomePage: FC = () => {
     dispatch(fetchFreeEvents());
   }, []);
 
-  // isLoading можно прокидывать пропсом в компонент, внутри которого
-  // будет логика отображения скелетона
-
   const firstArticle = articles[0];
 
   return (
     <section className="home-page">
+      {/* show Skeleton */}
+      {articlesIsLoading && (
+        <section className="home-page">
+          <HeroSkeleton
+            className="home-page__hero"
+            hasImage
+            hasText
+          />
+        </section>
+      )}
+
+      {/* show uploaded data */}
       {firstArticle && (
         <Link
           className="home-page__hero-link"
@@ -55,6 +72,20 @@ export const HomePage: FC = () => {
           В тренде
         </Title>
         <div className="grid">
+          {/* show Skeleton */}
+          {trendArticlesIsLoading &&
+            repeat((i) => {
+              return (
+                <ArticleCardSkeleton
+                  className="home-page__trends-item"
+                  key={i}
+                  hasImage={false}
+                  titleRowsCount={3}
+                />
+              );
+            }, 6)}
+
+          {/* show uploaded data */}
           {trendArticles.map((article) => {
             return (
               <ArticleCard
@@ -78,6 +109,18 @@ export const HomePage: FC = () => {
         </Title>
         <div className="grid">
           <section className="home-page__content">
+            {/* show Skeleton */}
+            {freeEventsIsLoading &&
+              repeat((i) => {
+                return (
+                  <ArticleCardSkeleton
+                    className="home-page__article-card"
+                    key={i}
+                  />
+                );
+              }, 4)}
+
+            {/* show uploaded data */}
             {freeEvents.slice(2, 6).map((article) => {
               return (
                 <ArticleCard
@@ -95,6 +138,18 @@ export const HomePage: FC = () => {
             })}
           </section>
           <section className="home-page__sidebar">
+            {/* show Skeleton */}
+            {freeEventsIsLoading &&
+              repeat((i) => {
+                return (
+                  <SidebarArticleCardSkeleton
+                    className="home-page__sidebar-item"
+                    key={i}
+                  />
+                );
+              }, 2)}
+
+            {/* show uploaded data */}
             {freeEvents.slice(0, 2).map((article) => {
               return (
                 <SidebarArticleCard
@@ -112,6 +167,19 @@ export const HomePage: FC = () => {
 
       <div className="container grid">
         <section className="home-page__content">
+          {/* show Skeleton */}
+          {articlesIsLoading &&
+            repeat((i) => {
+              return (
+                <ArticleCardSkeleton
+                  className="home-page__article-card"
+                  key={i}
+                  hasImage={i < 3 ? true : false}
+                />
+              );
+            }, 8)}
+
+          {/* show uploaded data */}
           {articles?.slice(4).map((article, i) => {
             return (
               <ArticleCard
@@ -130,6 +198,18 @@ export const HomePage: FC = () => {
           })}
         </section>
         <section className="home-page__sidebar">
+          {/* show Skeleton */}
+          {articlesIsLoading &&
+            repeat((i) => {
+              return (
+                <SidebarArticleCardSkeleton
+                  className="home-page__sidebar-item"
+                  key={i}
+                />
+              );
+            }, 3)}
+
+          {/* show uploaded data */}
           {articles?.slice(1, 4).map((article) => {
             return (
               <SidebarArticleCard

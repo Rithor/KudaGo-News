@@ -2,7 +2,6 @@
   display: flex;
   border-left: 4px solid var(--foreground-primary);
   padding-left: 12px;
-  cursor: pointer;
   align-items: start;
   color: var(--foreground-primary);
 }
@@ -13,11 +12,8 @@
 }
 
 .article-card__image {
-  display: block;
   width: 152px;
   height: 112px;
-  object-fit: cover;
-  overflow: hidden;
   margin-right: 12px;
   flex-shrink: 0;
 }
@@ -25,6 +21,7 @@
 .article-card__content {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .article-card__title {
@@ -42,10 +39,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 8px;
-}
-
-.article-card--has-description .article-card__title {
-  -webkit-line-clamp: 2;
 }
 
 .article-card__info {
@@ -89,4 +82,13 @@
   font-size: 12px;
   text-align: center;
   color: var(--constant-grey-2);
+}
+
+.article-card--skeleton {
+  cursor: default;
+}
+
+.article-card--skeleton:hover {
+  color: initial;
+  border-left-color: initial;
 }

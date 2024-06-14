@@ -53,6 +53,16 @@ const initialState: ArticleItemState = {
   error: '',
 };
 
+function updateLinks(action: PayloadAction<IArticle>) {
+  const container = document.createElement('div');
+  container.innerHTML = action.payload.body_text;
+  container.querySelectorAll('a').forEach((link) => {
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'nofollow');
+  });
+  action.payload.body_text = container.outerHTML;
+}
+
 export const articleItemSlice = createSlice({
   name: 'articleItem',
   // `createSlice` will infer the state type from the `initialState` argument
@@ -67,6 +77,7 @@ export const articleItemSlice = createSlice({
       (state, action: PayloadAction<IArticle>) => {
         state.isLoading = false;
         state.error = '';
+        updateLinks(action);
         state.articleItem = action.payload;
       }
     );

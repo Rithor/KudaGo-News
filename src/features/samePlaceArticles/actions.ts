@@ -3,6 +3,6 @@ import { fetchSamePlaceArticlesAPI } from '@app/API';
 
 export const fetchSamePlaceArticles = createAsyncThunk(
   'api/fetchSamePlaceArticles',
-  (placeID: string, thunkAPI: GetThunkAPI<any>) =>
+  (placeID: number, thunkAPI: GetThunkAPI<any>) =>
     fetchSamePlaceArticlesAPI(placeID, thunkAPI)
 );

@@ -4,6 +4,7 @@ import './ArticleCard.css';
 import classNames from 'classnames';
 import { categoryNames, formatDate, ucFirst } from '@app/utils';
 import { IDates } from '@app/types';
+import { Image } from '@components/Image/Image';
 
 interface Props {
   id: number;
@@ -31,11 +32,6 @@ export const ArticleCard: FC<Props> = ({
   const hasDescription = description.length > 0;
   const hasImage = image.length > 0;
 
-  const [loaded, setLoaded] = React.useState(false);
-  const handleLoad = () => {
-    setLoaded(true);
-  };
-
   return (
     <Link
       to={`/article/${id}`}
@@ -48,12 +44,10 @@ export const ArticleCard: FC<Props> = ({
       )}
     >
       {hasImage && (
-        <img
+        <Image
           className="article-card__image"
-          style={{ display: loaded ? 'block' : 'none' }}
           src={image}
           alt={`Изображение к событию ${shortTitle}`}
-          onLoad={handleLoad}
         />
       )}
       <div className="article-card__content">

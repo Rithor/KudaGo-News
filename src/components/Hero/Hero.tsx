@@ -2,6 +2,7 @@ import React from 'react';
 import './Hero.css';
 import classNames from 'classnames';
 import { Title } from '../Title/Title';
+import { Image } from '@components/Image/Image';
 
 interface HeroProps {
   image?: string;
@@ -28,10 +29,12 @@ export const Hero: React.FC<HeroProps> = ({
         className
       )}
     >
-      <div
-        className="hero__in"
-        style={{ backgroundImage: `url(${image})` }} // todo: заменить на <img>
-      >
+      <div className="hero__in">
+        <Image
+          className="hero__image"
+          src={image}
+          alt="Изображение события"
+        />
         <div className="hero__container container">
           <div className="hero__content">
             <Title className="hero__title">{title}</Title>

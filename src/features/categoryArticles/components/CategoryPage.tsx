@@ -3,10 +3,13 @@ import { useParams } from 'react-router-dom';
 import './CategoryPage.css';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { fetchCategoryArticles } from '../actions';
-import { categoryNames } from '../../../app/utils';
+import { categoryNames, repeat } from '../../../app/utils';
 import { Hero } from '@components/Hero/Hero';
 import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
 import { ArticleCard } from '@components/ArticleCard/ArticleCard';
+import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
+import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
+import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 
 export const CategoryPage = () => {
   const { category } = useParams();
@@ -21,9 +24,42 @@ export const CategoryPage = () => {
     dispatch(fetchCategoryArticles(category));
   }, [category]);
 
-  // todo: показать скелетон
+  /* show Skeleton */
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <section className="categoryPage">
+        <HeroSkeleton
+          className="categoryPage__hero"
+          hasImage
+          title={categoryNames[category]}
+        />
+        <div className="container grid">
+          <section className="categoryPage__content">
+            {repeat((i) => {
+              return (
+                <ArticleCardSkeleton
+                  key={i}
+                  className="categoryPage__articleCards"
+                  hasImage
+                  titleRowsCount={3}
+                />
+              );
+            }, 6)}
+          </section>
+
+          <section className="categoryPage__sidebar">
+            {repeat((i) => {
+              return (
+                <SidebarArticleCardSkeleton
+                  key={i}
+                  className="categoryPage__sidebar-item"
+                />
+              );
+            }, 3)}
+          </section>
+        </div>
+      </section>
+    );
   }
 
   // todo: сделать отдельную страницу c ошибкой
@@ -38,6 +74,7 @@ export const CategoryPage = () => {
         title={categoryNames[category!]}
         image={categoryArticles[0]?.images[0].image}
       />
+
       <div className="container grid">
         <section className="categoryPage__content">
           {categoryArticles.slice(3, 9).map((article) => {
