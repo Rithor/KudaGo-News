@@ -53,10 +53,6 @@
   display: revert;
 }
 
-.--prevent-scroll {
-  overflow: hidden;
-}
-
 body {
   font-family: 'Rubik', sans-serif;
   background-color: var(--background-zero);

@@ -69,8 +69,8 @@ export const ColorSchemeSwitcher: FC = () => {
       >
         <button
           className="color-scheme-switcher__option"
-          onClick={(e) => {
-            e.stopPropagation();
+          onClick={() => {
+            // e.stopPropagation();
             setUserScheme('auto');
           }}
         >
@@ -86,8 +86,8 @@ export const ColorSchemeSwitcher: FC = () => {
         </button>
         <button
           className="color-scheme-switcher__option"
-          onClick={(e) => {
-            e.stopPropagation();
+          onClick={() => {
+            // e.stopPropagation();
             setUserScheme('light');
           }}
         >
@@ -103,8 +103,8 @@ export const ColorSchemeSwitcher: FC = () => {
         </button>
         <button
           className="color-scheme-switcher__option"
-          onClick={(e) => {
-            e.stopPropagation();
+          onClick={() => {
+            // e.stopPropagation();
             setUserScheme('dark');
           }}
         >

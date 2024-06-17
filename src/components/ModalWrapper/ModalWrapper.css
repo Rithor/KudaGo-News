@@ -15,3 +15,21 @@
 .modal-wrapper--alignX-center {
   justify-content: center;
 }
+
+.modal-wrapper-animation-enter {
+  opacity: 0;
+}
+
+.modal-wrapper-animation-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.modal-wrapper-animation-exit {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.modal-wrapper-animation-exit-active {
+  opacity: 0;
+}

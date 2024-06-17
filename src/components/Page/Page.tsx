@@ -12,19 +12,19 @@ type AppProps = {
 };
 
 export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
-  const [emailModalShown, setEmailModalShown] = useState(
-    !!localStorage.getItem(LS_EMAIL_SHOWN_KEY)
+  const [isEmailModalShow, setIsEmailModalShow] = useState(
+    !localStorage.getItem(LS_EMAIL_SHOWN_KEY)
   );
   return (
     <div className="wrapper">
-      {!emailModalShown && (
-        <EmailModal
-          onClose={() => {
-            localStorage.setItem(LS_EMAIL_SHOWN_KEY, 'true');
-            setEmailModalShown(true);
-          }}
-        />
-      )}
+      <EmailModal
+        shown={isEmailModalShow}
+        onClose={() => {
+          localStorage.setItem(LS_EMAIL_SHOWN_KEY, 'true');
+          setIsEmailModalShow(false);
+        }}
+      />
+
       <header className="header">
         <div className="container header__container">
           <Logo />

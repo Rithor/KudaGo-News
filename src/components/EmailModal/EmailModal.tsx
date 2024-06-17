@@ -5,10 +5,12 @@ import { Button } from '../Button/Button';
 
 interface EmailModalProps {
   onClose: VoidFunction;
+  shown: boolean;
 }
 
 export const EmailModal: FC<EmailModalProps> = ({
   onClose,
+  shown,
 }: EmailModalProps) => {
   const [sending, setSending] = useState(false);
 
@@ -19,7 +21,7 @@ export const EmailModal: FC<EmailModalProps> = ({
   };
 
   return (
-    <ModalWrapper onClose={_onClose}>
+    <ModalWrapper shown={shown} onClose={_onClose}>
       <div className="email-modal">
         <h2 className="email-modal__title">
           Хотите получать последние новости от{' '}
