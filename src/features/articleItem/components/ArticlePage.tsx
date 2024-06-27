@@ -7,13 +7,18 @@ import classNames from 'classnames';
 import { Hero } from '@components/Hero/Hero';
 import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
 import { Title } from '@components/Title/Title';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import {
+  useAdaptive,
+  useAppDispatch,
+  useAppSelector,
+} from '@app/hooks';
 import { fetchArticleItem } from '../actions';
 import { fetchSamePlaceArticles } from '@features/samePlaceArticles/actions';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { SkeletonText } from '@components/SkeletonText/SkeletonText';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
+import { IArticle } from '@app/types';
 
 export const ArticlePage = () => {
   const { id } = useParams();
@@ -23,8 +28,14 @@ export const ArticlePage = () => {
   const { articleItem, isLoading, error } = useAppSelector(
     (state) => state.articleItem
   );
-  const { samePlaceArticles, samePlaceArticlesIsLoading } =
-    useAppSelector((state) => state.samePlaceArticles);
+  // todo: как то ограничить количество загружаемых элементов
+  // так как отображается в мобильной версии всего 3 статьи
+  // а грузится большее число данных
+  const {
+    samePlaceArticles,
+    samePlaceArticlesIsLoading,
+    samePlaceArticlesID,
+  } = useAppSelector((state) => state.samePlaceArticles);
 
   useEffect(() => {
     dispatch(fetchArticleItem(id));
@@ -35,6 +46,8 @@ export const ArticlePage = () => {
     }
   }, [articleItem]);
 
+  const { isDesktop } = useAdaptive();
+
   // todo: сделать отдельную страницу c ошибкой
   if (error) {
     return <div>{error}</div>;
@@ -42,14 +55,15 @@ export const ArticlePage = () => {
 
   if (articleItem.id == 0) return null;
 
-  const filtredSamePlaceArticles = samePlaceArticles?.filter(
-    ({ id }) => id !== articleItem.id
-  );
-  const relatedArticles = filtredSamePlaceArticles?.slice(0, 3);
-  const relatedSidebarArticles = filtredSamePlaceArticles?.slice(
-    3,
-    9
-  );
+  let relatedArticles: IArticle[] = [];
+  let relatedSidebarArticles: IArticle[] = [];
+  if (samePlaceArticlesID === articleItem.place?.id) {
+    const filtredSamePlaceArticles = samePlaceArticles?.filter(
+      ({ id }) => id !== articleItem.id
+    );
+    relatedArticles = filtredSamePlaceArticles?.slice(0, 3);
+    relatedSidebarArticles = filtredSamePlaceArticles?.slice(3, 9);
+  }
 
   return (
     <article className="articlePage-wr">
@@ -125,7 +139,8 @@ export const ArticlePage = () => {
           </div>
         </div>
 
-        {samePlaceArticlesIsLoading && (
+        {/* show Skeleton */}
+        {isDesktop && samePlaceArticlesIsLoading && (
           <div className="relatedSidebarArticles">
             {repeat((i) => {
               return (
@@ -138,7 +153,8 @@ export const ArticlePage = () => {
           </div>
         )}
 
-        {relatedSidebarArticles?.at(0) && (
+        {/* show uploaded data */}
+        {isDesktop && relatedSidebarArticles?.at(0) && (
           <div className="relatedSidebarArticles">
             {relatedSidebarArticles.map((article) => {
               return (
@@ -153,6 +169,7 @@ export const ArticlePage = () => {
         )}
       </section>
 
+      {/* show Skeleton */}
       {samePlaceArticlesIsLoading && (
         <div className="relatedArticles container">
           <Title Component={'h2'} className="relatedArticles__header">
@@ -172,6 +189,7 @@ export const ArticlePage = () => {
         </div>
       )}
 
+      {/* show uploaded data */}
       {relatedArticles?.at(0) && (
         <div className="relatedArticles container">
           <Title Component={'h2'} className="relatedArticles__header">

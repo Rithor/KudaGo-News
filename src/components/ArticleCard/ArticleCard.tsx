@@ -17,7 +17,7 @@ interface Props {
   dates?: IDates[];
   className?: string;
 }
-
+// todo: элемент "место" (place) убрать вниз
 export const ArticleCard: FC<Props> = ({
   id,
   title,

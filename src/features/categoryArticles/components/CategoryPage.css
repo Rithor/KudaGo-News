@@ -1,19 +1,29 @@
 .categoryPage__hero {
-  margin-bottom: 36px;
-}
-
-.categoryPage__content {
-  grid-column: span 7;
-}
-
-.categoryPage__sidebar {
-  grid-column: 9/-1;
+  margin-bottom: 16px;
 }
 
 .categoryPage__articleCards:not(:last-child) {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .categoryPage__sidebar-item:not(:last-child) {
   margin-bottom: 32px;
+}
+
+@media all and (min-width: 1024px) {
+  .categoryPage__hero {
+    margin-bottom: 36px;
+  }
+
+  .categoryPage__content {
+    grid-column: span 7;
+  }
+
+  .categoryPage__sidebar {
+    grid-column: 9/-1;
+  }
+
+  .categoryPage__articleCards:not(:last-child) {
+    margin-bottom: 32px;
+  }
 }

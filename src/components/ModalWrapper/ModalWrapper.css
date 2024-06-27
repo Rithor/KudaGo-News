@@ -8,6 +8,11 @@
   display: flex;
 }
 
+.modal-wrapper__children {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
 .modal-wrapper--alignY-center {
   align-items: center;
 }
@@ -18,11 +23,11 @@
 
 .modal-wrapper-animation-enter {
   opacity: 0;
+  transition: opacity 300ms ease-in;
 }
 
 .modal-wrapper-animation-enter-active {
   opacity: 1;
-  transition: opacity 300ms ease-in;
 }
 
 .modal-wrapper-animation-exit {
@@ -32,4 +37,11 @@
 
 .modal-wrapper-animation-exit-active {
   opacity: 0;
+}
+
+@media all and (min-width: 1024px) {
+  .modal-wrapper__children {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

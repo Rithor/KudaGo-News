@@ -11,7 +11,7 @@ module.exports = (env) => {
       main: path.resolve(__dirname, 'src', 'index.tsx'),
       initColorScheme: path.resolve(
         __dirname,
-        'src',
+        'src/features/colorScheme',
         'initColorScheme.ts'
       ),
     },

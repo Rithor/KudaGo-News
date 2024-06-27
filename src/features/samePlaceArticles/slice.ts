@@ -6,6 +6,7 @@ import { fetchSamePlaceArticles } from './actions';
 // Define a type for the slice state
 interface SamePlaceArticlesState {
   samePlaceArticles: IArticle[];
+  samePlaceArticlesID: number | null;
   samePlaceArticlesIsLoading: boolean;
   samePlaceArticlesError: any;
 }
@@ -13,6 +14,7 @@ interface SamePlaceArticlesState {
 // Define the initial state using that type
 const initialState: SamePlaceArticlesState = {
   samePlaceArticles: [],
+  samePlaceArticlesID: null,
   samePlaceArticlesIsLoading: false,
   samePlaceArticlesError: '',
 };
@@ -25,6 +27,7 @@ export const samePlaceArticlesSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(fetchSamePlaceArticles.pending, (state) => {
       state.samePlaceArticlesIsLoading = true;
+      state.samePlaceArticlesID = null;
     });
     builder.addCase(
       fetchSamePlaceArticles.fulfilled,
@@ -32,6 +35,8 @@ export const samePlaceArticlesSlice = createSlice({
         state.samePlaceArticlesIsLoading = false;
         state.samePlaceArticlesError = '';
         state.samePlaceArticles = action.payload.results;
+        state.samePlaceArticlesID =
+          action.payload.results[0]?.place?.id;
       }
     );
     builder.addCase(
@@ -39,6 +44,7 @@ export const samePlaceArticlesSlice = createSlice({
       (state, action) => {
         state.samePlaceArticlesIsLoading = false;
         state.samePlaceArticlesError = action.payload;
+        state.samePlaceArticlesID = null;
       }
     );
   },

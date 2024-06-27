@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hero.css';
 import classNames from 'classnames';
-import { Title } from '../Title/Title';
+import { Title } from '@components/Title/Title';
 import { Image } from '@components/Image/Image';
 
 interface HeroProps {

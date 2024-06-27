@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './CategoryPage.css';
-import { useAppDispatch, useAppSelector } from '@app/hooks';
+import {
+  useAdaptive,
+  useAppDispatch,
+  useAppSelector,
+} from '@app/hooks';
 import { fetchCategoryArticles } from '../actions';
 import { categoryNames, repeat } from '../../../app/utils';
 import { Hero } from '@components/Hero/Hero';
@@ -19,10 +23,11 @@ export const CategoryPage = () => {
   const { categoryArticles, isLoading, error } = useAppSelector(
     (state) => state.categoryArticles
   );
-
   useEffect(() => {
     dispatch(fetchCategoryArticles(category));
   }, [category]);
+
+  const { isDesktop, isMobile } = useAdaptive();
 
   /* show Skeleton */
   if (isLoading) {
@@ -47,25 +52,31 @@ export const CategoryPage = () => {
             }, 6)}
           </section>
 
-          <section className="categoryPage__sidebar">
-            {repeat((i) => {
-              return (
-                <SidebarArticleCardSkeleton
-                  key={i}
-                  className="categoryPage__sidebar-item"
-                />
-              );
-            }, 3)}
-          </section>
+          {isDesktop && (
+            <section className="categoryPage__sidebar">
+              {repeat((i) => {
+                return (
+                  <SidebarArticleCardSkeleton
+                    key={i}
+                    className="categoryPage__sidebar-item"
+                  />
+                );
+              }, 3)}
+            </section>
+          )}
         </div>
       </section>
     );
   }
 
-  // todo: сделать отдельную страницу c ошибкой
+  // todo: сделать отдельную страницу c ошибкой на каждой странице!
   if (error) {
     return <div>{error}</div>;
   }
+
+  const mainArticles = isMobile
+    ? categoryArticles
+    : categoryArticles.slice(3);
 
   return (
     <section className="categoryPage">
@@ -77,7 +88,7 @@ export const CategoryPage = () => {
 
       <div className="container grid">
         <section className="categoryPage__content">
-          {categoryArticles.slice(3, 9).map((article) => {
+          {mainArticles.map((article) => {
             return (
               <ArticleCard
                 key={article.id}
@@ -95,17 +106,19 @@ export const CategoryPage = () => {
           })}
         </section>
 
-        <section className="categoryPage__sidebar">
-          {categoryArticles.slice(0, 3).map((article) => {
-            return (
-              <SidebarArticleCard
-                article={article}
-                key={article.id}
-                className="categoryPage__sidebar-item"
-              />
-            );
-          })}
-        </section>
+        {isDesktop && (
+          <section className="categoryPage__sidebar">
+            {categoryArticles.slice(0, 3).map((article) => {
+              return (
+                <SidebarArticleCard
+                  article={article}
+                  key={article.id}
+                  className="categoryPage__sidebar-item"
+                />
+              );
+            })}
+          </section>
+        )}
       </div>
     </section>
   );

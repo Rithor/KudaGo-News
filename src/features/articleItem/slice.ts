@@ -65,7 +65,6 @@ function updateLinks(action: PayloadAction<IArticle>) {
 
 export const articleItemSlice = createSlice({
   name: 'articleItem',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {},
   extraReducers(builder) {

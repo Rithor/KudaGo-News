@@ -2,6 +2,6 @@ import {
   applyScheme,
   getSavedScheme,
   getSystemScheme,
-} from '@app/colorSchemeUtils';
+} from './colorSchemeUtils';
 
 applyScheme(getSavedScheme() || getSystemScheme());

@@ -1,6 +1,6 @@
 .partner-article {
   padding: 40px 0;
-  margin: 50px 0;
+  margin: 24px 0;
   background-color: var(--constant-black);
 }
 
@@ -28,7 +28,7 @@
 .partner-article__caption {
   color: var(--constant-grey-2);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 24px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -40,7 +40,7 @@
   color: var(--constant-white);
   margin-top: 12px;
   font-weight: bold;
-  font-size: 42px;
+  font-size: 28px;
   line-height: 50px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -50,12 +50,31 @@
 
 .partner-article__text {
   color: var(--constant-grey-1);
-  margin-top: 44px;
+  margin-top: 20px;
   font-weight: normal;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 26px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media all and (min-width: 1024px) {
+  .partner-article {
+    margin: 50px 0;
+  }
+
+  .partner-article__caption {
+    font-size: 20px;
+  }
+
+  .partner-article__title {
+    font-size: 42px;
+  }
+
+  .partner-article__text {
+    font-size: 22px;
+    margin-top: 44px;
+  }
 }

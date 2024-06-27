@@ -9,10 +9,11 @@
 }
 
 .email-modal__title {
-  font-size: 28px;
+  font-size: 20px;
   line-height: 32px;
   font-weight: 700;
   margin-bottom: 16px;
+  padding-right: 16px;
 }
 
 .email-modal__link {
@@ -20,13 +21,15 @@
 }
 
 .email-modal__text {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 25px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .email-modal__form {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .email-modal__input {
@@ -36,7 +39,6 @@
   background: var(--constant-white);
   color: var(--constant-black);
   border-radius: 4px;
-  margin-right: 16px;
 }
 
 .email-modal__input::placeholder {
@@ -52,4 +54,16 @@
   right: 16px;
   top: 16px;
   cursor: pointer;
+}
+
+@media all and (min-width: 1024px) {
+  .email-modal__title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .email-modal__text {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
 }

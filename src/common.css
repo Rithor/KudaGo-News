@@ -2,6 +2,7 @@
 
 :root {
   --constant-accent: #0083fc;
+  --constant-black-alpha4: rgba(0, 0, 0, 0.04);
   --constant-overlay-black-64-alpha: rgba(0, 0, 0, 0.64);
   --constant-white-alpha12: rgba(255, 255, 255, 0.12);
   --constant-white-alpha24: rgba(255, 255, 255, 0.24);
@@ -13,9 +14,9 @@
   --constant-black: #262a2f;
 
   --container-width: 940px;
-  --container-padding: 20px;
+  --container-padding: 16px;
+  --grid-gap: 16px;
   --grid-column-width: 60px;
-  --grid-gap: 20px;
 
   --background-zero: var(--constant-white);
   --background-primary: var(--constant-white);
@@ -28,6 +29,8 @@
     transparent 0%,
     var(--constant-white-alpha24) 100%
   );
+
+  --mobile-menu-button: var(--constant-grey-0);
 
   color-scheme: light;
 }
@@ -45,6 +48,8 @@
     var(--constant-white-alpha12) 100%
   );
 
+  --mobile-menu-button: var(--background-zero);
+
   color-scheme: dark;
 }
 
@@ -59,9 +64,7 @@ body {
   font-size: 14px;
   font-weight: 400;
   min-height: 100vh;
-  min-width: calc(
-    var(--container-width) + 2 * var(--container-padding)
-  );
+  min-width: 375px;
 }
 
 a {
@@ -70,13 +73,17 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, var(--grid-column-width));
   gap: var(--grid-gap);
 }
 
 .container {
-  max-width: var(--container-width);
+  max-width: calc(
+    var(--container-width) + 2 * var(--container-padding)
+  );
   margin: 0 auto;
+  padding-right: var(--container-padding);
+  padding-left: var(--container-padding);
+  box-sizing: border-box;
 }
 
 .skeleton-gradient {
@@ -86,6 +93,10 @@ a {
   animation: skeleton-gradient-animation 2s ease infinite;
 }
 
+.--prevent-scroll {
+  overflow: hidden;
+}
+
 @keyframes skeleton-gradient-animation {
   from {
     background-position: 100% 0;
@@ -93,5 +104,22 @@ a {
 
   to {
     background-position: -100% 0;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  :root {
+    --container-padding: 20px;
+    --grid-gap: 20px;
+  }
+
+  body {
+    min-width: calc(
+      var(--container-width) + 2 * var(--container-padding)
+    );
+  }
+
+  .grid {
+    grid-template-columns: repeat(12, var(--grid-column-width));
   }
 }
