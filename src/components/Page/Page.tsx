@@ -4,6 +4,7 @@ import { NavMenu } from '../NavMenu/NavMenu';
 import { Logo } from '../Logo/Logo';
 import { EmailModal } from '../EmailModal/EmailModal';
 import { Header } from '@components/Header/Header';
+import { OfflineNotificationWatcher } from '@features/networkStatus/OfflineNotificationWatcher/OfflineNotificationWatcher';
 
 const LS_EMAIL_SHOWN_KEY = 'newsfeed:email_modal_shown';
 
@@ -48,6 +49,7 @@ export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
           </div>
         </div>
       </footer>
+      <OfflineNotificationWatcher />
     </div>
   );
 };

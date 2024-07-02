@@ -14,10 +14,13 @@ import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 
 export const CategoryPage = () => {
   const { category } = useParams();
   if (!category) return null;
+
+  const { online } = useNetworkStatusContext();
 
   const dispatch = useAppDispatch();
   const { categoryArticles, isLoading, error } = useAppSelector(
@@ -25,12 +28,12 @@ export const CategoryPage = () => {
   );
   useEffect(() => {
     dispatch(fetchCategoryArticles(category));
-  }, [category]);
+  }, [category, online]);
 
   const { isDesktop, isMobile } = useAdaptive();
 
   /* show Skeleton */
-  if (isLoading) {
+  if (isLoading || !categoryArticles || (error && !online)) {
     return (
       <section className="categoryPage">
         <HeroSkeleton

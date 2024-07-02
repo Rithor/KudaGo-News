@@ -6,7 +6,6 @@
 }
 
 .navigation__item {
-  color: var(--foreground-primary);
   margin-right: 16px;
   margin-bottom: 8px;
 }
@@ -23,6 +22,10 @@
 .navigation__link--active,
 .navigation__link:hover {
   color: var(--constant-accent);
+}
+
+.footer__navigation {
+  color: var(--constant-white);
 }
 
 @media all and (min-width: 1024px) {

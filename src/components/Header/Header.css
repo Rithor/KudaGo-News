@@ -97,6 +97,7 @@
 .header__mobile-menu {
   position: relative;
   background-color: var(--background-primary);
+  color: var(--foreground-primary);
   overflow: hidden;
 }
 

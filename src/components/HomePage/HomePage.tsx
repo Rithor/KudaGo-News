@@ -14,9 +14,11 @@ import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { repeat } from '@app/utils';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
+  const { online } = useNetworkStatusContext();
 
   // todo: articlesIsLoading, articlesError
   const { articles, articlesIsLoading } = useAppSelector(
@@ -35,14 +37,100 @@ export const HomePage: FC = () => {
     dispatch(fetchArticles());
     dispatch(fetchTrendArticles());
     dispatch(fetchFreeEvents());
-  }, []);
+  }, [online]); // todo: спорный момент, если оставить online в завимостях, то будет дергаться обновление при каждом появлении сети. Если убрать, то при появлении сети будет висеть вечная загрузка, пока пользователь вручную не обновит страницу
 
-  const firstArticle = articles[0];
+  // if (!online && (!articles || !trendArticles || !freeEvents)) {
+  //   return (
+  //     <section className="home-page">
+  //       <section className="home-page">
+  //         <HeroSkeleton
+  //           className="home-page__hero"
+  //           hasImage
+  //           hasText
+  //         />
+  //       </section>
+
+  //       <section className="container home-page__section">
+  //         <Title Component="h2" className="home-page__title">
+  //           В тренде
+  //         </Title>
+  //         <div className="grid">
+  //           {repeat((i) => {
+  //             return (
+  //               <ArticleCardSkeleton
+  //                 className="home-page__trends-item"
+  //                 key={i}
+  //                 hasImage={false}
+  //                 titleRowsCount={3}
+  //               />
+  //             );
+  //           }, 6)}
+  //         </div>
+  //       </section>
+
+  //       <section className="container home-page__section">
+  //         <Title Component="h2" className="home-page__title">
+  //           Бесплатно
+  //         </Title>
+  //         <div className="grid">
+  //           <section className="home-page__content">
+  //             {repeat((i) => {
+  //               return (
+  //                 <ArticleCardSkeleton
+  //                   className="home-page__article-card"
+  //                   key={i}
+  //                 />
+  //               );
+  //             }, 4)}
+  //           </section>
+  //           <section className="home-page__sidebar">
+  //             {repeat((i) => {
+  //               return (
+  //                 <SidebarArticleCardSkeleton
+  //                   className="home-page__sidebar-item"
+  //                   key={i}
+  //                 />
+  //               );
+  //             }, 2)}
+  //           </section>
+  //         </div>
+  //       </section>
+
+  //       <PartnerArticle />
+
+  //       <div className="container grid">
+  //         <section className="home-page__content">
+  //           {repeat((i) => {
+  //             return (
+  //               <ArticleCardSkeleton
+  //                 className="home-page__article-card"
+  //                 key={i}
+  //                 hasImage={i < 3 ? true : false}
+  //               />
+  //             );
+  //           }, 8)}
+  //         </section>
+  //         <section className="home-page__sidebar">
+  //           {repeat((i) => {
+  //             return (
+  //               <SidebarArticleCardSkeleton
+  //                 className="home-page__sidebar-item"
+  //                 key={i}
+  //               />
+  //             );
+  //           }, 3)}
+  //         </section>
+  //       </div>
+  //     </section>
+  //   );
+  // }
+
+  const firstArticle = articles?.at(0);
 
   return (
     <section className="home-page">
       {/* show Skeleton */}
-      {articlesIsLoading && (
+      {(articlesIsLoading || !firstArticle) && (
         <section className="home-page">
           <HeroSkeleton
             className="home-page__hero"
@@ -53,7 +141,7 @@ export const HomePage: FC = () => {
       )}
 
       {/* show uploaded data */}
-      {firstArticle && (
+      {!articlesIsLoading && firstArticle && (
         <Link
           className="home-page__hero-link"
           to={`/article/${firstArticle.id}`}
@@ -73,7 +161,7 @@ export const HomePage: FC = () => {
         </Title>
         <div className="grid">
           {/* show Skeleton */}
-          {trendArticlesIsLoading &&
+          {(trendArticlesIsLoading || !trendArticles.length) &&
             repeat((i) => {
               return (
                 <ArticleCardSkeleton
@@ -86,7 +174,7 @@ export const HomePage: FC = () => {
             }, 6)}
 
           {/* show uploaded data */}
-          {trendArticles.map((article) => {
+          {trendArticles?.map((article) => {
             return (
               <ArticleCard
                 key={article.id}
@@ -110,7 +198,7 @@ export const HomePage: FC = () => {
         <div className="grid">
           <section className="home-page__content">
             {/* show Skeleton */}
-            {freeEventsIsLoading &&
+            {(freeEventsIsLoading || !freeEvents.length) &&
               repeat((i) => {
                 return (
                   <ArticleCardSkeleton
@@ -121,7 +209,7 @@ export const HomePage: FC = () => {
               }, 4)}
 
             {/* show uploaded data */}
-            {freeEvents.slice(2, 6).map((article) => {
+            {freeEvents?.slice(2, 6).map((article) => {
               return (
                 <ArticleCard
                   className="home-page__article-card"
@@ -139,7 +227,7 @@ export const HomePage: FC = () => {
           </section>
           <section className="home-page__sidebar">
             {/* show Skeleton */}
-            {freeEventsIsLoading &&
+            {(freeEventsIsLoading || !freeEvents.length) &&
               repeat((i) => {
                 return (
                   <SidebarArticleCardSkeleton
@@ -150,7 +238,7 @@ export const HomePage: FC = () => {
               }, 2)}
 
             {/* show uploaded data */}
-            {freeEvents.slice(0, 2).map((article) => {
+            {freeEvents?.slice(0, 2).map((article) => {
               return (
                 <SidebarArticleCard
                   className="home-page__sidebar-item"
@@ -168,7 +256,7 @@ export const HomePage: FC = () => {
       <div className="container grid">
         <section className="home-page__content">
           {/* show Skeleton */}
-          {articlesIsLoading &&
+          {(articlesIsLoading || !articles.length) &&
             repeat((i) => {
               return (
                 <ArticleCardSkeleton
@@ -199,7 +287,7 @@ export const HomePage: FC = () => {
         </section>
         <section className="home-page__sidebar">
           {/* show Skeleton */}
-          {articlesIsLoading &&
+          {(articlesIsLoading || !articles.length) &&
             repeat((i) => {
               return (
                 <SidebarArticleCardSkeleton

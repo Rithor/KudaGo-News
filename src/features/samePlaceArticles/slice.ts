@@ -36,7 +36,7 @@ export const samePlaceArticlesSlice = createSlice({
         state.samePlaceArticlesError = '';
         state.samePlaceArticles = action.payload.results;
         state.samePlaceArticlesID =
-          action.payload.results[0]?.place?.id;
+          action.payload?.results[0]?.place?.id;
       }
     );
     builder.addCase(

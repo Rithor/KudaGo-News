@@ -54,13 +54,15 @@ const initialState: ArticleItemState = {
 };
 
 function updateLinks(action: PayloadAction<IArticle>) {
-  const container = document.createElement('div');
-  container.innerHTML = action.payload.body_text;
-  container.querySelectorAll('a').forEach((link) => {
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'nofollow');
-  });
-  action.payload.body_text = container.outerHTML;
+  if (action.payload) {
+    const container = document.createElement('div');
+    container.innerHTML = action.payload.body_text;
+    container.querySelectorAll('a').forEach((link) => {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'nofollow');
+    });
+    action.payload.body_text = container.outerHTML;
+  }
 }
 
 export const articleItemSlice = createSlice({

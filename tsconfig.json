@@ -1,5 +1,6 @@
 {
   "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "src/features/serviceWorker"],
   "compilerOptions": {
     "strict": true,
     "outDir": "./dist/",
@@ -7,6 +8,7 @@
     "module": "es6",
     "target": "es6",
     "jsx": "react",
+    // "lib": ["dom", "ES6", "DOM.Iterable"],
     "allowJs": true,
     "moduleResolution": "bundler",
     "paths": {

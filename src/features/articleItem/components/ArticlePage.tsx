@@ -19,10 +19,13 @@ import { SkeletonText } from '@components/SkeletonText/SkeletonText';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 import { IArticle } from '@app/types';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 
 export const ArticlePage = () => {
   const { id } = useParams();
   if (id == undefined) return null;
+
+  const { online } = useNetworkStatusContext();
 
   const dispatch = useAppDispatch();
   const { articleItem, isLoading, error } = useAppSelector(
@@ -39,14 +42,66 @@ export const ArticlePage = () => {
 
   useEffect(() => {
     dispatch(fetchArticleItem(id));
-  }, [id]);
+  }, [id, online]);
   useEffect(() => {
     if (articleItem.place?.id) {
       dispatch(fetchSamePlaceArticles(articleItem.place.id));
     }
-  }, [articleItem]);
+  }, [articleItem, online]);
 
   const { isDesktop } = useAdaptive();
+
+  if (error && !online) {
+    return (
+      <article className="articlePage-wr">
+        <HeroSkeleton hasImage />
+        <div className="container hero__info">
+          <SkeletonText />
+        </div>
+        <section className="articlePage grid container">
+          <div className={classNames('articlePage__body')}>
+            <div className="articlePage__description">
+              <SkeletonText rowsCount={3} />
+            </div>
+            <div className="articlePage__text">
+              <SkeletonText rowsCount={18} />
+            </div>
+            <div className="articlePage__tags-wr">
+              <SkeletonText rowsCount={1} />
+            </div>
+          </div>
+          {isDesktop && (
+            <div className="relatedSidebarArticles">
+              {repeat((i) => {
+                return (
+                  <SidebarArticleCardSkeleton
+                    key={i}
+                    className="articlePage__sidebar-item sidebar-article-card--skeleton"
+                  />
+                );
+              }, 6)}
+            </div>
+          )}
+        </section>
+        <div className="relatedArticles container">
+          <Title Component={'h2'} className="relatedArticles__header">
+            смотрите также:
+          </Title>
+          <div className="grid">
+            {repeat((i) => {
+              return (
+                <ArticleCardSkeleton
+                  key={i}
+                  hasImage={false}
+                  className="articlePage__related-articles-item"
+                />
+              );
+            }, 3)}
+          </div>
+        </div>
+      </article>
+    );
+  }
 
   // todo: сделать отдельную страницу c ошибкой
   if (error) {
@@ -67,7 +122,7 @@ export const ArticlePage = () => {
 
   return (
     <article className="articlePage-wr">
-      {isLoading ? (
+      {isLoading || !articleItem ? (
         <HeroSkeleton hasImage />
       ) : (
         <Hero
@@ -77,7 +132,7 @@ export const ArticlePage = () => {
       )}
 
       <div className="container hero__info">
-        {isLoading ? (
+        {isLoading || !articleItem ? (
           <SkeletonText />
         ) : (
           <>
@@ -103,7 +158,7 @@ export const ArticlePage = () => {
           })}
         >
           <div className="articlePage__description">
-            {isLoading ? (
+            {isLoading || !articleItem ? (
               <SkeletonText rowsCount={3} />
             ) : (
               <div
@@ -115,7 +170,7 @@ export const ArticlePage = () => {
           </div>
 
           <div className="articlePage__text">
-            {isLoading ? (
+            {isLoading || !articleItem ? (
               <SkeletonText rowsCount={18} />
             ) : (
               <div
@@ -127,7 +182,7 @@ export const ArticlePage = () => {
           </div>
 
           <div className="articlePage__tags-wr">
-            {isLoading ? (
+            {isLoading || !articleItem ? (
               <SkeletonText rowsCount={1} />
             ) : (
               articleItem.tags.map((tag) => (
@@ -140,18 +195,19 @@ export const ArticlePage = () => {
         </div>
 
         {/* show Skeleton */}
-        {isDesktop && samePlaceArticlesIsLoading && (
-          <div className="relatedSidebarArticles">
-            {repeat((i) => {
-              return (
-                <SidebarArticleCardSkeleton
-                  key={i}
-                  className="articlePage__sidebar-item sidebar-article-card--skeleton"
-                />
-              );
-            }, 6)}
-          </div>
-        )}
+        {isDesktop &&
+          (samePlaceArticlesIsLoading || !samePlaceArticles) && (
+            <div className="relatedSidebarArticles">
+              {repeat((i) => {
+                return (
+                  <SidebarArticleCardSkeleton
+                    key={i}
+                    className="articlePage__sidebar-item sidebar-article-card--skeleton"
+                  />
+                );
+              }, 6)}
+            </div>
+          )}
 
         {/* show uploaded data */}
         {isDesktop && relatedSidebarArticles?.at(0) && (
@@ -170,7 +226,7 @@ export const ArticlePage = () => {
       </section>
 
       {/* show Skeleton */}
-      {samePlaceArticlesIsLoading && (
+      {(samePlaceArticlesIsLoading || !samePlaceArticles) && (
         <div className="relatedArticles container">
           <Title Component={'h2'} className="relatedArticles__header">
             смотрите также:

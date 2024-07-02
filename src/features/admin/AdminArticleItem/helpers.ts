@@ -3,6 +3,7 @@ import { InputErrors, InputName } from './types';
 export const getImage = (file: File): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image();
+
     const url = URL.createObjectURL(file);
 
     image.onload = () => {

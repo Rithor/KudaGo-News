@@ -14,6 +14,11 @@ module.exports = (env) => {
         'src/features/colorScheme',
         'initColorScheme.ts'
       ),
+      sw: path.resolve(
+        __dirname,
+        'src/features/serviceWorker',
+        'service.worker.ts'
+      ),
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
@@ -46,13 +51,21 @@ module.exports = (env) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
+          test: /service\.worker\.ts$/i,
+          use: 'ts-loader',
+          type: 'asset/resource',
+          generator: {
+            filename: 'sw.js',
+          },
+        },
+        {
           test: /\.(?:png|svg|jpg)$/,
           type: 'asset/resource',
         },
         {
           test: /\.(?:ts|tsx)$/,
           use: 'ts-loader',
-          exclude: /node_modules/,
+          exclude: [/node_modules/, /worker\.ts$/],
         },
       ],
     },
@@ -62,6 +75,7 @@ module.exports = (env) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
+        excludeChunks: ['sw'],
       }),
       new HtmlInlineScriptPlugin({
         scriptMatchPattern: [/initColorScheme\..+\.js$/],
