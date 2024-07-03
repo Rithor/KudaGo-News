@@ -19,7 +19,7 @@
       "purpose": "maskable"
     },
     {
-      "src": "../images/images/icon512bordered.png",
+      "src": "../images/icon512bordered.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
