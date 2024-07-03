@@ -59,7 +59,12 @@ module.exports = (env) => {
           },
         },
         {
-          test: /\.(?:png|svg|jpg)$/,
+          test: /\.(png|svg|webp|jpg|jpeg)$/i,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.webmanifest$/i,
+          use: 'webpack-webmanifest-loader',
           type: 'asset/resource',
         },
         {
@@ -74,6 +79,7 @@ module.exports = (env) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
+        favicon: './src/images/favicon.ico',
         template: './src/index.html',
         excludeChunks: ['sw'],
       }),
@@ -84,6 +90,9 @@ module.exports = (env) => {
         filename: 'bundle.[contenthash].css',
       }),
     ],
+    stats: {
+      children: true,
+    },
     devServer: {
       open: true,
       historyApiFallback: true,
