@@ -5,6 +5,7 @@ import { Auto } from '@components/Icons/Auto';
 import { Moon } from '@components/Icons/Moon';
 import { Sun } from '@components/Icons/Sun';
 import { ColorSchemeSwitcherValues } from '@features/colorScheme/types';
+import check from '@images/check.svg';
 
 interface Props {
   selectedScheme: ColorSchemeSwitcherValues;
@@ -30,7 +31,7 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
         {selectedScheme === 'auto' && (
           <img
             className="color-scheme-switcher-menu__check"
-            src={require('../../../../images/check.svg')}
+            src={check}
             alt="Выбранная тема"
           />
         )}
@@ -46,7 +47,7 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
         {selectedScheme === 'light' && (
           <img
             className="color-scheme-switcher-menu__check"
-            src={require('../../../../images/check.svg')}
+            src={check}
             alt="Выбранная тема"
           />
         )}
@@ -62,7 +63,7 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
         {selectedScheme === 'dark' && (
           <img
             className="color-scheme-switcher-menu__check"
-            src={require('../../../../images/check.svg')}
+            src={check}
             alt="Выбранная тема"
           />
         )}

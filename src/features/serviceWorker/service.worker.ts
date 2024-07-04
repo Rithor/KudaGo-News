@@ -90,8 +90,8 @@ _self.addEventListener('fetch', (e) => {
         }
         console.error('e.respondWith skiped try / catch');
         return new Response('', {
-          status: 502,
-          statusText: 'No Connection',
+          status: 404,
+          statusText: 'Not Found',
         });
       })()
     );

@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import './EmailModal.css';
 import { ModalWrapper } from '../ModalWrapper/ModalWrapper';
 import { Button } from '../Button/Button';
+import cross from '@images/cross-24.svg';
 
 interface EmailModalProps {
   onClose: VoidFunction;
@@ -60,10 +61,7 @@ export const EmailModal: FC<EmailModalProps> = ({
           </Button>
         </form>
         <button className="email-modal__close" onClick={_onClose}>
-          <img
-            src={require('@images/cross-24.svg')}
-            alt="Закрытие модального окна"
-          />
+          <img src={cross} alt="Закрытие модального окна" />
         </button>
       </div>
     </ModalWrapper>

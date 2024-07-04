@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
   const setMode = env.mode ?? 'production';
@@ -64,7 +65,6 @@ module.exports = (env) => {
         },
         {
           test: /\.webmanifest$/i,
-          use: 'webpack-webmanifest-loader',
           type: 'asset/resource',
         },
         {
@@ -88,6 +88,12 @@ module.exports = (env) => {
       }),
       new MiniCssExtractPlugin({
         filename: 'bundle.[contenthash].css',
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'src/images/icons', to: 'img/' },
+          'src/app/manifest.webmanifest',
+        ],
       }),
     ],
     stats: {

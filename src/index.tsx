@@ -15,7 +15,7 @@ const mainNavigator = navigator as Navigator;
 if ('serviceWorker' in mainNavigator) {
   window.addEventListener('load', function () {
     mainNavigator.serviceWorker
-      .register('/sw.js')
+      .register('/sw.js?')
       .then(function () {
         // console.log('Service Worker Registered!!');
       })

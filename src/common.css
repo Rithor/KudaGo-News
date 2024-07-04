@@ -31,8 +31,6 @@
   );
 
   --mobile-menu-button: var(--constant-grey-0);
-
-  color-scheme: light;
 }
 
 [scheme='dark'] {
@@ -49,8 +47,6 @@
   );
 
   --mobile-menu-button: var(--background-zero);
-
-  color-scheme: dark;
 }
 
 *:not(svg *, blockquote, h3) {
