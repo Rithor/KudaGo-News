@@ -21,6 +21,11 @@
   color: var(--constant-accent);
 }
 
+.color-scheme-switcher-menu__option:focus-visible {
+  outline: none;
+  box-shadow: var(--inner-focus-border);
+}
+
 .color-scheme-switcher-menu__check {
   margin-left: auto;
 }

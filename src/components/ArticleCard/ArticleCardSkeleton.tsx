@@ -27,21 +27,26 @@ export const ArticleCardSkeleton: FC<ArticleCardSkeletonProps> = ({
         },
         className
       )}
+      aria-label="Загрузка статьи"
     >
-      {hasImage && <Image className="article-card__image" skeleton />}
-      <div className="article-card__content">
-        <h2 className="article-card__title">
-          <SkeletonText rowsCount={titleRowsCount} />
-        </h2>
-        {hasDescription && (
-          <span className="article-card__description">
-            <SkeletonText rowsCount={2} />
-          </span>
+      <article className="article-card__in--skeleton" aria-hidden>
+        {hasImage && (
+          <Image className="article-card__image" skeleton />
         )}
-        <div className="article-card__info">
-          <SkeletonText />
+        <div className="article-card__content">
+          <h2 className="article-card__title">
+            <SkeletonText rowsCount={titleRowsCount} />
+          </h2>
+          {hasDescription && (
+            <span className="article-card__description">
+              <SkeletonText rowsCount={2} />
+            </span>
+          )}
+          <div className="article-card__info">
+            <SkeletonText />
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   );
 };

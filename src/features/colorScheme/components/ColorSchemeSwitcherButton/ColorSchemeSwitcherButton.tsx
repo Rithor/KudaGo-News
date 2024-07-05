@@ -20,6 +20,7 @@ export const ColorSchemeSwitcherButton = forwardRef(
         className="color-scheme-switcher-button"
         ref={ref}
         onClick={onClick}
+        aria-label="Переключить тему"
       >
         {scheme === 'auto' && <Auto />}
         {scheme === 'dark' && <Moon />}

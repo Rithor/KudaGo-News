@@ -30,11 +30,7 @@ export const Hero: React.FC<HeroProps> = ({
       )}
     >
       <div className="hero__in">
-        <Image
-          className="hero__image"
-          src={image}
-          alt="Изображение события"
-        />
+        <Image className="hero__image" src={image} alt={title} />
         <div className="hero__container container">
           <div className="hero__content">
             <Title className="hero__title">{title}</Title>

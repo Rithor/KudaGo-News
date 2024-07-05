@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
 import { categoryNames } from '../../app/utils';
 import classNames from 'classnames';
+import { useAdaptive } from '@app/hooks';
 
 interface Props {
   className?: string;
@@ -14,13 +15,17 @@ interface MyNavLinkProps {
 }
 
 const MyNavLink: FC<MyNavLinkProps> = ({ title = '', path = '' }) => {
+  const { isMobile } = useAdaptive();
+  const navLinkClassName = isMobile
+    ? 'navigation__link navigation__link--mobile'
+    : 'navigation__link';
   return (
     <NavLink
       to={`/${path}`}
       className={({ isActive }) => {
         return isActive
-          ? 'navigation__link navigation__link--active'
-          : 'navigation__link';
+          ? `${navLinkClassName} navigation__link--active`
+          : `${navLinkClassName}`;
       }}
     >
       {title}
@@ -31,18 +36,20 @@ const MyNavLink: FC<MyNavLinkProps> = ({ title = '', path = '' }) => {
 export const NavMenu: FC<Props> = ({ className = '' }) => {
   const categories = ['concert', 'theater', 'festival', 'exhibition'];
   return (
-    <ul className={classNames(className, 'navigation__list')}>
-      <li className="navigation__item">
-        <MyNavLink title="Новости" />
-      </li>
+    <nav>
+      <ul className={classNames(className, 'navigation__list')}>
+        <li className="navigation__item">
+          <MyNavLink title="Новости" />
+        </li>
 
-      {categories.map((cat) => {
-        return (
-          <li className="navigation__item" key={cat}>
-            <MyNavLink path={cat} title={categoryNames[cat]} />
-          </li>
-        );
-      })}
-    </ul>
+        {categories.map((cat) => {
+          return (
+            <li className="navigation__item" key={cat}>
+              <MyNavLink path={cat} title={categoryNames[cat]} />
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };

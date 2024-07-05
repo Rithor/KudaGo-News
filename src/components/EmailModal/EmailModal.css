@@ -56,6 +56,10 @@
   cursor: pointer;
 }
 
+.email-modal__close img {
+  display: block;
+}
+
 @media all and (min-width: 1024px) {
   .email-modal__title {
     font-size: 28px;

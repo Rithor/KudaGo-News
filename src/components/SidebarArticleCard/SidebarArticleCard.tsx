@@ -20,20 +20,24 @@ export const SidebarArticleCard: FC<Props> = ({
       to={`/article/${article.id}`}
       className={classNames('sidebar-article-card', className)}
     >
-      <div className="sidebar-article-card__media">
-        <Image
-          className="sidebar-article-card__image"
-          src={article.images[0].image}
-          alt={`Изображение к событию ${article.short_title}`}
-        />
-        <div className="sidebar-article-card__date">
-          {formatDate(article.dates)}
+      <article>
+        <div className="sidebar-article-card__media">
+          <Image
+            className="sidebar-article-card__image"
+            src={article.images[0].image}
+            alt={article.short_title}
+          />
+          <div className="sidebar-article-card__date">
+            {formatDate(article.dates)}
+          </div>
         </div>
-      </div>
-      <h3 className="sidebar-article-card__title">{article.title}</h3>
-      <div className="sidebar-article-card__place">
-        {article.place?.title}
-      </div>
+        <h3 className="sidebar-article-card__title">
+          {article.title}
+        </h3>
+        <div className="sidebar-article-card__place">
+          {article.place?.title}
+        </div>
+      </article>
     </Link>
   );
 };

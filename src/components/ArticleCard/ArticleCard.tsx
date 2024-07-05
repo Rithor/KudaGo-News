@@ -17,7 +17,7 @@ interface Props {
   dates?: IDates[];
   className?: string;
 }
-// todo: элемент "место" (place) убрать вниз
+
 export const ArticleCard: FC<Props> = ({
   id,
   title,
@@ -43,40 +43,42 @@ export const ArticleCard: FC<Props> = ({
         className
       )}
     >
-      {hasImage && (
-        <Image
-          className="article-card__image"
-          src={image}
-          alt={`Изображение к событию ${shortTitle}`}
-        />
-      )}
-      <div className="article-card__content">
-        <h2 className="article-card__title">{ucFirst(title)}</h2>
-        {hasDescription && (
-          <span className="article-card__description">
-            {description}
-          </span>
+      <article className="article-card__in">
+        {hasImage && (
+          <Image
+            className="article-card__image"
+            src={image}
+            alt={shortTitle}
+          />
         )}
-        <div className="article-card__info">
-          <div className="article-card__info-left">
-            {category && category.length > 0 && (
-              <span className="article-card__category">
-                {categoryNames[category]}
-              </span>
-            )}
-            {dates.length > 0 && (
-              <span className="article-card__date">
-                {formatDate(dates)}
-              </span>
-            )}
-          </div>
-          <div className="article-card__info-rigth">
-            {place.length > 0 && (
-              <span className="article-card__place">{place}</span>
-            )}
+        <div className="article-card__content">
+          <h3 className="article-card__title">{ucFirst(title)}</h3>
+          {hasDescription && (
+            <span className="article-card__description">
+              {description}
+            </span>
+          )}
+          <div className="article-card__info">
+            <div className="article-card__info-left">
+              {category && category.length > 0 && (
+                <span className="article-card__category">
+                  {categoryNames[category]}
+                </span>
+              )}
+              {dates.length > 0 && (
+                <span className="article-card__date">
+                  {formatDate(dates)}
+                </span>
+              )}
+            </div>
+            <div className="article-card__info-rigth">
+              {place.length > 0 && (
+                <span className="article-card__place">{place}</span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 };

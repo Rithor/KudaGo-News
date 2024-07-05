@@ -12,6 +12,8 @@
   --constant-grey-2: #a3a3a3;
   --constant-white: #f1f1f1;
   --constant-black: #262a2f;
+  --outer-focus-border: 4px solid var(--constant-red);
+  --inner-focus-border: 0 0 0 4px var(--constant-red) inset;
 
   --container-width: 940px;
   --container-padding: 16px;
@@ -49,9 +51,13 @@
   --mobile-menu-button: var(--background-zero);
 }
 
-*:not(svg *, blockquote, h3) {
+*:not(svg *, blockquote) {
   all: unset;
   display: revert;
+}
+
+*:focus-visible {
+  outline: var(--outer-focus-border);
 }
 
 body {
@@ -117,5 +123,12 @@ a {
 
   .grid {
     grid-template-columns: repeat(12, var(--grid-column-width));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
   }
 }

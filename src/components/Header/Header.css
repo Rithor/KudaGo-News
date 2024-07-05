@@ -63,6 +63,11 @@
   color: var(--constant-accent);
 }
 
+.header__mobile-back-button:focus-visible {
+  outline: none;
+  box-shadow: var(--inner-focus-border);
+}
+
 .header__mobile-navigation .navigation__list {
   display: block;
 }

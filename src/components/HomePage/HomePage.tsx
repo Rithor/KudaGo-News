@@ -128,7 +128,7 @@ export const HomePage: FC = () => {
   const firstArticle = articles?.at(0);
 
   return (
-    <section className="home-page">
+    <div className="home-page">
       {/* show Skeleton */}
       {(articlesIsLoading || !firstArticle) && (
         <section className="home-page">
@@ -225,7 +225,7 @@ export const HomePage: FC = () => {
               );
             })}
           </section>
-          <section className="home-page__sidebar">
+          <aside className="home-page__sidebar">
             {/* show Skeleton */}
             {(freeEventsIsLoading || !freeEvents.length) &&
               repeat((i) => {
@@ -247,7 +247,7 @@ export const HomePage: FC = () => {
                 />
               );
             })}
-          </section>
+          </aside>
         </div>
       </section>
 
@@ -285,7 +285,7 @@ export const HomePage: FC = () => {
             );
           })}
         </section>
-        <section className="home-page__sidebar">
+        <aside className="home-page__sidebar">
           {/* show Skeleton */}
           {(articlesIsLoading || !articles.length) &&
             repeat((i) => {
@@ -307,8 +307,8 @@ export const HomePage: FC = () => {
               />
             );
           })}
-        </section>
+        </aside>
       </div>
-    </section>
+    </div>
   );
 };

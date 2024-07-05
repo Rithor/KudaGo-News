@@ -21,10 +21,13 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
   return (
     <div
       className={classNames('color-scheme-switcher-menu', className)}
+      role="listbox"
     >
       <button
         className="color-scheme-switcher-menu__option"
         onClick={() => onChangeScheme('auto')}
+        aria-selected={selectedScheme === 'auto'}
+        role="option"
       >
         <Auto />
         <span className="color-scheme-switcher-menu__text">Авто</span>
@@ -33,12 +36,15 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
             className="color-scheme-switcher-menu__check"
             src={check}
             alt="Выбранная тема"
+            aria-hidden
           />
         )}
       </button>
       <button
         className="color-scheme-switcher-menu__option"
         onClick={() => onChangeScheme('light')}
+        aria-selected={selectedScheme === 'light'}
+        role="option"
       >
         <Sun />
         <span className="color-scheme-switcher-menu__text">
@@ -49,12 +55,15 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
             className="color-scheme-switcher-menu__check"
             src={check}
             alt="Выбранная тема"
+            aria-hidden
           />
         )}
       </button>
       <button
         className="color-scheme-switcher-menu__option"
         onClick={() => onChangeScheme('dark')}
+        aria-selected={selectedScheme === 'dark'}
+        role="option"
       >
         <Moon />
         <span className="color-scheme-switcher-menu__text">
@@ -65,6 +74,7 @@ export const ColorSchemeSwitcherMenu: FC<Props> = ({
             className="color-scheme-switcher-menu__check"
             src={check}
             alt="Выбранная тема"
+            aria-hidden
           />
         )}
       </button>

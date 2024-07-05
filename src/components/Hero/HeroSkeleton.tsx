@@ -27,8 +27,9 @@ export const HeroSkeleton: React.FC<HeroSkeletonProps> = ({
         },
         className
       )}
+      aria-label="Загрузка статьи"
     >
-      <div className="hero__in">
+      <div className="hero__in" aria-hidden>
         {hasImage && <Image className="hero__image" skeleton />}
         <div className="hero__container container">
           <div

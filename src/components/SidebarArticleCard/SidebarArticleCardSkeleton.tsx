@@ -12,7 +12,9 @@ export const SidebarArticleCardSkeleton: FC<Props> = ({
   className,
 }: Props) => {
   return (
-    <div className={classNames('sidebar-article-card', className)}>
+    <article
+      className={classNames('sidebar-article-card', className)}
+    >
       <div className="sidebar-article-card__media">
         <Image className="sidebar-article-card__image" skeleton />
       </div>
@@ -22,6 +24,6 @@ export const SidebarArticleCardSkeleton: FC<Props> = ({
       <div className="sidebar-article-card__place">
         <SkeletonText />
       </div>
-    </div>
+    </article>
   );
 };

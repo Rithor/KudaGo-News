@@ -35,38 +35,40 @@ export const CategoryPage = () => {
   /* show Skeleton */
   if (isLoading || !categoryArticles || (error && !online)) {
     return (
-      <section className="categoryPage">
-        <HeroSkeleton
-          className="categoryPage__hero"
-          hasImage
-          title={categoryNames[category]}
-        />
-        <div className="container grid">
-          <section className="categoryPage__content">
-            {repeat((i) => {
-              return (
-                <ArticleCardSkeleton
-                  key={i}
-                  className="categoryPage__articleCards"
-                  hasImage
-                  titleRowsCount={3}
-                />
-              );
-            }, 6)}
-          </section>
-
-          {isDesktop && (
-            <section className="categoryPage__sidebar">
+      <section className="categoryPage" aria-label="Загрузка статей">
+        <div aria-hidden>
+          <HeroSkeleton
+            className="categoryPage__hero"
+            hasImage
+            title={categoryNames[category]}
+          />
+          <div className="container grid">
+            <section className="categoryPage__content">
               {repeat((i) => {
                 return (
-                  <SidebarArticleCardSkeleton
+                  <ArticleCardSkeleton
                     key={i}
-                    className="categoryPage__sidebar-item"
+                    className="categoryPage__articleCards"
+                    hasImage
+                    titleRowsCount={3}
                   />
                 );
-              }, 3)}
+              }, 6)}
             </section>
-          )}
+
+            {isDesktop && (
+              <aside className="categoryPage__sidebar">
+                {repeat((i) => {
+                  return (
+                    <SidebarArticleCardSkeleton
+                      key={i}
+                      className="categoryPage__sidebar-item"
+                    />
+                  );
+                }, 3)}
+              </aside>
+            )}
+          </div>
         </div>
       </section>
     );
@@ -110,7 +112,7 @@ export const CategoryPage = () => {
         </section>
 
         {isDesktop && (
-          <section className="categoryPage__sidebar">
+          <aside className="categoryPage__sidebar">
             {categoryArticles.slice(0, 3).map((article) => {
               return (
                 <SidebarArticleCard
@@ -120,7 +122,7 @@ export const CategoryPage = () => {
                 />
               );
             })}
-          </section>
+          </aside>
         )}
       </div>
     </section>

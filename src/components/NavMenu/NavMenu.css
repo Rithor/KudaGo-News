@@ -24,6 +24,11 @@
   color: var(--constant-accent);
 }
 
+.navigation__link--mobile:focus-visible {
+  outline: none;
+  box-shadow: var(--inner-focus-border);
+}
+
 .footer__navigation {
   color: var(--constant-white);
 }
