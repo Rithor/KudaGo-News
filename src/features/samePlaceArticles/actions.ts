@@ -1,5 +1,5 @@
 import { GetThunkAPI, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchSamePlaceArticlesAPI } from '@app/API';
+import { fetchSamePlaceArticlesAPI } from '@app/API_public';
 
 export const fetchSamePlaceArticles = createAsyncThunk(
   'api/fetchSamePlaceArticles',

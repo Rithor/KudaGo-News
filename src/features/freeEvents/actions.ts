@@ -1,5 +1,5 @@
 import { GetThunkAPI, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchFreeEventsAPI } from '@app/API';
+import { fetchFreeEventsAPI } from '@app/API_public';
 
 export const fetchFreeEvents = createAsyncThunk(
   'api/fetchFreeEvents',

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -32,9 +33,10 @@ module.exports = (env) => {
     },
     output: {
       filename: '[name].[contenthash].js',
-      path: env.github
-        ? path.resolve(__dirname, 'dist')
-        : '/var/www/dist',
+      path: path.resolve(__dirname, 'dist'),
+      // path: env.github
+      //   ? path.resolve(__dirname, 'dist')
+      //   : '/var/www/dist',
       publicPath: env.github ? '' : '/',
       clean: true,
     },
@@ -76,6 +78,10 @@ module.exports = (env) => {
     },
     optimization: {
       runtimeChunk: setMode === 'production' ? false : 'single',
+      splitChunks: {
+        chunks: 'all',
+      },
+      minimizer: [`...`, new CssMinimizerPlugin()],
     },
     plugins: [
       new HtmlWebpackPlugin({

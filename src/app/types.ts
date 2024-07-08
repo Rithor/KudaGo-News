@@ -60,3 +60,13 @@ export interface IPartnersArticle {
     seconds: number;
   };
 }
+
+export type IPartnersArticleREST = Record<
+  keyof IPartnersArticle,
+  { stringValue: string }
+>;
+
+export type IPartnersArticleRESTResp = Array<{
+  createTime: string;
+  fields: IPartnersArticleREST;
+}>;

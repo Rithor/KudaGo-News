@@ -1,10 +1,10 @@
 import React, { useEffect, useState, FC } from 'react';
 import './PartnerArticle.css';
-import { IPartnersArticle } from '@app/types';
-import { getLastPartnerArticle } from '@app/API';
+import { fetchLastPartnerArticle } from '@app/API_public';
+import { IPartnersArticleREST } from '@app/types';
 
 export const PartnerArticle: FC = () => {
-  const [article, setArticle] = useState<IPartnersArticle | null>(
+  const [article, setArticle] = useState<IPartnersArticleREST | null>(
     null
   );
   const [loaded, setLoaded] = useState(false);
@@ -13,7 +13,7 @@ export const PartnerArticle: FC = () => {
   };
 
   useEffect(() => {
-    getLastPartnerArticle().then((data) => {
+    fetchLastPartnerArticle().then((data) => {
       setArticle(data);
     });
   }, []);
@@ -31,18 +31,21 @@ export const PartnerArticle: FC = () => {
         >
           <img
             className="partner-article__image"
-            src={article.image}
-            alt={article.title}
+            src={article.image.stringValue}
+            alt={article.title.stringValue}
             onLoad={handleLoad}
           />
         </div>
         <div className="partner-article__content">
           <span className="partner-article__caption">
-            Партнерский материал от {article['company-name']}
+            Партнерский материал от{' '}
+            {article['company-name'].stringValue}
           </span>
-          <h2 className="partner-article__title">{article.title}</h2>
+          <h2 className="partner-article__title">
+            {article.title.stringValue}
+          </h2>
           <p className="partner-article__text">
-            {article.description}
+            {article.description.stringValue}
           </p>
         </div>
       </div>

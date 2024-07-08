@@ -23,7 +23,11 @@ export const PrivateRouteWrapper: React.FC<
   const location = useLocation();
   if (!isAuthenticated) {
     return (
-      <Navigate to="/login" state={{ from: location }} replace />
+      <Navigate
+        to="/admin/login"
+        state={{ from: location }}
+        replace
+      />
     );
   }
   return element;

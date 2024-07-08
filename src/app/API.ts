@@ -8,11 +8,8 @@ import {
   doc,
   deleteDoc,
   getDoc,
-  query,
-  orderBy,
-  limit,
 } from 'firebase/firestore';
-import { IArticle, IPartnersArticle } from '@app/types';
+import { IPartnersArticle } from '@app/types';
 import {
   getDownloadURL,
   getStorage,
@@ -20,17 +17,7 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
-import { getActualDate } from './utils';
-import axios, { AxiosError } from 'axios';
-import { IArticlesAPI } from './types';
-import { GetThunkAPI } from '@reduxjs/toolkit';
-
-const URL_GET_EVENTS =
-  'https://corsproxy.2923733-lt72291.twc1.net/kudago.com/public-api/v1.4/events';
-const DEFAULT_FIELDS =
-  'id,publication_date,title,short_title,description,categories,images,tags,location,place,dates';
-
-const partnersArticlesPath = 'partners-articles';
+import { PARTNERS_ARTICLES_PATH } from './apiConstants';
 
 // Initialize Firebase
 export const initializeFirebase = (): FirebaseApp => {
@@ -56,7 +43,7 @@ export const getPartnersArticles = async (): Promise<
   const articles: IPartnersArticle[] = [];
   try {
     const querySnapshot = await getDocs(
-      collection(db, partnersArticlesPath)
+      collection(db, PARTNERS_ARTICLES_PATH)
     );
     querySnapshot.forEach((doc) => {
       const data = doc.data() as Omit<IPartnersArticle, 'id'>;
@@ -75,7 +62,7 @@ export const getPartnerArticle = async (
   id: string
 ): Promise<IPartnersArticle> => {
   const db = getFirestore();
-  const docRef = doc(db, partnersArticlesPath, id);
+  const docRef = doc(db, PARTNERS_ARTICLES_PATH, id);
   try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -97,7 +84,7 @@ export const addPartnerArticle = async (
 ) => {
   const db = getFirestore();
   try {
-    await addDoc(collection(db, partnersArticlesPath), article);
+    await addDoc(collection(db, PARTNERS_ARTICLES_PATH), article);
   } catch (error) {
     return Promise.reject(error);
   }
@@ -108,7 +95,7 @@ export const updatePartnerArticle = async (
   data: Omit<IPartnersArticle, 'id' | 'created'>
 ): Promise<any> => {
   const db = getFirestore();
-  const ref = doc(db, partnersArticlesPath, id);
+  const ref = doc(db, PARTNERS_ARTICLES_PATH, id);
   try {
     await updateDoc(ref, data);
   } catch (error) {
@@ -120,7 +107,7 @@ export const deletePartnerArticle = async (
   id: string
 ): Promise<any> => {
   const db = getFirestore();
-  const ref = doc(db, partnersArticlesPath, id);
+  const ref = doc(db, PARTNERS_ARTICLES_PATH, id);
   try {
     await deleteDoc(ref);
   } catch (error) {
@@ -138,182 +125,5 @@ export const uploadFile = async (file: File): Promise<string> => {
     return url;
   } catch (error) {
     return Promise.reject(error);
-  }
-};
-
-export const getLastPartnerArticle =
-  async (): Promise<IPartnersArticle | null> => {
-    const db = getFirestore();
-    let article = null;
-
-    try {
-      const q = query(
-        collection(db, partnersArticlesPath),
-        orderBy('created', 'desc'),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data() as Omit<IPartnersArticle, 'id'>;
-
-        article = {
-          id: doc.id,
-          ...data,
-        };
-      });
-    } catch (error) {
-      return Promise.reject(error);
-    }
-
-    return article;
-  };
-
-export const fetchCategoryIArticlesAPI = async (
-  category: string,
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/?&categories=${category}`,
-      {
-        params: {
-          fields: DEFAULT_FIELDS,
-          page_size: 12,
-          text_format: 'text',
-          expand: 'place',
-          order_by: '-publication_date',
-          location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
-  }
-};
-
-export const fetchArticleItemAPI = async (
-  id: string,
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticle>(
-      `${URL_GET_EVENTS}/${id}/`,
-      {
-        params: {
-          expand: 'place',
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
-  }
-};
-
-export const fetchSamePlaceArticlesAPI = async (
-  placeID: number,
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/?&place_id
-=${placeID}`,
-      {
-        params: {
-          fields: DEFAULT_FIELDS,
-          page_size: 9,
-          text_format: 'text',
-          expand: 'place',
-          order_by: '-publication_date',
-          location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
-  }
-};
-
-export const fetchArticlesAPI = async (
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
-          fields: DEFAULT_FIELDS,
-          page_size: 12,
-          text_format: 'text',
-          expand: 'place',
-          order_by: '-publication_date',
-          location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
-  }
-};
-
-export const fetchTrendArticlesAPI = async (
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
-          fields: 'id,title,description,categories,dates',
-          page_size: 6,
-          text_format: 'text',
-          expand: 'place',
-          order_by: '-favorites_count',
-          location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
-  }
-};
-
-export const fetchFreeEventsAPI = async (
-  thunkAPI: GetThunkAPI<any>
-) => {
-  try {
-    const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
-          fields: DEFAULT_FIELDS,
-          page_size: 6,
-          text_format: 'text',
-          expand: 'place',
-          order_by: '-publication_date',
-          location: 'msk',
-          actual_since: `${getActualDate()}`,
-          is_free: 1,
-        },
-      }
-    );
-    return response.data;
-  } catch (e) {
-    const error = e as AxiosError;
-    return thunkAPI.rejectWithValue(error.message);
   }
 };
