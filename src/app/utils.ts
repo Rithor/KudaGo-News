@@ -79,3 +79,16 @@ export function repeat<T>(cb: (i: number) => T, times = 1): T[] {
 
   return res;
 }
+
+export function modifyUrl(
+  originalUrl: string,
+  modifier = 'xxl'
+): string {
+  if (originalUrl.length === 0) {
+    return originalUrl;
+  }
+  const parts = originalUrl.split('/');
+  parts.splice(3, 0, `thumbs/${modifier}`);
+  const modifiedUrl = parts.join('/');
+  return modifiedUrl;
+}

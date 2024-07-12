@@ -48,6 +48,7 @@ export const ArticleCard: FC<Props> = ({
           <Image
             className="article-card__image"
             src={image}
+            size="l"
             alt={shortTitle}
           />
         )}

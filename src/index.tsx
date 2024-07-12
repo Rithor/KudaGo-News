@@ -7,18 +7,18 @@ import { Provider } from 'react-redux';
 import { store } from '@app/store';
 import { NetworkStatusContextProvider } from '@features/networkStatus/NetworkStatusContextProvider';
 
-// const mainNavigator = navigator as Navigator;
-// if ('serviceWorker' in mainNavigator) {
-//   window.addEventListener('load', function () {
-//     mainNavigator.serviceWorker
-//       .register('/sw.js?')
-//       .then(function () {
-//         // eslint-disable-next-line no-console
-//         console.log('Service Worker Registered!!');
-//       })
-//       .catch((e) => console.error('cant register SW', e));
-//   });
-// }
+const mainNavigator = navigator as Navigator;
+if ('serviceWorker' in mainNavigator) {
+  window.addEventListener('load', function () {
+    mainNavigator.serviceWorker
+      .register('/sw.js?')
+      .then(function () {
+        // eslint-disable-next-line no-console
+        console.log('Service Worker Registered!!');
+      })
+      .catch((e) => console.error('cant register SW', e));
+  });
+}
 
 const element = document.getElementById('root');
 if (element) {

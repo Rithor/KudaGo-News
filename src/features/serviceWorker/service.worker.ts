@@ -69,11 +69,16 @@ _self.addEventListener('fetch', (e) => {
         const isImageRequest =
           !isHtmlPageRequest &&
           request.headers.get('Accept')?.indexOf('image/') !== -1;
-        if (isImageRequest) {
-          const imageCached = await caches.match(cacheKey);
-          if (imageCached) {
+        const isCacheFirstRequest =
+          !isHtmlPageRequest &&
+          ((url.startsWith(_self.origin) &&
+            url.match(/(\.js|\.css)$/)) ||
+            url.match(/\.woff.$/));
+        if (isImageRequest || isCacheFirstRequest) {
+          const cacheResponse = await caches.match(cacheKey);
+          if (cacheResponse) {
             // console.log(`[Service Worker] Return cache resource: ${url}`);
-            return imageCached;
+            return cacheResponse;
           }
         }
         try {

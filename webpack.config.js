@@ -114,5 +114,9 @@ module.exports = (env) => {
       maxEntrypointSize: 512000,
       maxAssetSize: 512000,
     },
+    devtool:
+      setMode === 'production'
+        ? false
+        : 'eval-cheap-module-source-map',
   };
 };
