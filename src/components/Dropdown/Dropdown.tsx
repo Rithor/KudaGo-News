@@ -19,7 +19,10 @@ interface DropdownProps extends HTMLAttributes<HTMLElement> {
   onShownChange: (shown: boolean) => void;
 }
 
-const calcCoords = (targetElement: HTMLElement) => {
+type TCoords = { top: number; right: number };
+
+const calcCoords = (targetElement: HTMLElement): TCoords | null => {
+  if (!targetElement) return null;
   const rect = targetElement.getBoundingClientRect();
   return {
     top: window.scrollY + rect.bottom + 12,
@@ -36,7 +39,7 @@ export const Droprown: FC<DropdownProps> = ({
   className,
   ...restProps
 }: DropdownProps) => {
-  const [coords, setCoords] = useState({ top: 0, right: 0 });
+  const [coords, setCoords] = useState<TCoords | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -54,6 +57,7 @@ export const Droprown: FC<DropdownProps> = ({
     }
     return () => {
       trap.deactivate();
+      setCoords(null);
       document.removeEventListener('click', documentClickListener);
       window.removeEventListener('resize', windowResizeListener);
     };
@@ -62,6 +66,7 @@ export const Droprown: FC<DropdownProps> = ({
   const documentClickListener = () => {
     onShownChange(false);
   };
+
   return createPortal(
     <CSSTransition
       in={shown}

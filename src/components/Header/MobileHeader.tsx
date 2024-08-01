@@ -33,8 +33,8 @@ export const MobileHeader: FC = () => {
     };
   }, [isOpenMenu]);
 
-  // todo: закрытие меню при нажатии на фон и на ссылки
-  // сброс состояния меню при закрытии (открывается настройка темы вместо начального состояния)
+  // todo: закрытие меню при нажатии на фон
+
   useEffect(() => {
     if (isOpenMenu) {
       document.addEventListener('keydown', documentKeydownListener);
@@ -53,6 +53,13 @@ export const MobileHeader: FC = () => {
     };
   }, [isOpenMenu]);
 
+  const handleNavMenuClick = () => {
+    toggleMenu(!isOpenMenu);
+  };
+  const closeSubMenu = () => {
+    toggleSubMenu(false);
+  };
+
   return (
     <header className="header" ref={ref}>
       <div className="container header__mobile-container">
@@ -60,7 +67,10 @@ export const MobileHeader: FC = () => {
         <button
           aria-label={isOpenMenu ? 'Скрыть меню' : 'Открыть меню'}
           className="header__mobile-button"
-          onClick={() => toggleMenu(!isOpenMenu)}
+          onClick={() => {
+            toggleMenu(!isOpenMenu);
+            setTimeout(closeSubMenu, 500);
+          }}
         >
           {isOpenMenu ? <Cross /> : <Burger />}
         </button>
@@ -78,12 +88,15 @@ export const MobileHeader: FC = () => {
             {isOpenSubMenu ? (
               <button
                 className="header__mobile-back-button"
-                onClick={() => toggleSubMenu(false)}
+                onClick={closeSubMenu}
               >
                 К меню
               </button>
             ) : (
-              <NavMenu className="header__mobile-navigation" />
+              <NavMenu
+                className="header__mobile-navigation"
+                onClick={handleNavMenuClick}
+              />
             )}
 
             <div

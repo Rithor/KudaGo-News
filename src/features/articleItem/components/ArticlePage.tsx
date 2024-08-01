@@ -20,9 +20,11 @@ import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 import { IArticle } from '@app/types';
 import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
+import { Error } from '@components/Error/Error';
 
 export const ArticlePage = () => {
   const { id } = useParams();
+  const { isMobile } = useAdaptive();
   if (id == undefined) return null;
 
   const { online } = useNetworkStatusContext();
@@ -108,9 +110,8 @@ export const ArticlePage = () => {
     );
   }
 
-  // todo: сделать отдельную страницу c ошибкой
   if (error) {
-    return <div>{error}</div>;
+    return <Error />;
   }
 
   if (articleItem.id == 0) return null;

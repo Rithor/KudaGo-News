@@ -1,7 +1,7 @@
 {
   "name": "KudaGo News",
   "short_name": "KudaGo",
-  "description": "KudaGo News: the honestest news",
+  "description": "KudaGo News: the honestest news!",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0083fc",

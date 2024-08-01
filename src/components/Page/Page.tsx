@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Page.css';
 import { EmailModal } from '../EmailModal/EmailModal';
 import { Header } from '@components/Header/Header';
@@ -15,15 +15,26 @@ export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
   const [isEmailModalShow, setIsEmailModalShow] = useState(
     !localStorage.getItem(LS_EMAIL_SHOWN_KEY)
   );
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 60000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="wrapper">
-      <EmailModal
-        shown={isEmailModalShow}
-        onClose={() => {
-          localStorage.setItem(LS_EMAIL_SHOWN_KEY, 'true');
-          setIsEmailModalShow(false);
-        }}
-      />
+      {isVisible && (
+        <EmailModal
+          shown={isEmailModalShow}
+          onClose={() => {
+            localStorage.setItem(LS_EMAIL_SHOWN_KEY, 'true');
+            setIsEmailModalShow(false);
+          }}
+        />
+      )}
 
       <Header />
 

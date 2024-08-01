@@ -46,9 +46,7 @@
   padding: 16px;
   background-color: var(--constant-black);
   color: var(--constant-white);
-  max-width: calc(
-    var(--grid-column-width) * 10 + var(--grid-gap) * 9
-  );
+  max-width: calc(var(--grid-column-width) * 10 + var(--grid-gap) * 9);
 }
 
 .hero__title {

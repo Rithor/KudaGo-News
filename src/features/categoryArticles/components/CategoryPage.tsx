@@ -15,6 +15,7 @@ import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
+import { Error } from '@components/Error/Error';
 
 export const CategoryPage = () => {
   const { category } = useParams();
@@ -74,9 +75,8 @@ export const CategoryPage = () => {
     );
   }
 
-  // todo: сделать отдельную страницу c ошибкой на каждой странице!
   if (error) {
-    return <div>{error}</div>;
+    return <Error />;
   }
 
   const mainArticles = isMobile

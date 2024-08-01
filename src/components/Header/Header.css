@@ -1,5 +1,16 @@
 .header {
   background: var(--background-primary);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+@media all and (min-width: 1024px) {
+  .header {
+    position: static;
+    top: initial;
+    z-index: initial;
+  }
 }
 
 .header__container {
