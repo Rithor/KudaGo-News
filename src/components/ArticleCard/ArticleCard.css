@@ -115,7 +115,7 @@
     gap: 4px;
   }
 
-  .article-card__info-rigth {
+  .article-card__info-right {
     align-self: flex-start;
     display: flex;
     justify-content: start;

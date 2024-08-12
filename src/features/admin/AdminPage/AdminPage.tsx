@@ -11,9 +11,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ArticleIcon from '@mui/icons-material/Article';
+import WebIcon from '@mui/icons-material/Web';
 import { IconButton } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useAuthContext } from '../../auth/AuthContextProvider';
+import { useAuthContext } from '@features/auth/AuthContextProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -26,7 +27,7 @@ export const AdminPage = ({ children }: Props) => {
   const navigate = useNavigate();
   const onLogOutClick = () => {
     logOut();
-    navigate('/login');
+    navigate('/admin/login');
   };
   return (
     <Box sx={{ display: 'flex' }}>
@@ -68,6 +69,12 @@ export const AdminPage = ({ children }: Props) => {
                 <ArticleIcon />
               </ListItemIcon>
               <ListItemText primary="Партнерские статьи" />
+            </ListItemButton>
+            <ListItemButton component={Link} to="/">
+              <ListItemIcon>
+                <WebIcon />
+              </ListItemIcon>
+              <ListItemText primary="Вернуться на Главную" />
             </ListItemButton>
           </List>
         </Box>

@@ -120,7 +120,7 @@ export const AdminArticleItem: FC = () => {
       });
   };
 
-  const submiting = async (
+  const submitting = async (
     promise: Promise<any>,
     message: string
   ) => {
@@ -138,7 +138,6 @@ export const AdminArticleItem: FC = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // todo: зачем собирать данные, если они сразу оказываются в состоянии inputValues
     // 1. Собрать данные
     const data = new FormData();
     Object.entries(inputValues).forEach(([name, value]) => {
@@ -149,7 +148,7 @@ export const AdminArticleItem: FC = () => {
       Array.from(data.entries()) as [InputName, FormDataEntryValue][]
     );
     const errorsEntries = Object.entries(errors);
-    // 3.1 Подстветить ошибки
+    // 3.1 Подсветить ошибки
     setInputErrors(errors);
     // 3.2 Сфокусироваться на первом ошибочном инпуте
     const errorInput = errorsEntries.find(
@@ -166,13 +165,13 @@ export const AdminArticleItem: FC = () => {
     // 4. Если все ок, отправить данные
     if (id) {
       // editing
-      submiting(
+      submitting(
         updatePartnerArticle(id, inputValues),
         '✅ Статья обновлена'
       );
     } else {
       // creating
-      submiting(
+      submitting(
         addPartnerArticle(
           inputValues as Omit<IPartnersArticle, 'id' | 'created'>
         ),
@@ -336,12 +335,22 @@ export const AdminArticleItem: FC = () => {
                 <TextField
                   type="file"
                   name="image"
-                  fullWidth
+                  fullWidth={true}
                   variant="outlined"
                   onChange={showFile}
                   ref={inputRefs.image}
                   error={Boolean(inputErrors.image.length)}
                   helperText={inputErrors.image}
+                  sx={{
+                    '.MuiInputBase-root': {
+                      fontSize: 14, // Размер шрифта
+                    },
+                    '.MuiInputBase-input': {
+                      minHeight: '50px',
+                    },
+                    width: '100%', // Ширина компонента
+                    margin: 'auto', // Центрирование
+                  }}
                 />
               </CardContent>
             </CardActionArea>

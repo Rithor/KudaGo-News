@@ -30,7 +30,7 @@ const calcCoords = (targetElement: HTMLElement): TCoords | null => {
   };
 };
 
-export const Droprown: FC<DropdownProps> = ({
+export const Dropdown: FC<DropdownProps> = ({
   targetRef,
   shown,
   onShownChange,

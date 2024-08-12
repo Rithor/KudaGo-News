@@ -61,8 +61,11 @@ export const fetchArticleItemAPI = async (
 
 export const fetchSamePlaceArticlesAPI = async (
   placeID: number,
+  isMobile: boolean,
   thunkAPI: GetThunkAPI<any>
 ) => {
+  let page_size = 0;
+  isMobile ? (page_size = 4) : (page_size = 9);
   try {
     const response = await axios.get<IArticlesAPI>(
       `${URL_GET_EVENTS}/?&place_id
@@ -70,7 +73,7 @@ export const fetchSamePlaceArticlesAPI = async (
       {
         params: {
           fields: DEFAULT_FIELDS,
-          page_size: 9,
+          page_size: page_size,
           text_format: 'text',
           expand: 'place',
           order_by: '-publication_date',
