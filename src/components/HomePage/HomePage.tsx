@@ -11,7 +11,7 @@ import { fetchTrendArticles } from '@features/trendArticles/actions';
 import { fetchFreeEvents } from '@features/freeEvents/actions';
 import { fetchArticles } from '@features/articles/actions';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
-import { repeat } from '@app/utils';
+import { repeat, setMeta } from '@app/utils';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
@@ -19,16 +19,15 @@ import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusCo
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();
   const { online } = useNetworkStatusContext();
-
-  // todo: articlesIsLoading, articlesError
+  // todo: articlesError,
   const { articles, articlesIsLoading } = useAppSelector(
     (state) => state.articles
   );
-  // todo: trendArticlesIsLoading, trendArticlesError,
+  // todo: trendArticlesError,
   const { trendArticles, trendArticlesIsLoading } = useAppSelector(
     (state) => state.trendArticles
   );
-  // todo:  freeEventsIsLoading, freeEventsError
+  // todo: freeEventsError
   const { freeEvents, freeEventsIsLoading } = useAppSelector(
     (state) => state.freeEvents
   );
@@ -37,7 +36,18 @@ export const HomePage: FC = () => {
     dispatch(fetchArticles());
     dispatch(fetchTrendArticles());
     dispatch(fetchFreeEvents());
-  }, [online]); // todo: спорный момент, если оставить online в завимостях, то будет дергаться обновление при каждом появлении сети. Если убрать, то при появлении сети будет висеть вечная загрузка, пока пользователь вручную не обновит страницу
+  }, [online]); // todo: спорный момент, если оставить online в зависимостях, то будет дергаться обновление при каждом появлении сети. Если убрать, то при появлении сети будет висеть вечная загрузка, пока пользователь вручную не обновит страницу
+
+  // todo: протестировать добавление ссылки в вк
+  useEffect(() => {
+    setMeta({
+      'og:title': 'KudaGo News',
+      'og:description':
+        'Мы публикуем концерты, спектакли, выставки, мастер-классы и курсы, события для детей и масштабные городские фестивали',
+      'og:url': window.location.href,
+      'og:image': `${window.location.origin}${require('@images/icons/desktop1.png')}`,
+    });
+  }, []);
 
   // if (!online && (!articles || !trendArticles || !freeEvents)) {
   //   return (

@@ -92,3 +92,20 @@ export function modifyUrl(
   const modifiedUrl = parts.join('/');
   return modifiedUrl;
 }
+
+export const setMeta = (meta: Record<string, string>): void => {
+  Object.entries(meta).forEach(([property, content]) => {
+    const metaTag = document.head.querySelector(
+      `meta[property="${property}"]`
+    );
+    if (metaTag) {
+      metaTag.setAttribute('content', content);
+    } else {
+      const tag = document.createElement('meta');
+      tag.setAttribute('property', property);
+      tag.setAttribute('content', content);
+
+      document.head.appendChild(tag);
+    }
+  });
+};

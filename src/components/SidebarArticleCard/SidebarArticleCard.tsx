@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './SidebarArticleCard.css';
-import { formatDate } from '../../app/utils';
+import { formatDate } from '@app/utils';
 import { IArticle } from '@app/types';
 import classNames from 'classnames';
 import { Image } from '@components/Image/Image';

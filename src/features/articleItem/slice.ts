@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import type { RootState } from '../../app/store';
+import type { RootState } from '@app/store';
 import { IArticle } from '@app/types';
 import { fetchArticleItem } from './actions';
 

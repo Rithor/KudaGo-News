@@ -72,7 +72,7 @@ export const ArticleCard: FC<Props> = ({
                 </span>
               )}
             </div>
-            <div className="article-card__info-rigth">
+            <div className="article-card__info-right">
               {place.length > 0 && (
                 <span className="article-card__place">{place}</span>
               )}

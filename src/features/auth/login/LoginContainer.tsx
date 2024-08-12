@@ -1,16 +1,16 @@
-import {
-  LoginForm,
-  TLoginField,
-} from '../../../components/LoginForm/LoginForm';
 import React, { FC, Reducer, useReducer, useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import './LoginContainer.css';
 import { validateEmail } from './utils';
 import { useAuthContext } from '../AuthContextProvider';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { UserCredential } from 'firebase/auth';
+import {
+  LoginForm,
+  TLoginField,
+} from '@components/LoginForm/LoginForm';
 
 type TLoginFormFieldState = Omit<TLoginField, 'onChange'>;
 
@@ -111,7 +111,6 @@ export const LoginContainer: FC = () => {
           {authError}
         </Typography>
       )}
-      {/* todo: переключение на темную тему */}
       <LoginForm
         email={{
           ...emailState,

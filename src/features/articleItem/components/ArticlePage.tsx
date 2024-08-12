@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ArticlePage.css';
-import { categoryNames, formatDate, repeat } from '@app/utils';
+import {
+  categoryNames,
+  formatDate,
+  repeat,
+  setMeta,
+} from '@app/utils';
 import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import classNames from 'classnames';
 import { Hero } from '@components/Hero/Hero';
@@ -25,7 +30,7 @@ import { Error } from '@components/Error/Error';
 export const ArticlePage = () => {
   const { id } = useParams();
   const { isMobile } = useAdaptive();
-  if (id == undefined) return null;
+  if (id === undefined) return null;
 
   const { online } = useNetworkStatusContext();
 
@@ -33,9 +38,7 @@ export const ArticlePage = () => {
   const { articleItem, isLoading, error } = useAppSelector(
     (state) => state.articleItem
   );
-  // todo: как то ограничить количество загружаемых элементов
-  // так как отображается в мобильной версии всего 3 статьи
-  // а грузится большее число данных
+
   const {
     samePlaceArticles,
     samePlaceArticlesIsLoading,
@@ -47,9 +50,26 @@ export const ArticlePage = () => {
   }, [id, online]);
   useEffect(() => {
     if (articleItem.place?.id) {
-      dispatch(fetchSamePlaceArticles(articleItem.place.id));
+      const obj = {
+        placeID: articleItem.place.id,
+        isMobile: isMobile,
+      };
+      dispatch(fetchSamePlaceArticles(obj));
     }
-  }, [articleItem, online]);
+  }, [articleItem, online, isMobile]);
+
+  useEffect(() => {
+    if (!articleItem) {
+      return;
+    }
+    // todo: протестировать вставку ссылки в вк
+    setMeta({
+      'og:title': `${articleItem.short_title} — KudaGo News`,
+      'og:description': articleItem.description,
+      'og:url': window.location.href,
+      'og:image': articleItem.images?.at(0)?.image ?? '',
+    });
+  }, [articleItem]);
 
   const { isDesktop } = useAdaptive();
 
@@ -119,11 +139,11 @@ export const ArticlePage = () => {
   let relatedArticles: IArticle[] = [];
   let relatedSidebarArticles: IArticle[] = [];
   if (samePlaceArticlesID === articleItem.place?.id) {
-    const filtredSamePlaceArticles = samePlaceArticles?.filter(
+    const filteredSamePlaceArticles = samePlaceArticles?.filter(
       ({ id }) => id !== articleItem.id
     );
-    relatedArticles = filtredSamePlaceArticles?.slice(0, 3);
-    relatedSidebarArticles = filtredSamePlaceArticles?.slice(3, 9);
+    relatedArticles = filteredSamePlaceArticles?.slice(0, 3);
+    relatedSidebarArticles = filteredSamePlaceArticles?.slice(3, 9);
   }
 
   return (

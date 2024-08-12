@@ -7,7 +7,7 @@ import {
   useAppSelector,
 } from '@app/hooks';
 import { fetchCategoryArticles } from '../actions';
-import { categoryNames, repeat } from '../../../app/utils';
+import { categoryNames, repeat, setMeta } from '@app/utils';
 import { Hero } from '@components/Hero/Hero';
 import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
 import { ArticleCard } from '@components/ArticleCard/ArticleCard';
@@ -30,6 +30,15 @@ export const CategoryPage = () => {
   useEffect(() => {
     dispatch(fetchCategoryArticles(category));
   }, [category, online]);
+  // todo: протестировать вставку в вк
+  useEffect(() => {
+    setMeta({
+      'og:title': `KudaGo News – ${categoryNames[category]}`,
+      'og:description': 'Самые важные события города в одном месте',
+      'og:url': window.location.href,
+      'og:image': categoryArticles?.at(0)?.images[0]?.image ?? '',
+    });
+  }, []);
 
   const { isDesktop, isMobile } = useAdaptive();
 

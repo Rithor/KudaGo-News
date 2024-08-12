@@ -1,6 +1,9 @@
 .loginContainer {
   max-width: 500px;
   margin: 50px auto;
+  background-color: var(--constant-grey-0);
+  padding: 50px 20px;
+  border-radius: 20px;
 }
 
 .oauthLoginContainer {

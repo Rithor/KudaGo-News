@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthContext } from '../../features/auth/AuthContextProvider';
+import { useAuthContext } from '@features/auth/AuthContextProvider';
 import { Box, CircularProgress } from '@mui/material';
 
 interface PrivateRouteWrapperProps {
@@ -11,6 +11,7 @@ export const PrivateRouteWrapper: React.FC<
   PrivateRouteWrapperProps
 > = ({ element }) => {
   const { isAuthenticated } = useAuthContext();
+  const location = useLocation();
 
   if (isAuthenticated === null) {
     return (
@@ -20,7 +21,6 @@ export const PrivateRouteWrapper: React.FC<
     );
   }
 
-  const location = useLocation();
   if (!isAuthenticated) {
     return (
       <Navigate

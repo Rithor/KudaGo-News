@@ -34,6 +34,7 @@ export const AdminArticles: FC = () => {
               color="success"
               component={Link}
               to="/admin/create"
+              sx={{ textWrap: 'nowrap', minWidth: '150px' }}
             >
               Добавить новую
             </Button>
