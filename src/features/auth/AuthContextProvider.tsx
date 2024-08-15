@@ -17,9 +17,9 @@ import {
   GithubAuthProvider,
   UserCredential,
 } from 'firebase/auth';
-import { TAuthContext } from './types';
 import { FirebaseApp } from 'firebase/app';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { TAuthContext } from './types';
 
 type TProps = {
   children: React.ReactNode;
@@ -42,8 +42,8 @@ export const useAuthContext = (): TAuthContext => {
   return useContext<TAuthContext>(authContext);
 };
 
-const isUserAdmin = async (firabaseApp: FirebaseApp) => {
-  const db = getFirestore(firabaseApp);
+const isUserAdmin = async (firebaseApp: FirebaseApp) => {
+  const db = getFirestore(firebaseApp);
   return await getDoc(doc(db, '/internal/auth'));
 };
 

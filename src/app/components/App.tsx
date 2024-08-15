@@ -1,8 +1,8 @@
 import React, { Suspense, lazy, useRef } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Page } from '@components/Page/Page';
 import { CategoryPage } from '@features/categoryArticles/components/CategoryPage';
 import { ArticlePage } from '@features/articleItem/components/ArticlePage';
+import { Page } from '@components/Page/Page';
 import { HomePage } from '@components/HomePage/HomePage';
 
 const Admin = lazy(() => import('@app/components/Admin'));

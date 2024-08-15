@@ -8,13 +8,13 @@ import {
 } from '@app/hooks';
 import { fetchCategoryArticles } from '../actions';
 import { categoryNames, repeat, setMeta } from '@app/utils';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 import { Hero } from '@components/Hero/Hero';
 import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
 import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
-import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 import { Error } from '@components/Error/Error';
 
 export const CategoryPage = () => {

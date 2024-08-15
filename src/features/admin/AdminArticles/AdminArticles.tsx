@@ -44,7 +44,7 @@ export const AdminArticles: FC = () => {
 
       <Grid container spacing={2}>
         {articles.map((item) => (
-          <Grid item xs={3} key={item.id}>
+          <Grid item xs={4} key={item.id}>
             <Card>
               <CardActionArea
                 component={Link}

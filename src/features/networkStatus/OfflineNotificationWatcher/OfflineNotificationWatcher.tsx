@@ -1,8 +1,8 @@
-import { OfflineNotification } from '@components/OfflineNotification/OfflineNotification';
 import React, { FC } from 'react';
-import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
-import { CSSTransition } from 'react-transition-group';
 import './OfflineNotificationWatcher.css';
+import { CSSTransition } from 'react-transition-group';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
+import { OfflineNotification } from '@components/OfflineNotification/OfflineNotification';
 
 export const OfflineNotificationWatcher: FC = () => {
   const { online } = useNetworkStatusContext();

@@ -27,6 +27,7 @@ import {
   InputRefs,
   InputValues,
 } from './types';
+import { IPartnersArticle } from '@app/types';
 import {
   addPartnerArticle,
   deletePartnerArticle,
@@ -34,7 +35,6 @@ import {
   updatePartnerArticle,
   uploadFile,
 } from '@app/API';
-import { IPartnersArticle } from '@app/types';
 
 export const AdminArticleItem: FC = () => {
   const { id }: { id?: string } = useParams();

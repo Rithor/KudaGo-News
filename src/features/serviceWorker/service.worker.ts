@@ -93,7 +93,7 @@ _self.addEventListener('fetch', (e) => {
             return cacheItem;
           }
         }
-        console.error('e.respondWith skiped try / catch');
+        console.error('e.respondWith skipped try / catch');
         return new Response('', {
           status: 404,
           statusText: 'Not Found',

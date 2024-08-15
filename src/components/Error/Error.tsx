@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Error.css';
 import { Button } from '@components/Button/Button';
-import { useNavigate } from 'react-router-dom';
 
 export const Error: FC = () => {
   const nav = useNavigate();

@@ -7,11 +7,7 @@ import {
   repeat,
   setMeta,
 } from '@app/utils';
-import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import classNames from 'classnames';
-import { Hero } from '@components/Hero/Hero';
-import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
-import { Title } from '@components/Title/Title';
 import {
   useAdaptive,
   useAppDispatch,
@@ -19,13 +15,18 @@ import {
 } from '@app/hooks';
 import { fetchArticleItem } from '../actions';
 import { fetchSamePlaceArticles } from '@features/samePlaceArticles/actions';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
+import { IArticle } from '@app/types';
+import { ArticleCard } from '@components/ArticleCard/ArticleCard';
+import { Hero } from '@components/Hero/Hero';
+import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
+import { Title } from '@components/Title/Title';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
 import { SkeletonText } from '@components/SkeletonText/SkeletonText';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
-import { IArticle } from '@app/types';
-import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 import { Error } from '@components/Error/Error';
+import { ArticlePageSkeleton } from './ArticlePageSkeleton';
 
 export const ArticlePage = () => {
   const { id } = useParams();
@@ -74,67 +75,15 @@ export const ArticlePage = () => {
   const { isDesktop } = useAdaptive();
 
   if (error && !online) {
-    return (
-      <section className="articlePage-wr" aria-label="Загрузка">
-        <div aria-hidden>
-          <HeroSkeleton hasImage />
-          <div className="container hero__info">
-            <SkeletonText />
-          </div>
-          <section className="articlePage grid container">
-            <div className={classNames('articlePage__body')}>
-              <div className="articlePage__description">
-                <SkeletonText rowsCount={3} />
-              </div>
-              <div className="articlePage__text">
-                <SkeletonText rowsCount={18} />
-              </div>
-              <div className="articlePage__tags-wr">
-                <SkeletonText rowsCount={1} />
-              </div>
-            </div>
-            {isDesktop && (
-              <aside className="relatedSidebarArticles">
-                {repeat((i) => {
-                  return (
-                    <SidebarArticleCardSkeleton
-                      key={i}
-                      className="articlePage__sidebar-item sidebar-article-card--skeleton"
-                    />
-                  );
-                }, 6)}
-              </aside>
-            )}
-          </section>
-          <div className="relatedArticles container">
-            <Title
-              Component={'h2'}
-              className="relatedArticles__header"
-            >
-              смотрите также:
-            </Title>
-            <div className="grid">
-              {repeat((i) => {
-                return (
-                  <ArticleCardSkeleton
-                    key={i}
-                    hasImage={false}
-                    className="articlePage__related-articles-item"
-                  />
-                );
-              }, 3)}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+    return <ArticlePageSkeleton isDesktop={isDesktop} />;
   }
 
   if (error) {
     return <Error />;
   }
 
-  if (articleItem.id == 0) return null;
+  if (articleItem.id == 0)
+    return <ArticlePageSkeleton isDesktop={isDesktop} />;
 
   let relatedArticles: IArticle[] = [];
   let relatedSidebarArticles: IArticle[] = [];

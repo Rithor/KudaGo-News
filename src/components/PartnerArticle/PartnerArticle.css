@@ -5,6 +5,7 @@
 }
 
 .partner-article__image-container {
+  min-height: 300px;
   grid-column: span 6;
 }
 
@@ -56,6 +57,7 @@
   line-height: 26px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -70,7 +72,7 @@
   }
 
   .partner-article__title {
-    font-size: 42px;
+    font-size: 38px;
   }
 
   .partner-article__text {

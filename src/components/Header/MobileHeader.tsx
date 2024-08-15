@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { Logo } from '@components/Logo/Logo';
 import { CSSTransition } from 'react-transition-group';
+import { createFocusTrap } from 'focus-trap';
+import classNames from 'classnames';
+import { ColorSchemeSwitcherMobile } from '@features/colorScheme/components/ColorSchemeSwitcherMobile/ColorSchemeSwitcherMobile';
+import { Logo } from '@components/Logo/Logo';
 import { Burger } from '@components/Icons/Burger';
 import { Cross } from '@components/Icons/Cross';
-import { ColorSchemeSwitcherMobile } from '@features/colorScheme/components/ColorSchemeSwitcherMobile/ColorSchemeSwitcherMobile';
 import { NavMenu } from '@components/NavMenu/NavMenu';
-import { createFocusTrap } from 'focus-trap';
 
 export const MobileHeader: FC = () => {
   const ref = useRef<HTMLElement | null>(null);

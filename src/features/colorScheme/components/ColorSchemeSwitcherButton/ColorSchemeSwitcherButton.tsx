@@ -1,9 +1,9 @@
 import React, { ForwardedRef, forwardRef } from 'react';
 import './ColorSchemeSwitcherButton.css';
+import { ColorSchemeSwitcherValues } from '@features/colorScheme/types';
 import { Auto } from '@components/Icons/Auto';
 import { Moon } from '@components/Icons/Moon';
 import { Sun } from '@components/Icons/Sun';
-import { ColorSchemeSwitcherValues } from '@features/colorScheme/types';
 
 interface Props {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => any;

@@ -1,20 +1,20 @@
 import React, { FC, useEffect } from 'react';
-import './HomePage.css';
-import { PartnerArticle } from '@components/PartnerArticle/PartnerArticle';
-import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
-import { Hero } from '@components/Hero/Hero';
 import { Link } from 'react-router-dom';
-import { Title } from '@components/Title/Title';
-import { ArticleCard } from '@components/ArticleCard/ArticleCard';
+import './HomePage.css';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { repeat, setMeta } from '@app/utils';
 import { fetchTrendArticles } from '@features/trendArticles/actions';
 import { fetchFreeEvents } from '@features/freeEvents/actions';
 import { fetchArticles } from '@features/articles/actions';
+import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
+import { PartnerArticle } from '@components/PartnerArticle/PartnerArticle';
+import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
+import { Hero } from '@components/Hero/Hero';
+import { Title } from '@components/Title/Title';
+import { ArticleCard } from '@components/ArticleCard/ArticleCard';
 import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
-import { repeat, setMeta } from '@app/utils';
 import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
 import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
-import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 
 export const HomePage: FC = () => {
   const dispatch = useAppDispatch();

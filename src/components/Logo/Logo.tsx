@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '@images/logo.svg';
 import './Logo.css';
+import logo from '@images/logo.svg';
 
 export const Logo: FC = () => {
   return (

@@ -1,4 +1,4 @@
-const LS_COLOR_SCHEME_KEY = 'newsfeed:scheme';
+const LS_COLOR_SCHEME_KEY = 'kudago:scheme';
 
 export function applyScheme(
   scheme: 'dark' | 'light',

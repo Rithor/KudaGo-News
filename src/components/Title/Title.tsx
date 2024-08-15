@@ -1,6 +1,6 @@
 import React, { ElementType, FC } from 'react';
-import classNames from 'classnames';
 import './Title.css';
+import classNames from 'classnames';
 
 interface TitleProps {
   Component?: ElementType;

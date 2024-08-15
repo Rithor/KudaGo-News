@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import classNames from 'classnames';
 import './SidebarArticleCard.css';
+import classNames from 'classnames';
 import { Image } from '@components/Image/Image';
 import { SkeletonText } from '@components/SkeletonText/SkeletonText';
 

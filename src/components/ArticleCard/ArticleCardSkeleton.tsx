@@ -29,7 +29,10 @@ export const ArticleCardSkeleton: FC<ArticleCardSkeletonProps> = ({
       )}
       aria-label="Загрузка статьи"
     >
-      <article className="article-card__in--skeleton" aria-hidden>
+      <article
+        className="article-card__in article-card__in--skeleton"
+        aria-hidden
+      >
         {hasImage && (
           <Image className="article-card__image" skeleton />
         )}

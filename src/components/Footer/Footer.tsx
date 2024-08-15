@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Logo } from '@components/Logo/Logo';
+import { Link } from 'react-router-dom';
 import './Footer.css';
+import { Logo } from '@components/Logo/Logo';
 import { NavMenu } from '@components/NavMenu/NavMenu';
 
 export const Footer: FC = () => {
@@ -12,15 +13,18 @@ export const Footer: FC = () => {
           <NavMenu className="footer__navigation" />
         </div>
         <div className="footer__text">
-          Сделано на{' '}
-          <a
-            href="https://docs.kudago.com/api/#"
-            target="_blank"
-            className="footer__link"
-            rel="noreferrer"
-          >
-            API KudaGo
-          </a>
+          <div>
+            Сделано на{' '}
+            <a
+              href="https://docs.kudago.com/api/#"
+              target="_blank"
+              className="footer__link"
+              rel="noreferrer"
+            >
+              API KudaGo
+            </a>
+          </div>
+          <Link to={'/admin'}>Админка</Link>
         </div>
       </div>
     </footer>

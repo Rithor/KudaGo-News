@@ -1,5 +1,5 @@
 {
-  "homepage": "https://rithor.github.io/NewsFeed",
+  "homepage": "https://2923733-lt72291.twc1.net/",
   "scripts": {
     "build": "webpack",
     "build-github": "webpack --env github=true",

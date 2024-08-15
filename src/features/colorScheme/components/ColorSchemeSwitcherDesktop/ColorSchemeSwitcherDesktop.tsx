@@ -1,9 +1,9 @@
 import React, { FC, useState, useRef } from 'react';
 import './ColorSchemeSwitcherDesktop.css';
-import { Dropdown } from '@components/Dropdown/Dropdown';
 import { useColorScheme } from '@features/colorScheme/hooks';
 import { ColorSchemeSwitcherButton } from '@features/colorScheme/components/ColorSchemeSwitcherButton/ColorSchemeSwitcherButton';
 import { ColorSchemeSwitcherMenu } from '@features/colorScheme/components/ColorSchemeSwitcherMenu/ColorSchemeSwitcherMenu';
+import { Dropdown } from '@components/Dropdown/Dropdown';
 
 export const ColorSchemeSwitcherDesktop: FC = () => {
   const { userScheme, setUserScheme } = useColorScheme();

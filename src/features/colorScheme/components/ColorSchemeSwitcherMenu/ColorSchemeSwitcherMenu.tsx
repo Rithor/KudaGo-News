@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import classNames from 'classnames';
 import './ColorSchemeSwitcherMenu.css';
+import classNames from 'classnames';
+import { ColorSchemeSwitcherValues } from '@features/colorScheme/types';
 import { Auto } from '@components/Icons/Auto';
 import { Moon } from '@components/Icons/Moon';
 import { Sun } from '@components/Icons/Sun';
-import { ColorSchemeSwitcherValues } from '@features/colorScheme/types';
 import check from '@images/check.svg';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Logo } from '@components/Logo/Logo';
 import { ColorSchemeSwitcherDesktop } from '@features/colorScheme/components/ColorSchemeSwitcherDesktop/ColorSchemeSwitcherDesktop';
+import { Logo } from '@components/Logo/Logo';
 import { NavMenu } from '@components/NavMenu/NavMenu';
 
 export const DesktopHeader: FC = () => {

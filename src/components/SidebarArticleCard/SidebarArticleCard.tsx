@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './SidebarArticleCard.css';
+import classNames from 'classnames';
 import { formatDate } from '@app/utils';
 import { IArticle } from '@app/types';
-import classNames from 'classnames';
 import { Image } from '@components/Image/Image';
 
 interface Props {

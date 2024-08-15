@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import classNames from 'classnames';
 import './SkeletonText.css';
+import classNames from 'classnames';
 import { repeat } from '@app/utils';
 
 interface SkeletonTextProps {

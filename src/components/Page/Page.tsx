@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Page.css';
 import { EmailModal } from '../EmailModal/EmailModal';
-import { Header } from '@components/Header/Header';
 import { OfflineNotificationWatcher } from '@features/networkStatus/OfflineNotificationWatcher/OfflineNotificationWatcher';
+import { Header } from '@components/Header/Header';
 import { Footer } from '@components/Footer/Footer';
 
-const LS_EMAIL_SHOWN_KEY = 'newsfeed:email_modal_shown';
+const LS_EMAIL_SHOWN_KEY = 'kudago:email_modal_shown';
 
 type AppProps = {
   children: React.ReactNode;

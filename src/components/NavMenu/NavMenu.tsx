@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
-import { categoryNames } from '@app/utils';
 import classNames from 'classnames';
+import { categoryNames } from '@app/utils';
 import { useAdaptive } from '@app/hooks';
 
 interface Props {

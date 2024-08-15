@@ -1,12 +1,12 @@
 import React, { FC, Reducer, useReducer, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
 import './LoginContainer.css';
+import { UserCredential } from 'firebase/auth';
 import { validateEmail } from './utils';
 import { useAuthContext } from '../AuthContextProvider';
+import { Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { UserCredential } from 'firebase/auth';
 import {
   LoginForm,
   TLoginField,
