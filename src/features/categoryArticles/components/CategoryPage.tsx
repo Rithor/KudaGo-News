@@ -7,15 +7,13 @@ import {
   useAppSelector,
 } from '@app/hooks';
 import { fetchCategoryArticles } from '../actions';
-import { categoryNames, repeat, setMeta } from '@app/utils';
+import { categoryNames, setMeta } from '@app/utils';
 import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 import { Hero } from '@components/Hero/Hero';
 import { SidebarArticleCard } from '@components/SidebarArticleCard/SidebarArticleCard';
 import { ArticleCard } from '@components/ArticleCard/ArticleCard';
-import { HeroSkeleton } from '@components/Hero/HeroSkeleton';
-import { ArticleCardSkeleton } from '@components/ArticleCard/ArticleCardSkeleton';
-import { SidebarArticleCardSkeleton } from '@components/SidebarArticleCard/SidebarArticleCardSkeleton';
 import { Error } from '@components/Error/Error';
+import { CategoryPageSkeleton } from './CategoryPageSkeleton';
 
 export const CategoryPage = () => {
   const { category } = useParams();
@@ -32,55 +30,33 @@ export const CategoryPage = () => {
   }, [category, online]);
   // todo: протестировать вставку в вк
   useEffect(() => {
+    if (!categoryArticles.length) {
+      return;
+    }
     setMeta({
+      'og:type': 'article',
       'og:title': `KudaGo News – ${categoryNames[category]}`,
       'og:description': 'Самые важные события города в одном месте',
       'og:url': window.location.href,
-      'og:image': categoryArticles?.at(0)?.images[0]?.image ?? '',
+      'og:image':
+        categoryArticles[0].images[0].image ??
+        `${window.location.origin}/img/icon512.png`,
     });
-  }, []);
+  }, [category, categoryArticles]);
+
+  useEffect(() => {
+    document.title = `${categoryNames[category]} - KudaGo`;
+  }, [category]);
 
   const { isDesktop, isMobile } = useAdaptive();
 
   /* show Skeleton */
   if (isLoading || !categoryArticles || (error && !online)) {
     return (
-      <section className="categoryPage" aria-label="Загрузка статей">
-        <div aria-hidden>
-          <HeroSkeleton
-            className="categoryPage__hero"
-            hasImage
-            title={categoryNames[category]}
-          />
-          <div className="container grid">
-            <section className="categoryPage__content">
-              {repeat((i) => {
-                return (
-                  <ArticleCardSkeleton
-                    key={i}
-                    className="categoryPage__articleCards"
-                    hasImage
-                    titleRowsCount={3}
-                  />
-                );
-              }, 6)}
-            </section>
-
-            {isDesktop && (
-              <aside className="categoryPage__sidebar">
-                {repeat((i) => {
-                  return (
-                    <SidebarArticleCardSkeleton
-                      key={i}
-                      className="categoryPage__sidebar-item"
-                    />
-                  );
-                }, 3)}
-              </aside>
-            )}
-          </div>
-        </div>
-      </section>
+      <CategoryPageSkeleton
+        isDesktop={isDesktop}
+        category={category}
+      />
     );
   }
 
@@ -97,7 +73,10 @@ export const CategoryPage = () => {
       <Hero
         className="categoryPage__hero"
         title={categoryNames[category!]}
-        image={categoryArticles[0]?.images[0].image}
+        image={
+          categoryArticles[categoryArticles.length - 1]?.images[0]
+            .image
+        }
       />
 
       <div className="container grid">

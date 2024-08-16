@@ -41,11 +41,12 @@ export const HomePage: FC = () => {
   // todo: протестировать добавление ссылки в вк
   useEffect(() => {
     setMeta({
+      'og:type': 'article',
       'og:title': 'KudaGo News',
       'og:description':
         'Мы публикуем концерты, спектакли, выставки, мастер-классы и курсы, события для детей и масштабные городские фестивали',
       'og:url': window.location.href,
-      'og:image': `${window.location.origin}${require('@images/icons/desktop1.png')}`,
+      'og:image': `${window.location.origin}/img/desktop1.png`,
     });
   }, []);
 

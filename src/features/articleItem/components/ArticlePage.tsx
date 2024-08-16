@@ -60,16 +60,23 @@ export const ArticlePage = () => {
   }, [articleItem, online, isMobile]);
 
   useEffect(() => {
-    if (!articleItem) {
+    if (!articleItem.id) {
       return;
     }
     // todo: протестировать вставку ссылки в вк
     setMeta({
+      'og:type': 'article',
       'og:title': `${articleItem.short_title} — KudaGo News`,
       'og:description': articleItem.description,
       'og:url': window.location.href,
-      'og:image': articleItem.images?.at(0)?.image ?? '',
+      'og:image':
+        articleItem.images[0].image ??
+        `${window.location.origin}/img/icon512.png`,
     });
+  }, [articleItem]);
+
+  useEffect(() => {
+    document.title = `${articleItem.short_title} - KudaGo`;
   }, [articleItem]);
 
   const { isDesktop } = useAdaptive();
