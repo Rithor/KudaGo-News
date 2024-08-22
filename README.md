@@ -7,7 +7,7 @@ KudaGo-News – лента тематических событий в Москв
 [Check the Live Demo](https://2923733-lt72291.twc1.net/)
 
 <img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/desktop1.png" width="720px" />
-<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/mobile2.png" width="720px" />
+<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/mobile2.jpg" width="720px" />
 
 ## Stack
 
