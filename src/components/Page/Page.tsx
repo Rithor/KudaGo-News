@@ -20,7 +20,7 @@ export const Page: React.FC<AppProps> = ({ children }: AppProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 60000);
+    }, 20000);
     return () => clearTimeout(timer);
   }, []);
 

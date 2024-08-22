@@ -69,7 +69,7 @@ export const MobileHeader: FC = () => {
           className="header__mobile-button"
           onClick={() => {
             toggleMenu(!isOpenMenu);
-            setTimeout(closeSubMenu, 500);
+            setTimeout(closeSubMenu, 300);
           }}
         >
           {isOpenMenu ? <Cross /> : <Burger />}

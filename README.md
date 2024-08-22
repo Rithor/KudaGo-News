@@ -2,12 +2,12 @@
 
 KudaGo-News – лента тематических событий в Москве. Это приложение позволяет пользователям просматривать события по категориям, добавлять партнерский контент через админку, а также работать в оффлайн-режиме благодаря поддержке PWA.
 
-Моя цель заключалась в разработке современного интерфейса с использованием React и TypeScript, а также в создании функционального приложения с поддержкой различных тем и адаптивного дизайна.
+Моя цель заключалась в разработке современного интерфейса с использованием React и TypeScript, а также в создании функционального приложения с поддержкой темной темы и адаптивного дизайна.
 
 [Check the Live Demo](https://2923733-lt72291.twc1.net/)
 
-<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/desktop1.png" width="800px" />
-<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/mobile1.png" width="360px" />
+<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/desktop1.png" width="720px" />
+<img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/mobile2.png" width="720px" />
 
 ## Stack
 
