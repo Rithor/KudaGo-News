@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const BundleAnalyzerPlugin =
+//   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env) => {
   const setMode = env.mode ?? 'production';
@@ -101,6 +103,7 @@ module.exports = (env) => {
           'src/app/manifest.webmanifest',
         ],
       }),
+      // new BundleAnalyzerPlugin(),
     ],
     stats: {
       children: true,

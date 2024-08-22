@@ -14,6 +14,9 @@ import {
   useAppSelector,
 } from '@app/hooks';
 import { fetchArticleItem } from '../actions';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css/bundle';
 import { fetchSamePlaceArticles } from '@features/samePlaceArticles/actions';
 import { useNetworkStatusContext } from '@features/networkStatus/NetworkStatusContextProvider';
 import { IArticle } from '@app/types';
@@ -78,6 +81,27 @@ export const ArticlePage = () => {
   useEffect(() => {
     document.title = `${articleItem.short_title} - KudaGo`;
   }, [articleItem]);
+
+  useEffect(() => {
+    if (!isLoading && articleItem) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const swiper = new Swiper('.contentSlider', {
+        modules: [Navigation, Pagination],
+        loop: true,
+        speed: 500,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.contentSlider-pagination',
+          clickable: true,
+        },
+        slidesPerView: 1,
+        spaceBetween: 0,
+      });
+    }
+  }, [articleItem, isLoading]);
 
   const { isDesktop } = useAdaptive();
 

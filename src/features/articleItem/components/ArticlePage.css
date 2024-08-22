@@ -67,7 +67,6 @@
 }
 
 .articlePage__text img {
-  margin-bottom: 8px;
   width: 100%;
   overflow: hidden;
 }
@@ -184,4 +183,78 @@ div .relatedArticles {
 
 .articlePage__body--whSidebarCards {
   grid-column: span 12;
+}
+
+/* Стили для карусели */
+.articlePage__text .contentSlider {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  min-width: 345px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.articlePage__text .contentSlider .swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.articlePage__text .contentSlider .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.articlePage__text .contentSlider .swiper-slide img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.articlePage__text .swiper-button-prev,
+.articlePage__text .swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: white;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.articlePage__text .swiper-button-prev {
+  left: 10px;
+}
+
+.articlePage__text .swiper-button-next {
+  right: 10px;
+}
+
+.articlePage__text .swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 11;
+}
+
+.contentSlider-pagination {
+  display: flex;
+  place-content: center;
+}
+
+@media all and (max-width: 1024px) {
+  .articlePage__text .contentSlider {
+    max-width: 90vw;
+  }
+
+  .articlePage__text .contentSlider .swiper-slide img {
+    max-height: 400px;
+  }
 }

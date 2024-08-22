@@ -33,6 +33,10 @@
   );
 
   --mobile-menu-button: var(--constant-grey-0);
+
+  --swiper-navigation-size: 20px;
+  --swiper-pagination-bullet-inactive-color: var(--constant-black);
+  --swiper-pagination-color: var(--constant-accent);
 }
 
 [scheme='dark'] {
@@ -49,6 +53,7 @@
   );
 
   --mobile-menu-button: var(--background-zero);
+  --swiper-pagination-bullet-inactive-color: var(--constant-grey-0);
 }
 
 *:not(svg *, blockquote) {
