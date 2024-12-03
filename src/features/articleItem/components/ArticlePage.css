@@ -191,7 +191,7 @@ div .relatedArticles {
   width: 100%;
   max-width: 800px;
   min-width: 345px;
-  margin: 0 auto;
+  margin: 10px auto;
   overflow: hidden;
 }
 

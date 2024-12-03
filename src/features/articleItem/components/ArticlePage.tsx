@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import './ArticlePage.css';
 import {
@@ -33,7 +33,7 @@ import { ArticlePageSkeleton } from './ArticlePageSkeleton';
 
 export const ArticlePage = () => {
   const { id } = useParams();
-  const { isMobile } = useAdaptive();
+  const { isMobile, isDesktop } = useAdaptive();
   if (id === undefined) return null;
 
   const { online } = useNetworkStatusContext();
@@ -52,6 +52,7 @@ export const ArticlePage = () => {
   useEffect(() => {
     dispatch(fetchArticleItem(id));
   }, [id, online]);
+
   useEffect(() => {
     if (articleItem.place?.id) {
       const obj = {
@@ -60,13 +61,12 @@ export const ArticlePage = () => {
       };
       dispatch(fetchSamePlaceArticles(obj));
     }
-  }, [articleItem, online, isMobile]);
+  }, [articleItem, online]);
 
   useEffect(() => {
     if (!articleItem.id) {
       return;
     }
-    // todo: протестировать вставку ссылки в вк
     setMeta({
       'og:type': 'article',
       'og:title': `${articleItem.short_title} — KudaGo News`,
@@ -103,7 +103,18 @@ export const ArticlePage = () => {
     }
   }, [articleItem, isLoading]);
 
-  const { isDesktop } = useAdaptive();
+  const [relatedArticles, relatedSidebarArticles] = useMemo(() => {
+    let relatedArticles: IArticle[] = [];
+    let relatedSidebarArticles: IArticle[] = [];
+    if (samePlaceArticlesID === articleItem.place?.id) {
+      const filteredSamePlaceArticles = samePlaceArticles?.filter(
+        ({ id }) => id !== articleItem.id
+      );
+      relatedArticles = filteredSamePlaceArticles?.slice(0, 3);
+      relatedSidebarArticles = filteredSamePlaceArticles?.slice(3, 9);
+    }
+    return [relatedArticles, relatedSidebarArticles];
+  }, [samePlaceArticles]);
 
   if (error && !online) {
     return <ArticlePageSkeleton isDesktop={isDesktop} />;
@@ -115,16 +126,6 @@ export const ArticlePage = () => {
 
   if (articleItem.id == 0)
     return <ArticlePageSkeleton isDesktop={isDesktop} />;
-
-  let relatedArticles: IArticle[] = [];
-  let relatedSidebarArticles: IArticle[] = [];
-  if (samePlaceArticlesID === articleItem.place?.id) {
-    const filteredSamePlaceArticles = samePlaceArticles?.filter(
-      ({ id }) => id !== articleItem.id
-    );
-    relatedArticles = filteredSamePlaceArticles?.slice(0, 3);
-    relatedSidebarArticles = filteredSamePlaceArticles?.slice(3, 9);
-  }
 
   return (
     <article className="articlePage-wr">

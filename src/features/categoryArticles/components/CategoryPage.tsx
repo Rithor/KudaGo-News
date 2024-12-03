@@ -28,7 +28,7 @@ export const CategoryPage = () => {
   useEffect(() => {
     dispatch(fetchCategoryArticles(category));
   }, [category, online]);
-  // todo: протестировать вставку в вк
+
   useEffect(() => {
     if (!categoryArticles.length) {
       return;

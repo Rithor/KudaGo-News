@@ -38,9 +38,9 @@ export const PartnerArticle: FC = () => {
             <h2 className="partner-article__title">
               <SkeletonText rowsCount={1} />
             </h2>
-            <p className="partner-article__text">
+            <div className="partner-article__text">
               <SkeletonText rowsCount={2} />
-            </p>
+            </div>
           </div>
         </div>
       </article>
