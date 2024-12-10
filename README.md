@@ -4,7 +4,7 @@ KudaGo-News – лента тематических событий в Москв
 
 Моя цель заключалась в разработке современного интерфейса с использованием React и TypeScript, а также в создании функционального приложения с поддержкой темной темы и адаптивного дизайна.
 
-[Check the Live Demo](https://2923733-lt72291.twc1.net/)
+[Check the Live Demo](https://kuda-go-news.vercel.app/)
 
 <img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/desktop1.png" width="720px" />
 <img src="https://github.com/Rithor/KudaGo-News/blob/main/src/images/icons/mobile2.jpg" width="720px" />
