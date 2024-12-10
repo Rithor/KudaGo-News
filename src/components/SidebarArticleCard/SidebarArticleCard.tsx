@@ -24,7 +24,7 @@ export const SidebarArticleCard: FC<Props> = ({
         <div className="sidebar-article-card__media">
           <Image
             className="sidebar-article-card__image"
-            src={article.images[0].image}
+            src={article.images?.at(0)?.image}
             size="xl"
             alt={article.short_title}
           />

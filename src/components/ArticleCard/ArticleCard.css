@@ -87,8 +87,8 @@
 }
 
 .article-card__in--skeleton:hover {
-  color: initial;
-  border-left-color: initial;
+  color: var(--foreground-primary);
+  border-left-color: var(--foreground-primary);
 }
 
 @media all and (min-width: 1024px) {

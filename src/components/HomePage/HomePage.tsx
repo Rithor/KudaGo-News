@@ -158,9 +158,9 @@ export const HomePage: FC = () => {
         >
           <Hero
             className="home-page__hero"
-            image={firstArticle.images[0].image}
-            title={firstArticle.title}
-            text={firstArticle.description}
+            image={firstArticle?.images?.at(0)?.image}
+            title={firstArticle?.title}
+            text={firstArticle?.description}
           />
         </Link>
       )}
@@ -192,7 +192,7 @@ export const HomePage: FC = () => {
                 id={article.id}
                 title={article.title}
                 shortTitle={article.short_title}
-                category={article.categories[0]}
+                category={article.categories?.at(0)}
                 description={article.description}
                 dates={article.dates}
               />
@@ -227,10 +227,10 @@ export const HomePage: FC = () => {
                   id={article.id}
                   title={article.title}
                   shortTitle={article.short_title}
-                  category={article.categories[0]}
+                  category={article.categories?.at(0)}
                   description={article.description}
                   dates={article.dates}
-                  image={article.images[0].image}
+                  image={article?.images?.at(0)?.image}
                 />
               );
             })}
@@ -286,8 +286,10 @@ export const HomePage: FC = () => {
                 id={article.id}
                 title={article.title}
                 shortTitle={article.short_title}
-                image={i < 3 ? article.images[0].image : undefined}
-                category={article.categories[0]}
+                image={
+                  i < 3 ? article?.images?.at(0)?.image : undefined
+                }
+                category={article.categories?.at(0)}
                 description={article.description}
                 place={article.place?.title}
                 dates={article.dates}

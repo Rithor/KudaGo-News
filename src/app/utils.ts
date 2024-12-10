@@ -49,6 +49,7 @@ export function getActualDate(): string {
 }
 
 export function formatDate(dates: IDates[]): string {
+  if (!dates) return '';
   const lastEl = dates.length - 1;
   const startDateObj = new Date(dates[lastEl].start * 1000);
   const endDateObj = new Date(dates[lastEl].end * 1000);

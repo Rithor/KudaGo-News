@@ -3,6 +3,7 @@ import {
   DEFAULT_FIELDS,
   URL_GET_EVENTS,
   PARTNERS_ARTICLES_PATH,
+  URL_CORS_PROXY,
 } from './apiConstants';
 import {
   IArticle,
@@ -19,18 +20,18 @@ export const fetchCategoryIArticlesAPI = async (
 ) => {
   try {
     const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/?&categories=${category}`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}?${new URLSearchParams({
+          categories: category,
           fields: DEFAULT_FIELDS,
-          page_size: 12,
+          page_size: '12',
           text_format: 'text',
           expand: 'place',
           order_by: '-publication_date',
           location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
+          actual_since: getActualDate(),
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
@@ -45,12 +46,11 @@ export const fetchArticleItemAPI = async (
 ) => {
   try {
     const response = await axios.get<IArticle>(
-      `${URL_GET_EVENTS}/${id}/`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}/${id}?${new URLSearchParams({
           expand: 'place',
-        },
-      }
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
@@ -68,19 +68,18 @@ export const fetchSamePlaceArticlesAPI = async (
   isMobile ? (page_size = 4) : (page_size = 9);
   try {
     const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/?&place_id
-=${placeID}`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}?${new URLSearchParams({
+          place_id: placeID.toString(),
           fields: DEFAULT_FIELDS,
-          page_size: page_size,
+          page_size: page_size?.toString() || '12',
           text_format: 'text',
           expand: 'place',
           order_by: '-publication_date',
           location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
+          actual_since: getActualDate(),
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
@@ -94,18 +93,17 @@ export const fetchArticlesAPI = async (
 ) => {
   try {
     const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}?${new URLSearchParams({
           fields: DEFAULT_FIELDS,
-          page_size: 12,
+          page_size: '12',
           text_format: 'text',
           expand: 'place',
           order_by: '-publication_date',
           location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
+          actual_since: getActualDate(),
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
@@ -119,18 +117,17 @@ export const fetchTrendArticlesAPI = async (
 ) => {
   try {
     const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}?${new URLSearchParams({
           fields: 'id,title,description,categories,dates',
-          page_size: 6,
+          page_size: '6',
           text_format: 'text',
           expand: 'place',
           order_by: '-favorites_count',
           location: 'msk',
-          actual_since: `${getActualDate()}`,
-        },
-      }
+          actual_since: getActualDate(),
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
@@ -144,19 +141,18 @@ export const fetchFreeEventsAPI = async (
 ) => {
   try {
     const response = await axios.get<IArticlesAPI>(
-      `${URL_GET_EVENTS}/`,
-      {
-        params: {
+      `${URL_CORS_PROXY}${encodeURIComponent(
+        `${URL_GET_EVENTS}?${new URLSearchParams({
           fields: DEFAULT_FIELDS,
-          page_size: 6,
+          page_size: '6',
           text_format: 'text',
           expand: 'place',
           order_by: '-publication_date',
           location: 'msk',
-          actual_since: `${getActualDate()}`,
-          is_free: 1,
-        },
-      }
+          actual_since: getActualDate(),
+          is_free: '1',
+        }).toString()}`
+      )}`
     );
     return response.data;
   } catch (e) {
